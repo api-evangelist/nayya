@@ -1,0 +1,206 @@
+openapi: 3.0.0
+info:
+  title: Accounts Benefits Recommendations API
+  description: Accounts API
+  version: '0.1'
+  contact: {}
+servers:
+- url: https://integrate.nayya.com/accounts
+  description: Production
+- url: https://integrate.partners.nayya.com/accounts
+  description: Partners
+security:
+- bearerAuth: []
+tags:
+- name: Recommendations
+paths:
+  /employers/{employerId}/employees/{employeeId}/recommendations:
+    get:
+      description: Returns benefit recommendations for the specified employee. The request must be authorized for the organization that owns the employer.
+      operationId: list-benefit-recommendations
+      parameters:
+      - name: employerId
+        required: true
+        in: path
+        description: The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employer (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`).
+        schema:
+          example: 321e4567-e89b-12d3-a456-426614174000
+          type: string
+      - name: employeeId
+        required: true
+        in: path
+        description: The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employee (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`).
+        schema:
+          example: 123e4567-e89b-12d3-a456-426614174000
+          type: string
+      - name: X-API-Version
+        in: header
+        required: false
+        description: Optional API major version. Omit this header for the same behavior as `1` (this specification).
+        schema:
+          type: string
+          default: '1'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecommendedBenefitsResponseDto'
+        '401':
+          description: Unauthorized - invalid or missing authentication token
+        '403':
+          description: Forbidden
+        '404':
+          description: Unable to find recommendations for the given employee id and employer id combination
+        '500':
+          description: Internal server error.
+      summary: List Benefit Recommendations for an Employee
+      tags:
+      - Recommendations
+components:
+  schemas:
+    OptionDto:
+      type: object
+      properties:
+        recommended:
+          type: boolean
+          description: Whether this option is recommended
+          example: true
+        employeeFamilyRole:
+          description: Employee Family roles associated with this option
+          allOf:
+          - $ref: '#/components/schemas/EmployeeFamilyRoleDto'
+        dependentFamilyRoles:
+          description: Dependent Family roles associated with this option
+          type: array
+          items:
+            $ref: '#/components/schemas/DependentFamilyRoleDto'
+        ratePackageId:
+          type: string
+          description: Rate package ID
+          example: '123'
+        ratePackageExternalId:
+          type: string
+          description: Rate package external ID
+          example: '123'
+        rateDollars:
+          type: number
+          description: Rate amount in dollars
+          example: 50
+        frequency:
+          type: string
+          description: Frequency of the rate
+          example: monthly
+      required:
+      - recommended
+      - employeeFamilyRole
+      - dependentFamilyRoles
+      - ratePackageId
+      - ratePackageExternalId
+      - rateDollars
+      - frequency
+    DependentFamilyRoleDto:
+      type: object
+      properties:
+        relationship:
+          type: string
+          description: Relationship to employee
+          example: spouse
+        benefitAmount:
+          type: object
+          description: Benefit amount
+          nullable: true
+          example: 100000
+        externalId:
+          type: string
+          description: Dependent External ID
+          example: ext-123
+        id:
+          type: string
+          description: Dependent ID
+          example: ext-123
+      required:
+      - relationship
+      - benefitAmount
+      - externalId
+      - id
+    BenefitDto:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Type of benefit
+          example: Medical
+        id:
+          type: string
+          description: Benefit ID
+          nullable: true
+          example: 6592a62b-297b-459b-954b-7e4941095149
+        externalId:
+          type: string
+          description: Your internal unique ID used to identify a benefit
+          nullable: true
+          example: 6937yht-zr5ht39-n83uh5th-arwmte1
+        recommended:
+          type: boolean
+          description: Whether this benefit is recommended
+          example: true
+        options:
+          description: Options available for this benefit
+          type: array
+          items:
+            $ref: '#/components/schemas/OptionDto'
+        recommendedAnnualEmployeeContribution:
+          type: object
+          description: Recommended annual employee contribution amount in dollars
+          example: 1200
+          nullable: true
+        selectedAnnualEmployeeContribution:
+          type: object
+          description: Selected annual employee contribution amount in dollars
+          example: 2400
+          nullable: true
+      required:
+      - type
+      - id
+      - externalId
+      - recommended
+      - options
+      - recommendedAnnualEmployeeContribution
+      - selectedAnnualEmployeeContribution
+    EmployeeFamilyRoleDto:
+      type: object
+      properties:
+        benefitAmount:
+          type: object
+          description: Benefit amount
+          nullable: true
+          example: 100000
+        externalId:
+          type: string
+          description: Employee External ID
+          example: ext-123
+        id:
+          type: string
+          description: Employee ID
+          example: ext-123
+      required:
+      - benefitAmount
+      - externalId
+      - id
+    RecommendedBenefitsResponseDto:
+      type: object
+      properties:
+        benefits:
+          description: List of recommended benefits
+          type: array
+          items:
+            $ref: '#/components/schemas/BenefitDto'
+      required:
+      - benefits
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: JWT token

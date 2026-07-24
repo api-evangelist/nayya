@@ -1,0 +1,81 @@
+openapi: 3.0.0
+info:
+  title: Accounts Benefits Rule Templates API
+  description: Accounts API
+  version: '0.1'
+  contact: {}
+servers:
+- url: https://integrate.nayya.com/accounts
+  description: Production
+- url: https://integrate.partners.nayya.com/accounts
+  description: Partners
+security:
+- bearerAuth: []
+tags:
+- name: Rule Templates
+paths:
+  /rule_templates:
+    get:
+      operationId: list-templates
+      parameters:
+      - name: X-API-Version
+        in: header
+        required: false
+        description: Optional API major version. Omit this header for the same behavior as `1` (this specification).
+        schema:
+          type: string
+          default: '1'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RuleTemplatesResponseDto'
+        '403':
+          description: Forbidden
+        '500':
+          description: Internal server error
+      summary: List Rule Templates
+      tags:
+      - Rule Templates
+components:
+  schemas:
+    RuleTemplatesResponseDto:
+      type: object
+      properties:
+        data:
+          description: Array of Rule Templates.
+          type: array
+          items:
+            $ref: '#/components/schemas/RuleTemplateResponseDto'
+      required:
+      - data
+    RuleTemplateResponseDto:
+      type: object
+      properties:
+        name:
+          type: string
+          example: amount
+          description: Name of the rule template
+        requiredTemplateValues:
+          example:
+          - valueName: amount
+            valueType: integer
+          description: Array with pairs of name and type of the attributes
+          type: array
+          items:
+            type: string
+        templateDescription:
+          type: string
+          example: This is a description of the rule template
+          description: Description of the rule template
+      required:
+      - name
+      - requiredTemplateValues
+      - templateDescription
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: JWT token

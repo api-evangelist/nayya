@@ -1,0 +1,898 @@
+openapi: 3.0.0
+info:
+  title: Accounts Benefits Employees API
+  description: Accounts API
+  version: '0.1'
+  contact: {}
+servers:
+- url: https://integrate.nayya.com/accounts
+  description: Production
+- url: https://integrate.partners.nayya.com/accounts
+  description: Partners
+security:
+- bearerAuth: []
+tags:
+- name: Employees
+paths:
+  /employers/{employerId}/employees:
+    post:
+      operationId: create-employee
+      parameters:
+      - name: employerId
+        required: true
+        in: path
+        description: The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employer (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`).
+        schema:
+          type: string
+      - name: X-API-Version
+        in: header
+        required: false
+        description: Optional API major version. Omit this header for the same behavior as `1` (this specification).
+        schema:
+          type: string
+          default: '1'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateEmployeeDto'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/EmployeeResponseDto'
+                - properties:
+                    dependents:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/DependentResponseDto'
+                      example: []
+        '400':
+          description: Bad Request
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '409':
+          description: Conflict
+        '422':
+          description: Unprocessable Entity
+        '500':
+          description: Internal Server Error
+      summary: Create an Employee
+      tags:
+      - Employees
+      x-scope:
+      - create:partner-employees
+    get:
+      description: Response includes an array with the page and the number of results requested. Results are returned in ascending order by `createdAt` date.
+      operationId: list-employees
+      parameters:
+      - name: employerId
+        required: true
+        in: path
+        description: The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employer (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`).
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: Specifies which page of results to retrieve.
+        schema:
+          minimum: 1
+          default: 1
+          type: number
+      - name: perPage
+        required: false
+        in: query
+        description: Number of results per page.
+        schema:
+          minimum: 1
+          maximum: 100
+          default: 50
+          type: number
+      - name: search
+        required: false
+        in: query
+        description: Supports like search by name, email of the employee.
+        schema:
+          title: Search
+          type: string
+      - name: X-API-Version
+        in: header
+        required: false
+        description: Optional API major version. Omit this header for the same behavior as `1` (this specification).
+        schema:
+          type: string
+          default: '1'
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListEmployeesDto'
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '422':
+          description: Unprocessable Entity
+        '500':
+          description: Internal Server Error
+      summary: Get all Employees
+      tags:
+      - Employees
+      x-scope:
+      - read:partner-employees
+  /employers/{employerId}/employees/{employeeId}:
+    get:
+      operationId: get-employee-by-id
+      parameters:
+      - name: employerId
+        required: true
+        in: path
+        description: The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employer (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`).
+        schema:
+          type: string
+      - name: employeeId
+        required: true
+        in: path
+        description: The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employee (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`).
+        schema:
+          type: string
+      - name: X-API-Version
+        in: header
+        required: false
+        description: Optional API major version. Omit this header for the same behavior as `1` (this specification).
+        schema:
+          type: string
+          default: '1'
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeResponseDto'
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      summary: Get Employee by ID
+      tags:
+      - Employees
+      x-scope:
+      - read:partner-employees
+    patch:
+      operationId: update-employee
+      parameters:
+      - name: employerId
+        required: true
+        in: path
+        description: The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employer (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`).
+        schema:
+          type: string
+      - name: employeeId
+        required: true
+        in: path
+        description: The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employee (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`).
+        schema:
+          type: string
+      - name: X-API-Version
+        in: header
+        required: false
+        description: Optional API major version. Omit this header for the same behavior as `1` (this specification).
+        schema:
+          type: string
+          default: '1'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateEmployeeDto'
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeResponseDto'
+        '400':
+          description: Bad Request
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '409':
+          description: Conflict
+        '422':
+          description: Unprocessable Entity
+        '500':
+          description: Internal Server Error
+      summary: Update Employee
+      tags:
+      - Employees
+      x-scope:
+      - update:partner-employees
+    delete:
+      operationId: delete-employee
+      parameters:
+      - name: employerId
+        required: true
+        in: path
+        description: The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employer (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`).
+        schema:
+          type: string
+      - name: employeeId
+        required: true
+        in: path
+        description: The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employee (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`).
+        schema:
+          type: string
+      - name: X-API-Version
+        in: header
+        required: false
+        description: Optional API major version. Omit this header for the same behavior as `1` (this specification).
+        schema:
+          type: string
+          default: '1'
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '409':
+          description: Conflict
+        '500':
+          description: Internal Server Error
+      summary: Delete Employee
+      tags:
+      - Employees
+      x-scope:
+      - delete:partner-employees
+components:
+  schemas:
+    EmployeeResponseDto:
+      type: object
+      properties:
+        id:
+          type: string
+          description: A globally unique identifier assigned by Nayya to an employee, used for all employee-related operations in Nayya's API.
+          example: 123e4567-e89b-12d3-a456-426614174000
+        externalId:
+          type: string
+          description: A unique identifier from the partner's system, used to map employee records between the partner's system and Nayya.
+          example: EMP-123
+        employerProvidedId:
+          type: string
+          description: An employer-specific identifier for an employee, unique within a single employer but not across the entire partner system.
+          example: EMPLOYER-123
+        employerId:
+          type: string
+          description: Employer ID
+          example: 123e4567-e19b-12d3-a456-426614174000
+        firstName:
+          type: string
+          description: Employee first name
+          example: Jane
+        lastName:
+          type: string
+          description: Employee last name
+          example: Doe
+        email:
+          type: string
+          description: Employee email
+          example: employee@example.com
+        streetAddress:
+          type: string
+          description: Employee street address
+          example: 123 Main St
+        city:
+          type: string
+          description: Employee city
+          example: San Francisco
+        state:
+          type: string
+          description: Employee state
+          example: CA
+        zipCode:
+          type: string
+          description: Employee zip code
+          example: '94105'
+        phoneNumber:
+          type: string
+          description: Employee phone number
+          example: '+15551234567'
+        ssn:
+          type: string
+          deprecated: true
+          nullable: true
+          description: (Deprecated) SSN of employee
+          example: null
+        gender:
+          type: string
+          description: Employee gender
+          example: F
+          enum:
+          - M
+          - F
+          - U
+        sexAssignedAtBirth:
+          type: string
+          description: Employee sex assigned at birth
+          example: F
+          enum:
+          - M
+          - F
+          - U
+        dateOfBirth:
+          format: date-time
+          type: string
+          description: Employee date of birth
+          example: '2021-01-01'
+        locale:
+          type: string
+          description: Employee locale
+          example: en
+          enum:
+          - en
+          - es
+        incomeAmountCents:
+          type: number
+          description: Employee income amount in cents
+          example: 10000
+        additionalIncomeAmountCents:
+          type: number
+          description: Employee additional income amount in cents
+          example: 5000
+        incomeType:
+          type: string
+          description: Employee income type
+          example: salary
+          enum:
+          - salary
+          - hourly
+        ethnicity:
+          type: string
+          description: Employee ethnicity
+        employmentType:
+          type: string
+          description: Employee employment type
+          example: employee
+          enum:
+          - employee
+          - contractor
+        employmentSubType:
+          type: string
+          description: Employee employment sub type
+          example: full_time
+          enum:
+          - full_time
+          - part_time
+          - intern
+          - temp
+          - seasonal
+          - individual_contractor
+        startDate:
+          format: date-time
+          type: string
+          description: Employee start date
+          example: '2021-01-01'
+        terminatedDate:
+          format: date-time
+          type: string
+          description: Employee terminated date
+          example: '2025-01-01'
+        tobaccoUsage:
+          type: boolean
+          description: Employee tobacco usage
+          example: false
+        hoursPerWeek:
+          type: number
+          description: Employee hours worked per week
+          example: 40
+        createdAt:
+          format: date-time
+          type: string
+          description: Creation date
+          example: '2024-03-20T00:00:00.000Z'
+        updatedAt:
+          format: date-time
+          type: string
+          description: Last update date
+          example: '2024-03-20T00:00:00.000Z'
+        dependents:
+          description: Employee dependents
+          type: array
+          items:
+            $ref: '#/components/schemas/DependentResponseDto'
+        customAttributes:
+          type: object
+          description: Employee custom attributes
+          example:
+            department: Engineering
+            employeeLevel: Senior
+            annualBonusTargetCents: 500000
+            unionMember: false
+      required:
+      - id
+      - employerProvidedId
+      - employerId
+      - firstName
+      - lastName
+      - email
+      - streetAddress
+      - city
+      - state
+      - zipCode
+      - phoneNumber
+      - dateOfBirth
+      - locale
+      - incomeAmountCents
+      - additionalIncomeAmountCents
+      - incomeType
+      - ethnicity
+      - employmentType
+      - employmentSubType
+      - startDate
+      - terminatedDate
+      - hoursPerWeek
+      - createdAt
+      - updatedAt
+      - dependents
+    CreateEmployeeDto:
+      type: object
+      properties:
+        externalId:
+          type: string
+          description: A unique identifier from the partner's system, used to map employee records between the partner's system and Nayya.
+          example: EMP-123
+        employerProvidedId:
+          type: string
+          description: An employer-specific identifier for an employee, unique within a single employer but not across the entire partner system.
+          example: EMPLOYER-123
+        lastName:
+          type: string
+          description: Employee last name
+          example: Doe
+        firstName:
+          type: string
+          description: Employee first name
+          example: Jane
+        email:
+          type: string
+          description: Employee email
+          example: employee@example.com
+        streetAddress:
+          type: string
+          description: Employee street address
+          example: 123 Main St
+        city:
+          type: string
+          description: Employee city
+          example: San Francisco
+        state:
+          type: string
+          description: Employee state
+          example: CA
+        zipCode:
+          type: string
+          description: Employee zip code
+          example: '94105'
+        gender:
+          type: string
+          description: Employee gender
+          example: F
+          enum:
+          - M
+          - F
+          - U
+        sexAssignedAtBirth:
+          type: string
+          description: Employee sex assigned at birth
+          enum:
+          - M
+          - F
+          - U
+          example: F
+        startDate:
+          format: date
+          type: string
+          description: Employee start date
+          example: '2021-01-01'
+        dateOfBirth:
+          format: date
+          type: string
+          description: Employee date of birth
+          example: '1985-02-03'
+        terminatedDate:
+          format: date
+          type: string
+          description: Employee terminated date
+          example: '2025-01-01'
+        phoneNumber:
+          type: string
+          description: Employee phone number
+          example: '+15551234567'
+        ssn:
+          type: string
+          description: Employee SSN (9 digits)
+          example: '123456789'
+        incomeAmountCents:
+          type: number
+          description: Employee income amount in cents
+          example: 10000
+        additionalIncomeAmountCents:
+          type: number
+          description: Employee additional income amount in cents
+          example: 5000
+        incomeType:
+          type: string
+          description: Employee income type
+          example: salary
+          enum:
+          - salary
+          - hourly
+        locale:
+          type: string
+          description: Employee locale
+          example: en
+          enum:
+          - en
+          - es
+        employmentType:
+          type: string
+          description: Employee employment type
+          example: employee
+          enum:
+          - employee
+          - contractor
+        employmentSubType:
+          type: string
+          description: Employee employment sub type
+          example: full_time
+          enum:
+          - full_time
+          - part_time
+          - intern
+          - temp
+          - seasonal
+          - individual_contractor
+        ethnicity:
+          type: string
+          description: Employee ethnicity
+          example: prefer_not_to_say
+        tobaccoUsage:
+          type: boolean
+          description: Employee tobacco usage
+          example: false
+        hoursPerWeek:
+          type: number
+          description: Employee hours worked per week
+          example: 40
+        customAttributes:
+          type: object
+          description: Employee custom attributes
+          example:
+            custom_attribute_name1: custom_attribute_value_1
+            custom_attribute_name2: custom_attribute_value_2
+            custom_attribute_name3: 1234
+            custom_attribute_name4: true
+      required:
+      - lastName
+      - firstName
+      - email
+      - dateOfBirth
+    DependentResponseDto:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Dependent ID
+          example: 123e4567-e89b-12d3-a456-426614174000
+        externalId:
+          type: string
+          description: Dependent external ID
+          example: DEP-123
+        employeeId:
+          type: string
+          description: Employee ID
+          example: 123e4567-e19b-12d3-a456-426614174000
+        ssn:
+          type: string
+          deprecated: true
+          nullable: true
+          description: (Deprecated) SSN of dependent
+          example: null
+        firstName:
+          type: string
+          description: Dependent first name
+          example: Jane
+        lastName:
+          type: string
+          description: Dependent last name
+          example: Doe
+        relationship:
+          type: string
+          description: Dependent relationship
+          example: spouse
+          enum:
+          - spouse
+          - child
+          - domestic_partner
+        dateOfBirth:
+          format: date-time
+          type: string
+          description: Dependent date of birth
+          example: '2021-01-01'
+        incomeAmountCents:
+          type: number
+          description: Dependent income amount in cents
+          example: 10000
+        incomeType:
+          type: string
+          description: Dependent income type
+          example: salary
+          enum:
+          - salary
+          - hourly
+        gender:
+          type: string
+          description: Dependent gender
+          example: F
+          enum:
+          - M
+          - F
+          - U
+        email:
+          type: string
+          description: Dependent email address
+          example: dependent@example.com
+        streetAddress:
+          type: string
+          description: Dependent street address
+          example: 123 Main St
+        city:
+          type: string
+          description: Dependent city
+          example: San Francisco
+        state:
+          type: string
+          description: Dependent state
+          example: CA
+        zipCode:
+          type: string
+          description: Dependent zip code
+          example: '94105'
+        phoneNumber:
+          type: string
+          description: Dependent phone number
+          example: '+15551234567'
+        hoursPerWeek:
+          type: number
+          description: Dependent hours per week
+          example: 40
+        tobaccoUsage:
+          type: boolean
+          description: Dependent tobacco usage
+          example: false
+        dependentStatus:
+          type: boolean
+          description: Dependent status
+          example: true
+        employmentStatus:
+          type: string
+          description: Dependent employment status
+          example: employed
+          enum:
+          - employed
+          - unemployed
+        createdAt:
+          format: date-time
+          type: string
+          description: Creation date
+          example: '2024-03-20T00:00:00.000Z'
+        updatedAt:
+          format: date-time
+          type: string
+          description: Last update date
+          example: '2024-03-20T00:00:00.000Z'
+      required:
+      - id
+      - employeeId
+      - firstName
+      - lastName
+      - relationship
+      - dateOfBirth
+      - incomeAmountCents
+      - phoneNumber
+      - hoursPerWeek
+      - tobaccoUsage
+      - dependentStatus
+      - employmentStatus
+      - createdAt
+      - updatedAt
+    ListEmployeesDto:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmployeeResponseDto'
+        currentPage:
+          type: number
+        totalPages:
+          type: number
+        totalCount:
+          type: number
+      required:
+      - data
+      - currentPage
+      - totalPages
+      - totalCount
+    UpdateEmployeeDto:
+      type: object
+      properties:
+        externalId:
+          type: string
+          description: A unique identifier from the partner's system, used to map employee records between the partner's system and Nayya.
+          example: EMP-123
+          nullable: true
+        employerProvidedId:
+          type: string
+          description: An employer-specific identifier for an employee, unique within a single employer but not across the entire partner system.
+          example: EMPLOYER-123
+          nullable: true
+        lastName:
+          type: string
+          description: Employee last name
+          example: Doe
+          nullable: true
+        firstName:
+          type: string
+          description: Employee first name
+          example: Jane
+          nullable: true
+        email:
+          type: string
+          description: Employee email
+          example: jane.doe@example.com
+        streetAddress:
+          type: string
+          description: Employee street address
+          example: 123 Main St
+          nullable: true
+        city:
+          type: string
+          description: Employee city
+          example: San Francisco
+          nullable: true
+        state:
+          type: string
+          description: Employee state
+          example: CA
+          nullable: true
+        zipCode:
+          type: string
+          description: Employee zip code
+          example: '94105'
+          nullable: true
+        gender:
+          type: string
+          description: Employee gender
+          example: F
+          enum:
+          - M
+          - F
+          - U
+          nullable: true
+        sexAssignedAtBirth:
+          type: string
+          description: Employee sex assigned at birth
+          example: F
+          enum:
+          - M
+          - F
+          - U
+          nullable: true
+        dateOfBirth:
+          format: date
+          type: string
+          description: Employee date of birth
+          example: '1985-02-03'
+          nullable: true
+        startDate:
+          format: date
+          type: string
+          description: Employee start date
+          example: '2021-01-01'
+          nullable: true
+        terminatedDate:
+          format: date
+          type: string
+          description: Employee terminated date
+          example: '2025-01-01'
+          nullable: true
+        phoneNumber:
+          type: string
+          description: Employee phone number
+          example: '+15551234567'
+          nullable: true
+        ssn:
+          type: string
+          description: Employee SSN (9 digits)
+          example: '123456789'
+          nullable: true
+        incomeAmountCents:
+          type: number
+          description: Employee income amount in cents
+          example: 10000
+          nullable: true
+        additionalIncomeAmountCents:
+          type: number
+          description: Employee additional income amount in cents
+          example: 5000
+        incomeType:
+          type: string
+          description: Employee income type
+          example: salary
+          enum:
+          - salary
+          - hourly
+        locale:
+          type: string
+          description: Employee locale
+          example: en
+          enum:
+          - en
+          - es
+        employmentType:
+          type: string
+          description: Employee employment type
+          example: employee
+          enum:
+          - employee
+          - contractor
+        employmentSubType:
+          type: string
+          description: Employee employment sub type
+          example: full_time
+          enum:
+          - full_time
+          - part_time
+          - intern
+          - temp
+          - seasonal
+          - individual_contractor
+        tobaccoUsage:
+          type: boolean
+          description: Employee tobacco usage
+          example: false
+          nullable: true
+        hoursPerWeek:
+          type: number
+          description: Employee hours worked per week
+          example: 40
+          nullable: true
+        ethnicity:
+          type: string
+          description: Employee ethnicity
+          example: prefer_not_to_say
+          nullable: true
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: JWT token

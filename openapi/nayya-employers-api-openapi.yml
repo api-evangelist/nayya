@@ -1,0 +1,546 @@
+openapi: 3.0.0
+info:
+  title: Accounts Benefits Employers API
+  description: Accounts API
+  version: '0.1'
+  contact: {}
+servers:
+- url: https://integrate.nayya.com/accounts
+  description: Production
+- url: https://integrate.partners.nayya.com/accounts
+  description: Partners
+security:
+- bearerAuth: []
+tags:
+- name: Employers
+paths:
+  /employers:
+    post:
+      operationId: create-employer
+      parameters:
+      - name: X-API-Version
+        in: header
+        required: false
+        description: Optional API major version. Omit this header for the same behavior as `1` (this specification).
+        schema:
+          type: string
+          default: '1'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateEmployerDto'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployerResponseDto'
+        '400':
+          description: Bad Request
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '409':
+          description: Conflict
+        '422':
+          description: Unprocessable Entity
+        '500':
+          description: Internal Server Error
+      summary: Create an Employer
+      tags:
+      - Employers
+      x-scope:
+      - create:partner-employers
+    get:
+      description: Response includes an array with the page and number of results requested. Results are returned in ascending order by `createdAt` date.
+      operationId: list-employers
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: Specifies which page of results to retrieve.
+        schema:
+          minimum: 1
+          default: 1
+          type: number
+      - name: perPage
+        required: false
+        in: query
+        description: Number of results per page.
+        schema:
+          minimum: 1
+          maximum: 100
+          default: 50
+          type: number
+      - name: name
+        required: false
+        in: query
+        description: Supports like search by name, external ID.
+        schema:
+          title: Name
+          type: string
+      - name: sortBy
+        required: false
+        in: query
+        schema:
+          title: Sort By
+          example: createdAt
+          type: string
+      - name: sortOrder
+        required: false
+        in: query
+        schema:
+          title: Sort Order
+          example: ASC
+          enum:
+          - ASC
+          - ASC NULLS LAST
+          - ASC NULLS FIRST
+          - DESC
+          - DESC NULLS LAST
+          - DESC NULLS FIRST
+          - asc
+          - asc nulls last
+          - asc nulls first
+          - desc
+          - desc nulls last
+          - desc nulls first
+          type: string
+      - name: X-API-Version
+        in: header
+        required: false
+        description: Optional API major version. Omit this header for the same behavior as `1` (this specification).
+        schema:
+          type: string
+          default: '1'
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListEmployersDto'
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '422':
+          description: Unprocessable Entity
+        '500':
+          description: Internal Server Error
+      summary: Get all Employers
+      tags:
+      - Employers
+      x-scope:
+      - read:partner-employers
+  /employers/{employerId}/is-ready:
+    get:
+      operationId: check-employer-is-ready
+      parameters:
+      - name: employerId
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: X-API-Version
+        in: header
+        required: false
+        description: Optional API major version. Omit this header for the same behavior as `1` (this specification).
+        schema:
+          type: string
+          default: '1'
+      responses:
+        '200':
+          description: Employer is ready.
+          content:
+            application/json:
+              schema:
+                type: boolean
+        '400':
+          description: The employer has no auth organization.
+        '404':
+          description: The employer not found.
+        '500':
+          description: Internal server error.
+      summary: Check if an Employer is ready
+      tags:
+      - Employers
+      x-scope:
+      - read:partner-employers
+  /employers/{employerId}:
+    patch:
+      operationId: update-employer
+      parameters:
+      - name: employerId
+        required: true
+        in: path
+        description: The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employer (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`).
+        schema:
+          type: string
+      - name: X-API-Version
+        in: header
+        required: false
+        description: Optional API major version. Omit this header for the same behavior as `1` (this specification).
+        schema:
+          type: string
+          default: '1'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateEmployerDto'
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployerResponseDto'
+        '400':
+          description: Bad Request
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '409':
+          description: Conflict
+        '422':
+          description: Unprocessable Entity
+        '500':
+          description: Internal Server Error
+      summary: Update an Employer
+      tags:
+      - Employers
+      x-scope:
+      - update:partner-employers
+    delete:
+      operationId: delete-employer
+      parameters:
+      - name: employerId
+        required: true
+        in: path
+        description: The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employer (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`).
+        schema:
+          type: string
+      - name: X-API-Version
+        in: header
+        required: false
+        description: Optional API major version. Omit this header for the same behavior as `1` (this specification).
+        schema:
+          type: string
+          default: '1'
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '409':
+          description: Conflict
+        '500':
+          description: Internal Server Error
+      summary: Delete an Employer
+      tags:
+      - Employers
+      x-scope:
+      - delete:partner-employers
+    get:
+      operationId: get-employer-by-id
+      parameters:
+      - name: employerId
+        required: true
+        in: path
+        description: The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employer (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`).
+        schema:
+          type: string
+      - name: X-API-Version
+        in: header
+        required: false
+        description: Optional API major version. Omit this header for the same behavior as `1` (this specification).
+        schema:
+          type: string
+          default: '1'
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployerResponseDto'
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      summary: Get an Employer by ID
+      tags:
+      - Employers
+      x-scope:
+      - read:partner-employers
+components:
+  schemas:
+    ListEmployersDto:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmployerResponseDto'
+        currentPage:
+          type: number
+        totalPages:
+          type: number
+        totalCount:
+          type: number
+      required:
+      - data
+      - currentPage
+      - totalPages
+      - totalCount
+    CreateEmployerDto:
+      type: object
+      properties:
+        externalId:
+          type: string
+          description: Employer external ID
+          example: EMP-123
+          nullable: true
+        name:
+          type: string
+          description: Employer name
+          example: Acme
+        description:
+          type: string
+          description: Employer description
+          example: A leading technology company
+          nullable: true
+        streetAddress:
+          type: string
+          description: Employer street address
+          example: 214 Park Ave S
+          nullable: true
+        city:
+          type: string
+          description: Employer city
+          example: New York
+          nullable: true
+        state:
+          type: string
+          description: Employer state
+          example: NY
+          nullable: true
+        zipCode:
+          type: string
+          description: Employer zip code
+          example: '10001'
+          nullable: true
+        ein:
+          type: string
+          description: Employer EIN
+          example: 12-3456789
+          nullable: true
+        websiteUrl:
+          type: string
+          description: Employer website URL
+          example: http://wwww.example.com
+          nullable: true
+        phoneNumber:
+          type: string
+          description: Employer phone number
+          example: '+12125551234'
+          nullable: true
+        logoUrl:
+          type: string
+          description: Employer logo URL
+          example: https://www.acme.com/logo.png
+          nullable: true
+        benAdminButton:
+          type: string
+          description: Employer ben admin button text
+          example: Proceed to Enrollment
+          nullable: true
+        benAdminLink:
+          type: string
+          description: Employer ben admin link
+          example: https://www.acme.com/ben-admin-link
+          nullable: true
+        connection:
+          type: string
+          description: the auth0 connection name to use
+          example: google-oauth2
+      required:
+      - name
+    EmployerResponseDto:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Employer ID
+          example: 123e4567-e89b-12d3-a456-426614174000
+        externalId:
+          type: string
+          nullable: true
+          description: Employer external ID
+          example: EMP-123
+        name:
+          type: string
+          description: Employer name
+          example: Acme Corporation
+        description:
+          type: string
+          nullable: true
+          description: Employer description
+          example: A leading technology company
+        streetAddress:
+          type: string
+          nullable: true
+          description: Employer street address
+          example: 123 Main Street
+        city:
+          type: string
+          nullable: true
+          description: Employer city
+          example: San Francisco
+        state:
+          type: string
+          nullable: true
+          description: Employer state
+          example: CA
+        zipCode:
+          type: string
+          nullable: true
+          description: Employer zip code
+          example: '94105'
+        ein:
+          type: string
+          nullable: true
+          description: Employer EIN
+          example: 12-3456789
+        websiteUrl:
+          type: string
+          nullable: true
+          description: Employer website URL
+          example: https://www.acme.com
+        phoneNumber:
+          type: string
+          nullable: true
+          description: Employer phone number
+          example: '+12125551234'
+        logoUrl:
+          type: string
+          nullable: true
+          description: Employer logo URL
+          example: https://www.acme.com/logo.png
+        benAdminButton:
+          type: string
+          nullable: true
+          description: Employer ben admin button text
+          example: Proceed to Enrollment
+        benAdminLink:
+          type: string
+          nullable: true
+          description: Employer ben admin link
+          example: https://www.acme.com/ben-admin-link
+        createdAt:
+          format: date-time
+          type: string
+          description: Creation date
+          example: '2024-03-20T00:00:00.000Z'
+        updatedAt:
+          format: date-time
+          type: string
+          description: Last update date
+          example: '2024-03-20T00:00:00.000Z'
+      required:
+      - id
+      - externalId
+      - name
+      - description
+      - streetAddress
+      - city
+      - state
+      - zipCode
+      - ein
+      - websiteUrl
+      - phoneNumber
+      - logoUrl
+      - benAdminButton
+      - benAdminLink
+      - createdAt
+      - updatedAt
+    UpdateEmployerDto:
+      type: object
+      properties:
+        externalId:
+          type: string
+          description: Employer external ID
+          example: EMP-123
+          nullable: true
+        name:
+          type: string
+          description: Employer name
+          example: Acme
+        description:
+          type: string
+          description: Employer description
+          example: A leading technology company
+          nullable: true
+        streetAddress:
+          type: string
+          description: Employer street address
+          example: 214 Park Ave S
+          nullable: true
+        city:
+          type: string
+          description: Employer city
+          example: New York
+          nullable: true
+        state:
+          type: string
+          description: Employer state
+          example: NY
+          nullable: true
+        zipCode:
+          type: string
+          description: Employer zip code
+          example: '10001'
+          nullable: true
+        websiteUrl:
+          type: string
+          description: Employer website URL
+          example: http://wwww.example.com
+          nullable: true
+        phoneNumber:
+          type: string
+          description: Employer phone number
+          example: '+12125551234'
+          nullable: true
+        logoUrl:
+          type: string
+          description: Employer logo URL
+          example: https://www.acme.com/logo.png
+          nullable: true
+        benAdminButton:
+          type: string
+          description: Employer ben admin button text
+          example: Proceed to Enrollment
+          nullable: true
+        benAdminLink:
+          type: string
+          description: Employer ben admin link
+          example: https://www.acme.com/ben-admin-link
+          nullable: true
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: JWT token

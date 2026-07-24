@@ -1,0 +1,83 @@
+openapi: 3.0.0
+info:
+  title: Accounts Benefits Carriers API
+  description: Accounts API
+  version: '0.1'
+  contact: {}
+servers:
+- url: https://integrate.nayya.com/accounts
+  description: Production
+- url: https://integrate.partners.nayya.com/accounts
+  description: Partners
+security:
+- bearerAuth: []
+tags:
+- name: Carriers
+paths:
+  /carriers:
+    get:
+      operationId: list-carriers
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: Specifies which page of results to retrieve.
+        schema:
+          minimum: 1
+          default: 1
+          example: 2
+          type: number
+      - name: perPage
+        required: false
+        in: query
+        description: Number of results per page.
+        schema:
+          minimum: 1
+          maximum: 100
+          default: 50
+          example: 25
+          type: number
+      - name: X-API-Version
+        in: header
+        required: false
+        description: Optional API major version. Omit this header for the same behavior as `1` (this specification).
+        schema:
+          type: string
+          default: '1'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustodianResponseDTO'
+        '403':
+          description: Forbidden
+        '500':
+          description: Internal server error
+      summary: List Carriers
+      tags:
+      - Carriers
+components:
+  schemas:
+    CustodianResponseDTO:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 123e4567-e89b-12d3-a456-426614174000
+          description: ID of the carrier
+        name:
+          type: string
+          example: Test Carrier
+          description: Name of the carrier
+      required:
+      - id
+      - name
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: JWT token

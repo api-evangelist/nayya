@@ -1,0 +1,607 @@
+openapi: 3.0.0
+info:
+  title: Accounts Benefits Dependents API
+  description: Accounts API
+  version: '0.1'
+  contact: {}
+servers:
+- url: https://integrate.nayya.com/accounts
+  description: Production
+- url: https://integrate.partners.nayya.com/accounts
+  description: Partners
+security:
+- bearerAuth: []
+tags:
+- name: Dependents
+paths:
+  /employers/{employerId}/employees/{employeeId}/dependents:
+    post:
+      operationId: create-dependent
+      parameters:
+      - name: employerId
+        required: true
+        in: path
+        description: The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employer (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`).
+        schema:
+          type: string
+      - name: employeeId
+        required: true
+        in: path
+        description: The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employee (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`).
+        schema:
+          type: string
+      - name: X-API-Version
+        in: header
+        required: false
+        description: Optional API major version. Omit this header for the same behavior as `1` (this specification).
+        schema:
+          type: string
+          default: '1'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDependentDto'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DependentResponseDto'
+        '400':
+          description: Bad Request
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '409':
+          description: Conflict
+        '422':
+          description: Unprocessable Entity
+        '500':
+          description: Internal Server Error
+      summary: Create a Dependent
+      tags:
+      - Dependents
+      x-scope:
+      - create:partner-employees-dependents
+    get:
+      operationId: list-employee-dependents
+      parameters:
+      - name: employerId
+        required: true
+        in: path
+        description: The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employer (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`).
+        schema:
+          type: string
+      - name: employeeId
+        required: true
+        in: path
+        description: The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employee (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`).
+        schema:
+          type: string
+      - name: X-API-Version
+        in: header
+        required: false
+        description: Optional API major version. Omit this header for the same behavior as `1` (this specification).
+        schema:
+          type: string
+          default: '1'
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DependentResponseDto'
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      summary: Get all Employee Dependents
+      tags:
+      - Dependents
+      x-scope:
+      - read:partner-employees-dependents
+  /employers/{employerId}/employees/{employeeId}/dependents/{dependentId}:
+    patch:
+      operationId: update-dependent
+      parameters:
+      - name: employerId
+        required: true
+        in: path
+        description: The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employer (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`).
+        schema:
+          type: string
+      - name: employeeId
+        required: true
+        in: path
+        description: The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employee (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`).
+        schema:
+          type: string
+      - name: dependentId
+        required: true
+        in: path
+        description: The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employee's dependent (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`).
+        schema:
+          type: string
+      - name: X-API-Version
+        in: header
+        required: false
+        description: Optional API major version. Omit this header for the same behavior as `1` (this specification).
+        schema:
+          type: string
+          default: '1'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDependentDto'
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DependentResponseDto'
+        '400':
+          description: Bad Request
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '409':
+          description: Conflict
+        '422':
+          description: Unprocessable Entity
+        '500':
+          description: Internal Server Error
+      summary: Update a Dependent
+      tags:
+      - Dependents
+      x-scope:
+      - update:partner-employees-dependents
+    get:
+      operationId: get-dependent-by-id
+      parameters:
+      - name: employerId
+        required: true
+        in: path
+        description: The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employer (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`).
+        schema:
+          type: string
+      - name: employeeId
+        required: true
+        in: path
+        description: The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employee (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`).
+        schema:
+          type: string
+      - name: dependentId
+        required: true
+        in: path
+        description: The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employee's dependent (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`).
+        schema:
+          type: string
+      - name: X-API-Version
+        in: header
+        required: false
+        description: Optional API major version. Omit this header for the same behavior as `1` (this specification).
+        schema:
+          type: string
+          default: '1'
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DependentResponseDto'
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      summary: Get Dependent by ID
+      tags:
+      - Dependents
+      x-scope:
+      - read:partner-employees-dependents
+    delete:
+      operationId: delete-dependent
+      parameters:
+      - name: employerId
+        required: true
+        in: path
+        description: The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employer (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`).
+        schema:
+          type: string
+      - name: employeeId
+        required: true
+        in: path
+        description: The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employee (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`).
+        schema:
+          type: string
+      - name: dependentId
+        required: true
+        in: path
+        description: The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employee's dependent (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`).
+        schema:
+          type: string
+      - name: X-API-Version
+        in: header
+        required: false
+        description: Optional API major version. Omit this header for the same behavior as `1` (this specification).
+        schema:
+          type: string
+          default: '1'
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '409':
+          description: Conflict
+        '500':
+          description: Internal Server Error
+      summary: Delete a Dependent
+      tags:
+      - Dependents
+      x-scope:
+      - delete:partner-employees-dependents
+components:
+  schemas:
+    CreateDependentDto:
+      type: object
+      properties:
+        relationship:
+          type: string
+          description: Dependent's Relationship to the employee
+          enum:
+          - spouse
+          - child
+          - domestic_partner
+          example: spouse
+        email:
+          type: string
+          description: Dependent email
+          example: test@example.com
+        ssn:
+          type: string
+          description: 9 digit SSN
+          example: '123456789'
+        firstName:
+          type: string
+          description: Dependent first name
+          example: John
+        lastName:
+          type: string
+          description: Dependent last name
+          example: Doe
+        gender:
+          type: string
+          description: Dependent gender
+          example: F
+          enum:
+          - M
+          - F
+          - U
+        dateOfBirth:
+          format: date
+          type: string
+          description: Dependent date of birth
+          example: '1990-01-01'
+        streetAddress:
+          type: string
+          description: Dependent street address
+          example: 123 Main St
+        city:
+          type: string
+          description: Dependent city
+          example: New York
+        state:
+          type: string
+          description: Dependent state
+          example: NY
+        zipCode:
+          type: string
+          description: Dependent zip code
+          example: '12345'
+        phoneNumber:
+          type: string
+          description: Dependent phone number
+          example: '+15551234567'
+        incomeAmountCents:
+          type: number
+          description: Dependent income amount in cents
+          example: 10000
+        incomeType:
+          type: string
+          description: Dependent income type
+          example: salary
+          enum:
+          - salary
+          - hourly
+        hoursPerWeek:
+          type: number
+          description: Dependent hours worked per week
+          example: 40
+        tobaccoUsage:
+          type: boolean
+          description: Dependent tobacco usage
+          example: false
+        dependentStatus:
+          type: boolean
+          description: Status indicating whether the dependent should be included in the employee's benefit recommendations.
+          example: true
+          default: true
+        externalId:
+          type: string
+          description: external id of the partner employee dependent
+          example: some-uuid
+        employmentStatus:
+          type: string
+          description: Dependent employment status
+          enum:
+          - employed
+          - unemployed
+          example: employed
+      required:
+      - relationship
+      - dateOfBirth
+    DependentResponseDto:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Dependent ID
+          example: 123e4567-e89b-12d3-a456-426614174000
+        externalId:
+          type: string
+          description: Dependent external ID
+          example: DEP-123
+        employeeId:
+          type: string
+          description: Employee ID
+          example: 123e4567-e19b-12d3-a456-426614174000
+        ssn:
+          type: string
+          deprecated: true
+          nullable: true
+          description: (Deprecated) SSN of dependent
+          example: null
+        firstName:
+          type: string
+          description: Dependent first name
+          example: Jane
+        lastName:
+          type: string
+          description: Dependent last name
+          example: Doe
+        relationship:
+          type: string
+          description: Dependent relationship
+          example: spouse
+          enum:
+          - spouse
+          - child
+          - domestic_partner
+        dateOfBirth:
+          format: date-time
+          type: string
+          description: Dependent date of birth
+          example: '2021-01-01'
+        incomeAmountCents:
+          type: number
+          description: Dependent income amount in cents
+          example: 10000
+        incomeType:
+          type: string
+          description: Dependent income type
+          example: salary
+          enum:
+          - salary
+          - hourly
+        gender:
+          type: string
+          description: Dependent gender
+          example: F
+          enum:
+          - M
+          - F
+          - U
+        email:
+          type: string
+          description: Dependent email address
+          example: dependent@example.com
+        streetAddress:
+          type: string
+          description: Dependent street address
+          example: 123 Main St
+        city:
+          type: string
+          description: Dependent city
+          example: San Francisco
+        state:
+          type: string
+          description: Dependent state
+          example: CA
+        zipCode:
+          type: string
+          description: Dependent zip code
+          example: '94105'
+        phoneNumber:
+          type: string
+          description: Dependent phone number
+          example: '+15551234567'
+        hoursPerWeek:
+          type: number
+          description: Dependent hours per week
+          example: 40
+        tobaccoUsage:
+          type: boolean
+          description: Dependent tobacco usage
+          example: false
+        dependentStatus:
+          type: boolean
+          description: Dependent status
+          example: true
+        employmentStatus:
+          type: string
+          description: Dependent employment status
+          example: employed
+          enum:
+          - employed
+          - unemployed
+        createdAt:
+          format: date-time
+          type: string
+          description: Creation date
+          example: '2024-03-20T00:00:00.000Z'
+        updatedAt:
+          format: date-time
+          type: string
+          description: Last update date
+          example: '2024-03-20T00:00:00.000Z'
+      required:
+      - id
+      - employeeId
+      - firstName
+      - lastName
+      - relationship
+      - dateOfBirth
+      - incomeAmountCents
+      - phoneNumber
+      - hoursPerWeek
+      - tobaccoUsage
+      - dependentStatus
+      - employmentStatus
+      - createdAt
+      - updatedAt
+    UpdateDependentDto:
+      type: object
+      properties:
+        relationship:
+          type: string
+          description: Dependent's relationship to the employee
+          enum:
+          - spouse
+          - child
+          - domestic_partner
+          example: spouse
+        email:
+          type: string
+          description: Dependent email
+          example: test@example.com
+          nullable: true
+        ssn:
+          type: string
+          description: Dependent SSN (9 digits)
+          example: '123456789'
+          nullable: true
+        firstName:
+          type: string
+          description: Dependent first name
+          example: John
+          nullable: true
+        lastName:
+          type: string
+          description: Dependent last name
+          example: Doe
+          nullable: true
+        gender:
+          type: string
+          description: Dependent gender
+          enum:
+          - M
+          - F
+          - U
+          example: F
+          nullable: true
+        dateOfBirth:
+          format: date
+          type: string
+          description: Dependent date of birth
+          example: '1990-01-01'
+        streetAddress:
+          type: string
+          description: Dependent street address
+          example: 123 Main St
+          nullable: true
+        city:
+          type: string
+          description: Dependent city
+          example: New York
+          nullable: true
+        state:
+          type: string
+          description: Dependent state
+          example: NY
+          nullable: true
+        zipCode:
+          type: string
+          description: Dependent zip code
+          example: '12345'
+          nullable: true
+        phoneNumber:
+          type: string
+          description: Dependent phone number
+          example: '+15551234567'
+          nullable: true
+        incomeAmountCents:
+          type: number
+          description: Dependent income amount in cents
+          example: 1000
+          nullable: true
+        incomeType:
+          type: string
+          description: Dependent income type
+          enum:
+          - salary
+          - hourly
+          example: salary
+          nullable: true
+        hoursPerWeek:
+          type: number
+          description: Dependent hours worked per week
+          example: 40
+          nullable: true
+        tobaccoUsage:
+          type: boolean
+          description: Dependent tobacco usage
+          example: false
+          nullable: true
+        dependentStatus:
+          type: boolean
+          description: Status indicating whether the dependent should be included in the employee's benefit recommendations.
+          example: true
+          default: true
+        externalId:
+          type: string
+          description: A unique identifier from the partner's system, used to map dependent records between the partner's system and Nayya
+          example: some-uuid
+          nullable: true
+        employmentStatus:
+          type: string
+          description: Dependent employment status
+          enum:
+          - employed
+          - unemployed
+          example: employed
+          nullable: true
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: JWT token

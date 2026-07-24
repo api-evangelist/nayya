@@ -1,0 +1,86 @@
+openapi: 3.0.0
+info:
+  title: Accounts Benefits Token API
+  description: Accounts API
+  version: '0.1'
+  contact: {}
+servers:
+- url: https://integrate.nayya.com/accounts
+  description: Production
+- url: https://integrate.partners.nayya.com/accounts
+  description: Partners
+security:
+- bearerAuth: []
+tags:
+- name: Token
+paths:
+  /token:
+    post:
+      operationId: get-token
+      parameters:
+      - name: X-API-Version
+        in: header
+        required: false
+        description: Optional API major version. Omit this header for the same behavior as `1` (this specification).
+        schema:
+          type: string
+          default: '1'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetAccessTokenDto'
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAccessTokenResponseDto'
+        '401':
+          description: Unauthorized
+        '422':
+          description: Unprocessable Entity
+        '500':
+          description: Internal Server Error
+      security:
+      - no-auth: []
+      summary: Get a Token
+      tags:
+      - Token
+components:
+  schemas:
+    GetAccessTokenDto:
+      type: object
+      properties:
+        clientId:
+          type: string
+          description: The client ID
+          example: '1234567890'
+        clientSecret:
+          type: string
+          description: The client secret
+          example: '1234567890'
+      required:
+      - clientId
+      - clientSecret
+    GetAccessTokenResponseDto:
+      type: object
+      properties:
+        accessToken:
+          type: string
+          description: The access token
+          example: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9...
+        expiresAt:
+          type: number
+          description: The expiration time of the access token as a epoch timestamp
+          example: 1741368969
+      required:
+      - accessToken
+      - expiresAt
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: JWT token
