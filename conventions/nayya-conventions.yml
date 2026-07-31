@@ -1,0 +1,50 @@
+generated: '2026-07-20'
+method: searched
+source: https://docs.nayya.com, openapi/nayya-accounts-openapi.json, openapi/nayya-benefits-openapi.json, openapi/nayya-choose-openapi.json
+authentication:
+  style: bearer-jwt
+  token_flow: client-credentials
+  header: 'Authorization: Bearer <accessToken>'
+  detail: authentication/nayya-authentication.yml
+versioning:
+  style: header
+  header: X-API-Version
+  note: Optional major-version header; omit for latest.
+  detail: lifecycle/nayya-lifecycle.yml
+pagination:
+  style: page-number
+  params:
+    page: 1-based page number
+    perPage: results per page
+    sortBy: field to sort by
+    sortOrder: asc | desc
+    search: free-text search filter
+  response_fields:
+    - page
+    - results
+  note: >-
+    List endpoints return an array with the page and number of results requested,
+    ordered ascending by createdAt by default.
+external_ids:
+  supported: true
+  note: >-
+    Entities may be created with partner-supplied external IDs; POST responses return
+    the created entity ID(s), including external IDs when used, to support entity mapping.
+idempotency:
+  supported: false
+  note: >-
+    No idempotency-key header or parameter is documented in the specs. Enrollment
+    creation is atomic (create-enrollments rolls back all enrollments if any one fails),
+    but there is no request-level idempotency contract.
+metadata:
+  supported: unknown
+rate_limiting:
+  signal: http-429
+  note: The Benefits API declares a 429 Too Many Requests response; no documented rate-limit headers.
+error_envelope:
+  style: http-status
+  detail: errors/nayya-problem-types.yml
+cross_links:
+  authentication: authentication/nayya-authentication.yml
+  errors: errors/nayya-problem-types.yml
+  lifecycle: lifecycle/nayya-lifecycle.yml

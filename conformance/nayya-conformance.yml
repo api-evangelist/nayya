@@ -1,0 +1,35 @@
+generated: '2026-07-20'
+method: searched
+source: openapi/*, https://trust.nayya.com, https://nayya.com
+standards:
+- id: oauth2
+  conforms: false
+  evidence: No oauth2 securityScheme declared; auth is client-credentials token exchange to a JWT bearer.
+- id: openid-connect
+  conforms: partial
+  evidence: >-
+    Nayya's embedded experience supports enterprise SSO via OIDC (and SAML) connections
+    for end-user access; the Integrate REST API itself uses JWT bearer, not OIDC discovery.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: 4xx/5xx responses declare status + description only, no application/problem+json schema.
+- id: pagination
+  conforms: true
+  evidence: List endpoints use page/perPage/sortBy/sortOrder/search query parameters.
+- id: idempotency
+  conforms: false
+  evidence: No idempotency-key contract documented.
+- id: openapi-3
+  conforms: true
+  evidence: Three OpenAPI 3.0.0 specifications published (Accounts, Benefits, Choose).
+compliance_program:
+  certifications:
+  - SOC 2
+  - HITRUST
+  - HIPAA
+  - CCPA
+  - WCAG 2.1 AA
+  - ADA
+  - NIST 800
+  source: https://trust.nayya.com, https://nayya.com
+  trust_center: security/nayya-trust-center.yml

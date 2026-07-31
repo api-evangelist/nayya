@@ -1,0 +1,20 @@
+generated: '2026-07-20'
+method: searched
+source: https://docs.nayya.com, https://status.nayya.com
+versioning:
+  scheme: header
+  header: X-API-Version
+  note: >-
+    Every Nayya Integrate operation accepts an optional X-API-Version request header
+    ("Optional API major version. Omit to use the latest."). Spec info.version is 0.1
+    and the docs branch is labeled v1.0 (1.0-neo-beta).
+  current: v1.0
+  docs: https://docs.nayya.com
+status_page: https://status.nayya.com
+deprecation:
+  policy_url: null
+  sunset_header: false
+  note: No published deprecation/sunset policy found; no operations flagged deprecated in the specs.
+sla:
+  url: null
+deprecated_operations: []

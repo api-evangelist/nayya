@@ -1,0 +1,35 @@
+generated: '2026-07-20'
+method: searched
+source: openapi/nayya-accounts-openapi.json, openapi/nayya-benefits-openapi.json, openapi/nayya-choose-openapi.json
+docs: https://docs.nayya.com/docs/requesting-an-access-token-for-the-partners-api
+summary:
+  types:
+  - http
+  token_flow: client-credentials
+summary_notes: >-
+  Nayya Integrate uses a bearer-token model. Partners are issued a clientId and
+  clientSecret (delivered via a 1Password vault). Those credentials are exchanged
+  at POST /token (Accounts API) for a short-lived JWT accessToken with an expiresAt
+  timestamp. The JWT is then sent as `Authorization: Bearer <accessToken>` on every
+  API call. No OAuth2 scopes are declared in the specs; authorization is scoped to
+  the organization that owns the employer.
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  description: JWT token
+  sources:
+  - openapi/nayya-accounts-openapi.json
+  - openapi/nayya-benefits-openapi.json
+  - openapi/nayya-choose-openapi.json
+token_endpoint:
+  operation: get-token
+  method: POST
+  path: /token
+  server: https://integrate.nayya.com/accounts
+  request:
+    clientId: string
+    clientSecret: string
+  response:
+    accessToken: JWT string
+    expiresAt: expiration epoch time

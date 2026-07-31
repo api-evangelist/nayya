@@ -1,0 +1,42 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/nayya-accounts-openapi.json, openapi/nayya-benefits-openapi.json, openapi/nayya-choose-openapi.json
+format: http-status
+notes: >-
+  Derived from the HTTP status codes declared across the three Nayya Integrate specs.
+  The specs declare status codes with plain descriptions only (no application/problem+json
+  schema), so this is a status-code registry rather than an RFC 9457 problem-type catalog.
+  Observed across specs: 200, 201, 204, 400, 401, 403, 404, 409, 422, 429, 500.
+problems:
+- status: 400
+  title: Bad Request
+  meaning: The request was malformed or contained invalid parameters.
+  seen_in: [accounts]
+- status: 401
+  title: Unauthorized
+  meaning: Missing or invalid bearer token. Obtain a token via POST /token.
+  seen_in: [accounts, choose]
+- status: 403
+  title: Forbidden
+  meaning: The token is not authorized for the requested organization/employer.
+  seen_in: [accounts, benefits, choose]
+- status: 404
+  title: Not Found
+  meaning: The requested resource (employer, employee, dependent, benefit) does not exist.
+  seen_in: [accounts, benefits, choose]
+- status: 409
+  title: Conflict
+  meaning: The resource already exists or conflicts with current state (e.g. duplicate external ID).
+  seen_in: [accounts]
+- status: 422
+  title: Unprocessable Entity
+  meaning: The request body failed validation.
+  seen_in: [accounts, benefits]
+- status: 429
+  title: Too Many Requests
+  meaning: Rate limit exceeded; retry after backoff.
+  seen_in: [benefits]
+- status: 500
+  title: Internal Server Error
+  meaning: An unexpected server error occurred.
+  seen_in: [accounts, benefits, choose]

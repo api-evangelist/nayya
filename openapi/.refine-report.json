@@ -1,0 +1,34 @@
+{
+  "provider": "nayya",
+  "sources": [
+    "nayya-benefits-api-openapi.yml",
+    "nayya-carriers-api-openapi.yml",
+    "nayya-connections-api-openapi.yml",
+    "nayya-dependents-api-openapi.yml",
+    "nayya-employees-api-openapi.yml",
+    "nayya-employers-api-openapi.yml",
+    "nayya-enrollments-api-openapi.yml",
+    "nayya-recommendations-api-openapi.yml",
+    "nayya-rule-templates-api-openapi.yml",
+    "nayya-snapshots-api-openapi.yml",
+    "nayya-token-api-openapi.yml"
+  ],
+  "outputs": [
+    "nayya-benefits-api-openapi.yml",
+    "nayya-carriers-api-openapi.yml",
+    "nayya-connections-api-openapi.yml",
+    "nayya-dependents-api-openapi.yml",
+    "nayya-employees-api-openapi.yml",
+    "nayya-employers-api-openapi.yml",
+    "nayya-enrollments-api-openapi.yml",
+    "nayya-recommendations-api-openapi.yml",
+    "nayya-rule-templates-api-openapi.yml",
+    "nayya-snapshots-api-openapi.yml",
+    "nayya-token-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

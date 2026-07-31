@@ -1,0 +1,119 @@
+generated: '2026-07-20'
+method: derived
+status: candidate
+source: openapi/nayya-accounts-openapi.json, openapi/nayya-benefits-openapi.json, openapi/nayya-choose-openapi.json
+notes: >-
+  No official Nayya MCP server was found (no hosted server documented at docs.nayya.com,
+  no @nayya package on npm). This is a candidate tool list derived one-to-one from the
+  35 published Nayya Integrate operations, to seed an MCP server. Auth is JWT bearer via
+  POST /token (client credentials).
+server:
+  name: nayya
+  transport: http
+  url: null
+tools:
+- name: create_employer
+  description: Create an employer account
+  source_operation: openapi/nayya-accounts-openapi.json#create-employer
+- name: list_employers
+  description: List employers
+  source_operation: openapi/nayya-accounts-openapi.json#list-employers
+- name: get_employer_by_id
+  description: Get an employer by ID
+  source_operation: openapi/nayya-accounts-openapi.json#get-employer-by-id
+- name: update_employer
+  description: Update an employer
+  source_operation: openapi/nayya-accounts-openapi.json#update-employer
+- name: delete_employer
+  description: Delete an employer
+  source_operation: openapi/nayya-accounts-openapi.json#delete-employer
+- name: check_employer_is_ready
+  description: Check whether an employer is ready
+  source_operation: openapi/nayya-accounts-openapi.json#check-employer-is-ready
+- name: create_employee
+  description: Create an employee under an employer
+  source_operation: openapi/nayya-accounts-openapi.json#create-employee
+- name: list_employees
+  description: List employees for an employer
+  source_operation: openapi/nayya-accounts-openapi.json#list-employees
+- name: get_employee_by_id
+  description: Get an employee by ID
+  source_operation: openapi/nayya-accounts-openapi.json#get-employee-by-id
+- name: update_employee
+  description: Update an employee
+  source_operation: openapi/nayya-accounts-openapi.json#update-employee
+- name: delete_employee
+  description: Delete an employee
+  source_operation: openapi/nayya-accounts-openapi.json#delete-employee
+- name: create_dependent
+  description: Create a dependent for an employee
+  source_operation: openapi/nayya-accounts-openapi.json#create-dependent
+- name: list_employee_dependents
+  description: List an employee's dependents
+  source_operation: openapi/nayya-accounts-openapi.json#list-employee-dependents
+- name: get_dependent_by_id
+  description: Get a dependent by ID
+  source_operation: openapi/nayya-accounts-openapi.json#get-dependent-by-id
+- name: update_dependent
+  description: Update a dependent
+  source_operation: openapi/nayya-accounts-openapi.json#update-dependent
+- name: delete_dependent
+  description: Delete a dependent
+  source_operation: openapi/nayya-accounts-openapi.json#delete-dependent
+- name: get_token
+  description: Exchange clientId/clientSecret for a bearer access token
+  source_operation: openapi/nayya-accounts-openapi.json#get-token
+- name: add_connections
+  description: Add connections to an account
+  source_operation: openapi/nayya-accounts-openapi.json#add-connections
+- name: add_connection_to_employer
+  description: Add a connection to an employer
+  source_operation: openapi/nayya-accounts-openapi.json#add-connection-to-employer
+- name: remove_connection_from_employer
+  description: Remove a connection from an employer
+  source_operation: openapi/nayya-accounts-openapi.json#remove-connection-from-employer
+- name: get_benefit_by_id
+  description: Get a benefit by ID
+  source_operation: openapi/nayya-benefits-openapi.json#get-benefit-by-id
+- name: delete_benefit_by_id
+  description: Delete a benefit by ID
+  source_operation: openapi/nayya-benefits-openapi.json#delete-benefit-by-id
+- name: list_benefits_for_employer
+  description: List benefits for an employer
+  source_operation: openapi/nayya-benefits-openapi.json#list-benefits-for-employer
+- name: create_or_update_benefit
+  description: Create or update a benefit
+  source_operation: openapi/nayya-benefits-openapi.json#create-or-update-benefit
+- name: list_enrolled_benefits_for_employee
+  description: List enrolled benefits for an employee
+  source_operation: openapi/nayya-benefits-openapi.json#list-enrolled-benefits-for-employee
+- name: add_benefit_dependencies_to_benefit
+  description: Add benefit dependencies to a benefit
+  source_operation: openapi/nayya-benefits-openapi.json#add-benefit-dependencies-to-benefit
+- name: delete_benefit_dependencies_from_benefit
+  description: Delete benefit dependencies from a benefit
+  source_operation: openapi/nayya-benefits-openapi.json#delete-benefit-dependencies-from-benefit
+- name: list_templates
+  description: List rule templates
+  source_operation: openapi/nayya-benefits-openapi.json#list-templates
+- name: list_carriers
+  description: List carriers
+  source_operation: openapi/nayya-benefits-openapi.json#list-carriers
+- name: create_snapshot
+  description: Create a benefits snapshot for an employee
+  source_operation: openapi/nayya-benefits-openapi.json#create-snapshot
+- name: create_enrollments
+  description: Create one or more enrollments atomically for an employee
+  source_operation: openapi/nayya-benefits-openapi.json#create-enrollments
+- name: get_paginated_enrollments_for_employee
+  description: Get paginated enrollments for an employee
+  source_operation: openapi/nayya-benefits-openapi.json#get-paginated-enrollments-for-employee
+- name: update_enrollment
+  description: Update an enrollment
+  source_operation: openapi/nayya-benefits-openapi.json#update-enrollment
+- name: delete_enrollment
+  description: Delete an enrollment
+  source_operation: openapi/nayya-benefits-openapi.json#delete-enrollment
+- name: list_benefit_recommendations
+  description: List benefit recommendations for an employee
+  source_operation: openapi/nayya-choose-openapi.json#list-benefit-recommendations

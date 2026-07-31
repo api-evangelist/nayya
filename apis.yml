@@ -1,8 +1,15 @@
 aid: nayya
 name: Nayya
-description: Nayya is a company surfaced as a portfolio company of felicis, iconiq-capital and added to
-  the API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment
-  pipeline.
+description: >-
+  Nayya is an AI-powered health and wealth benefits decision-support platform used by
+  employers, brokers, carriers, and benefits-administration partners to help employees
+  choose and use their benefits. Its "Choose" experience delivers personalized plan
+  recommendations, and its agentic adviser can answer benefits questions and file
+  supplemental-health claims on an employee's behalf. Nayya exposes a partner-facing
+  REST API — Nayya Integrate — with three surfaces (Accounts, Benefits, and Choose) that
+  let integrators map employers, employees, and dependents, configure benefits, snapshot
+  an employee's context, retrieve recommendations, and record enrollments, plus an embedded
+  UI that partners drop into their own enrollment flow via SSO.
 url: https://raw.githubusercontent.com/api-evangelist/nayya/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -11,17 +18,204 @@ x-backed-by:
 - iconiq-capital
 x-tier: stub
 x-tier-reason: portfolio-lead
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://logo.clearbit.com/nayya.com
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-20'
 tags:
 - Company
-apis: []
+- Employee Benefits
+- Insurance
+- Insurtech
+- Health
+- Decision Support
+- HR Tech
+- Enrollment
+- Recommendations
+- Artificial Intelligence
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+apis:
+- aid: nayya:nayya-benefits-api
+  name: Nayya Benefits API
+  description: The Benefits API from Nayya — 4 operation(s) for benefits.
+  humanURL: https://docs.nayya.com/reference/create-employer
+  baseURL: https://integrate.nayya.com/accounts
+  tags:
+  - Benefits
+  properties:
+  - type: OpenAPI
+    url: openapi/nayya-benefits-api-openapi.yml
+- aid: nayya:nayya-carriers-api
+  name: Nayya Carriers API
+  description: The Carriers API from Nayya — 1 operation(s) for carriers.
+  humanURL: https://docs.nayya.com/reference/create-employer
+  baseURL: https://integrate.nayya.com/accounts
+  tags:
+  - Carriers
+  properties:
+  - type: OpenAPI
+    url: openapi/nayya-carriers-api-openapi.yml
+- aid: nayya:nayya-connections-api
+  name: Nayya Connections API
+  description: The Connections API from Nayya — 2 operation(s) for connections.
+  humanURL: https://docs.nayya.com/reference/create-employer
+  baseURL: https://integrate.nayya.com/accounts
+  tags:
+  - Connections
+  properties:
+  - type: OpenAPI
+    url: openapi/nayya-connections-api-openapi.yml
+- aid: nayya:nayya-dependents-api
+  name: Nayya Dependents API
+  description: The Dependents API from Nayya — 2 operation(s) for dependents.
+  humanURL: https://docs.nayya.com/reference/create-employer
+  baseURL: https://integrate.nayya.com/accounts
+  tags:
+  - Dependents
+  properties:
+  - type: OpenAPI
+    url: openapi/nayya-dependents-api-openapi.yml
+- aid: nayya:nayya-employees-api
+  name: Nayya Employees API
+  description: The Employees API from Nayya — 2 operation(s) for employees.
+  humanURL: https://docs.nayya.com/reference/create-employer
+  baseURL: https://integrate.nayya.com/accounts
+  tags:
+  - Employees
+  properties:
+  - type: OpenAPI
+    url: openapi/nayya-employees-api-openapi.yml
+- aid: nayya:nayya-employers-api
+  name: Nayya Employers API
+  description: The Employers API from Nayya — 3 operation(s) for employers.
+  humanURL: https://docs.nayya.com/reference/create-employer
+  baseURL: https://integrate.nayya.com/accounts
+  tags:
+  - Employers
+  properties:
+  - type: OpenAPI
+    url: openapi/nayya-employers-api-openapi.yml
+- aid: nayya:nayya-enrollments-api
+  name: Nayya Enrollments API
+  description: The Enrollments API from Nayya — 2 operation(s) for enrollments.
+  humanURL: https://docs.nayya.com/reference/create-employer
+  baseURL: https://integrate.nayya.com/accounts
+  tags:
+  - Enrollments
+  properties:
+  - type: OpenAPI
+    url: openapi/nayya-enrollments-api-openapi.yml
+- aid: nayya:nayya-recommendations-api
+  name: Nayya Recommendations API
+  description: The Recommendations API from Nayya — 1 operation(s) for recommendations.
+  humanURL: https://docs.nayya.com/reference/create-employer
+  baseURL: https://integrate.nayya.com/accounts
+  tags:
+  - Recommendations
+  properties:
+  - type: OpenAPI
+    url: openapi/nayya-recommendations-api-openapi.yml
+- aid: nayya:nayya-rule-templates-api
+  name: Nayya Rule Templates API
+  description: The Rule Templates API from Nayya — 1 operation(s) for rule templates.
+  humanURL: https://docs.nayya.com/reference/create-employer
+  baseURL: https://integrate.nayya.com/accounts
+  tags:
+  - Rule Templates
+  properties:
+  - type: OpenAPI
+    url: openapi/nayya-rule-templates-api-openapi.yml
+- aid: nayya:nayya-snapshots-api
+  name: Nayya Snapshots API
+  description: The Snapshots API from Nayya — 1 operation(s) for snapshots.
+  humanURL: https://docs.nayya.com/reference/create-employer
+  baseURL: https://integrate.nayya.com/accounts
+  tags:
+  - Snapshots
+  properties:
+  - type: OpenAPI
+    url: openapi/nayya-snapshots-api-openapi.yml
+- aid: nayya:nayya-token-api
+  name: Nayya Token API
+  description: The Token API from Nayya — 1 operation(s) for token.
+  humanURL: https://docs.nayya.com/reference/create-employer
+  baseURL: https://integrate.nayya.com/accounts
+  tags:
+  - Token
+  properties:
+  - type: OpenAPI
+    url: openapi/nayya-token-api-openapi.yml
 common:
 - type: Website
   url: https://nayya.com
+- type: DeveloperPortal
+  url: https://docs.nayya.com
+- type: Documentation
+  url: https://docs.nayya.com
+- type: APIReference
+  url: https://docs.nayya.com/reference/create-employer
+- type: GettingStarted
+  url: https://docs.nayya.com/docs/getting-started-with-choose
+- type: Support
+  url: https://support.nayya.com/
+- type: Blog
+  url: https://www.nayya.com/blog
+- type: StatusPage
+  url: https://status.nayya.com
+- type: TermsOfService
+  url: https://legal.nayya.com/end-user-terms/
+- type: PrivacyPolicy
+  url: https://www.nayya.com/privacy-policy
+- type: Compliance
+  url: https://trust.nayya.com/
+- type: TrustCenter
+  url: security/nayya-trust-center.yml
+- type: DomainSecurity
+  url: security/nayya-domain-security.yml
+- type: VulnerabilityDisclosure
+  url: security/nayya-vulnerability-disclosure.yml
+- type: Security
+  url: https://trust.nayya.com/
+- type: Authentication
+  url: authentication/nayya-authentication.yml
+- type: AgenticAccess
+  url: agentic-access/nayya-agentic-access.yml
+- type: Conventions
+  url: conventions/nayya-conventions.yml
+- type: ErrorCatalog
+  url: errors/nayya-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/nayya-lifecycle.yml
+- type: DataModel
+  url: data-model/nayya-data-model.yml
+- type: Conformance
+  url: conformance/nayya-conformance.yml
+- type: Components
+  url: components/nayya-components.yml
+- type: MCPServer
+  url: mcp/nayya-mcp.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: LLMsTxt
+  url: llms/nayya-llms.txt
+x-enrichment:
+  date: '2026-07-20'
+  status: enriched
+  artifacts_added: 23
+  pass: local-v1

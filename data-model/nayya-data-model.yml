@@ -1,0 +1,83 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/nayya-accounts-openapi.json, openapi/nayya-benefits-openapi.json, openapi/nayya-choose-openapi.json
+notes: >-
+  Entity-relationship graph derived from the Nayya Integrate path hierarchy and request/
+  response DTOs. IDs are path parameters (employerId, employeeId, dependentId, benefitId).
+entities:
+- name: Employer
+  schemas: [CreateEmployerDto, EmployerResponseDto, UpdateEmployerDto, ListEmployersDto]
+  key: employerId
+- name: Employee
+  schemas: [CreateEmployeeDto, EmployeeResponseDto, UpdateEmployeeDto, ListEmployeesDto]
+  key: employeeId
+- name: Dependent
+  schemas: [CreateDependentDto, DependentResponseDto, UpdateDependentDto]
+  key: dependentId
+- name: Benefit
+  key: benefitId
+- name: Enrollment
+  key: enrollmentId
+- name: Snapshot
+- name: Connection
+  schemas: [ConnectionDto, AddConnectionDto, RemoveConnectionDto, ConfiguredConnectionsResponseDto]
+- name: Carrier
+- name: RuleTemplate
+- name: Recommendation
+relationships:
+- from: Employee
+  to: Employer
+  type: belongs_to
+  via: employerId
+- from: Employer
+  to: Employee
+  type: has_many
+  via: employerId
+- from: Dependent
+  to: Employee
+  type: belongs_to
+  via: employeeId
+- from: Employee
+  to: Dependent
+  type: has_many
+  via: employeeId
+- from: Benefit
+  to: Employer
+  type: belongs_to
+  via: employerId
+- from: Employer
+  to: Benefit
+  type: has_many
+  via: employerId
+- from: Benefit
+  to: Benefit
+  type: has_many
+  via: benefit-dependencies
+- from: Benefit
+  to: Carrier
+  type: belongs_to
+  via: carrier
+- from: Benefit
+  to: RuleTemplate
+  type: belongs_to
+  via: rule-template
+- from: Enrollment
+  to: Employee
+  type: belongs_to
+  via: employeeId
+- from: Employer
+  to: Enrollment
+  type: has_many
+  via: employerId
+- from: Snapshot
+  to: Employee
+  type: belongs_to
+  via: employeeId
+- from: Employer
+  to: Connection
+  type: has_many
+  via: employerId
+- from: Recommendation
+  to: Employee
+  type: belongs_to
+  via: employeeId

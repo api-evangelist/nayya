@@ -1,0 +1,18 @@
+generated: '2026-07-20'
+method: searched
+source: https://docs.nayya.com/docs/embedding-an-iframe, https://docs.nayya.com/docs/getting-started-with-choose
+notes: >-
+  Nayya's decision-support experience ("Choose") is delivered as an embedded surface,
+  not a client-side element library. Partners embed Nayya directly in their web app via
+  an iframe (or link), gated by an enterprise SSO connection.
+families:
+- name: Embedded Choose experience
+  kind: iframe-embed
+  description: >-
+    Nayya's benefits decision-support UI embedded directly in the partner's web app via
+    an iframe or hand-off link, providing employees personalized plan recommendations
+    inside the partner's existing enrollment flow.
+  auth: >-
+    Secured by an SSO connection to the partner's identity provider (OIDC preferred,
+    SAML supported) configured through a Nayya self-service link.
+  docs: https://docs.nayya.com/docs/embedding-an-iframe

@@ -1,0 +1,14 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Nayya Accounts API
+  version: 1.0.0
+extends: openapi/nayya-accounts-openapi.json
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: nayya
+    x-apievangelist-product: Accounts API
+    x-apievangelist-auth: JWT bearer via POST /token (client credentials)
+    x-apievangelist-conventions: conventions/nayya-conventions.yml
+    x-apievangelist-errors: errors/nayya-problem-types.yml
+    x-apievangelist-lifecycle: lifecycle/nayya-lifecycle.yml

@@ -1,0 +1,12 @@
+generated: '2026-07-20'
+method: generated
+source: openapi/nayya-accounts-openapi.json, openapi/nayya-benefits-openapi.json, openapi/nayya-choose-openapi.json
+skills:
+- file: nayya-onboard-employer-and-population.md
+  name: Onboard an employer and its population
+  api: openapi/nayya-accounts-openapi.json
+  operations: [get-token, create-employer, create-employee, create-dependent, list-employees]
+- file: nayya-configure-benefits-and-recommend.md
+  name: Configure benefits and get recommendations
+  api: openapi/nayya-benefits-openapi.json
+  operations: [create-or-update-benefit, list-benefits-for-employer, create-snapshot, list-benefit-recommendations, create-enrollments]

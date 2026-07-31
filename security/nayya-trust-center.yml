@@ -1,0 +1,14 @@
+generated: '2026-07-20'
+method: searched
+probe: true
+source: https://trust.nayya.com/
+url: https://trust.nayya.com/
+certifications:
+- SOC 2
+- HIPAA
+evidence:
+- source: https://trust.nayya.com/
+  keywords:
+  - soc 2
+  - hipaa
+  - trust center

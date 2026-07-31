@@ -1,0 +1,55 @@
+# Nayya Documentation
+
+> Documentation for Nayya
+
+## Guides
+- [Getting Started with Choose](https://docs.nayya.com/docs/getting-started-with-choose.md)
+- [Embedding Nayya](https://docs.nayya.com/docs/embedding-an-iframe.md): For a seamless user flow, Nayya can be embedded in an iframe directly in your web app.
+- [Adding and using a login Connection](https://docs.nayya.com/docs/adding-and-using-a-login-connection.md): You've created an enterprise connection in our system, and want to use it when creating employer
+- [Requesting an Access Token](https://docs.nayya.com/docs/requesting-an-access-token-for-the-partners-api.md)
+- [Creating a Benefit](https://docs.nayya.com/docs/creating-a-benefit-with-rule-templates.md)
+- [Benefit and Rate Dependencies](https://docs.nayya.com/docs/benefit-and-rate-dependencies.md)
+
+## API Reference
+- [Create an Employer](https://docs.nayya.com/reference/create-employer.md)
+- [Get all Employers](https://docs.nayya.com/reference/list-employers.md): Response includes an array with the page and number of results requested. Results are returned in ascending order by `createdAt` date.
+- [Update an Employer](https://docs.nayya.com/reference/update-employer.md)
+- [Delete an Employer](https://docs.nayya.com/reference/delete-employer.md)
+- [Get an Employer by ID](https://docs.nayya.com/reference/get-employer-by-id.md)
+- [Create an Employee](https://docs.nayya.com/reference/create-employee.md)
+- [Get all Employees](https://docs.nayya.com/reference/list-employees.md): Response includes an array with the page and the number of results requested. Results are returned in ascending order by `createdAt` date.
+- [Get Employee by ID](https://docs.nayya.com/reference/get-employee-by-id.md)
+- [Update Employee](https://docs.nayya.com/reference/update-employee.md)
+- [Delete Employee](https://docs.nayya.com/reference/delete-employee.md)
+- [Create a Dependent](https://docs.nayya.com/reference/create-dependent.md)
+- [Get all Employee Dependents](https://docs.nayya.com/reference/list-employee-dependents.md)
+- [Update a Dependent](https://docs.nayya.com/reference/update-dependent.md)
+- [Get Dependent by ID](https://docs.nayya.com/reference/get-dependent-by-id.md)
+- [Delete a Dependent](https://docs.nayya.com/reference/delete-dependent.md)
+- [Get a Token](https://docs.nayya.com/reference/get-token.md)
+- [Add connections to an Account](https://docs.nayya.com/reference/add-connections.md)
+- [Add connection to an Employer](https://docs.nayya.com/reference/add-connection-to-employer.md)
+- [Remove connection from an Employer](https://docs.nayya.com/reference/remove-connection-from-employer.md)
+- [Get a Benefit by ID](https://docs.nayya.com/reference/get-benefit-by-id.md)
+- [Delete a Benefit by ID](https://docs.nayya.com/reference/delete-benefit-by-id.md)
+- [List Benefits for Employer](https://docs.nayya.com/reference/list-benefits-for-employer.md): Response includes an array with the page and number of results requested. Results are returned in ascending order by `createdAt` date.
+- [Create or Update a Benefit](https://docs.nayya.com/reference/create-or-update-benefit.md)
+- [Add Benefit Dependencies to Benefit](https://docs.nayya.com/reference/add-benefit-dependencies-to-benefit.md)
+- [List Enrolled Benefits for Employee](https://docs.nayya.com/reference/list-enrolled-benefits-for-employee.md): Response includes benefits that the employee is currently enrolled in.
+- [Delete Benefit Dependencies from Benefit](https://docs.nayya.com/reference/delete-benefit-dependencies-from-benefit.md)
+- [List Rule Templates](https://docs.nayya.com/reference/list-templates.md)
+- [List Carriers](https://docs.nayya.com/reference/list-carriers.md)
+- [Create a Snapshot](https://docs.nayya.com/reference/create-snapshot.md)
+- [Create Enrollments](https://docs.nayya.com/reference/create-enrollments.md): Create one or more enrollments for a single employee in one request. All enrollments are created atomically - if one fails, all fail and are rolled back.
+- [Update Enrollment](https://docs.nayya.com/reference/update-enrollment.md)
+- [Delete Enrollment](https://docs.nayya.com/reference/delete-enrollment.md)
+- [List Benefit Recommendations for an Employee](https://docs.nayya.com/reference/list-benefit-recommendations.md): Returns benefit recommendations for the specified employee. The request must be authorized for the organization that owns the employer.
+
+## Recipes
+- [Create a New Plan](https://docs.nayya.com/recipes/create-a-new-plan.md)
+- [Decision Support API: Post eligibility for Critical Illness Plans with Individual Grouping](https://docs.nayya.com/recipes/decision-support-api-post-eligibility-for-critical-illness-plans-with-individual-grouping.md)
+- [Decision Support API: Post Employee Elibility with Voluntary life plan with Individual Grouping](https://docs.nayya.com/recipes/decision-support-api-post-employee-elibility-with-voluntary-life-plan-with-individual-grouping.md)
+- [Decision Support Api: Post  Employee Eligibility for Accident plans with Family Grouping](https://docs.nayya.com/recipes/decision-support-api-post-employee-eligibility-for-accident-plans-with-family-grouping.md)
+- [Decision Support Api: Post Employee Eligibility for Hospital Indemnity plans with Family Grouping](https://docs.nayya.com/recipes/decision-support-api-post-employee-eligibility-for-hospital-indemnity-plans-with-family-grouping.md)
+- [Decision Support API: Post Employee eligibility with Basic life free plan and Flat rate type](https://docs.nayya.com/recipes/decision-support-api-post-employee-eligibility-with-basic-life-free-plan-and-flat-rate-type.md)
+- [New DST Employee](https://docs.nayya.com/recipes/new-dst-employee.md)
