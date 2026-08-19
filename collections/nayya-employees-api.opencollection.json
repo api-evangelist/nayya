@@ -1,0 +1,193 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Accounts Benefits Employees API",
+    "version": "0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Employees",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all Employees",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://integrate.nayya.com/accounts/employers/:employerId/employees",
+            "headers": [
+              {
+                "name": "X-API-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "employerId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employer (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`)."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Specifies which page of results to retrieve."
+              },
+              {
+                "name": "perPage",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Supports like search by name, email of the employee."
+              }
+            ]
+          },
+          "docs": "Response includes an array with the page and the number of results requested. Results are returned in ascending order by `createdAt` date."
+        },
+        {
+          "info": {
+            "name": "Create an Employee",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://integrate.nayya.com/accounts/employers/:employerId/employees",
+            "headers": [
+              {
+                "name": "X-API-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "employerId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employer (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create an Employee"
+        },
+        {
+          "info": {
+            "name": "Get Employee by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://integrate.nayya.com/accounts/employers/:employerId/employees/:employeeId",
+            "headers": [
+              {
+                "name": "X-API-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "employerId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employer (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`)."
+              },
+              {
+                "name": "employeeId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employee (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`)."
+              }
+            ]
+          },
+          "docs": "Get Employee by ID"
+        },
+        {
+          "info": {
+            "name": "Update Employee",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://integrate.nayya.com/accounts/employers/:employerId/employees/:employeeId",
+            "headers": [
+              {
+                "name": "X-API-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "employerId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employer (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`)."
+              },
+              {
+                "name": "employeeId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employee (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update Employee"
+        },
+        {
+          "info": {
+            "name": "Delete Employee",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://integrate.nayya.com/accounts/employers/:employerId/employees/:employeeId",
+            "headers": [
+              {
+                "name": "X-API-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "employerId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employer (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`)."
+              },
+              {
+                "name": "employeeId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employee (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`)."
+              }
+            ]
+          },
+          "docs": "Delete Employee"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

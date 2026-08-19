@@ -1,0 +1,1262 @@
+{
+  "item": [
+    {
+      "id": "e2176fac-cb38-475b-9813-f4de3e5feaf2",
+      "name": "Enrollments",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ba0f7814-5e5b-4ed1-bc79-dc33177f4494",
+          "name": "Create Enrollments",
+          "request": {
+            "name": "Create Enrollments",
+            "description": {
+              "content": "Create one or more enrollments for a single employee in one request. All enrollments are created atomically - if one fails, all fail and are rolled back.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "employers",
+                ":employerId",
+                "enrollments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "employerId",
+                  "description": "(Required) The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employer (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Optional API major version. Omit this header for the same behavior as `1` (this specification).",
+                "key": "X-API-Version",
+                "value": "1"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"enrollments\": [\n    {\n      \"benefitId\": \"<string>\",\n      \"beginsAt\": \"<dateTime>\",\n      \"dependentId\": \"<string>\",\n      \"benefitAmountCents\": \"<number>\",\n      \"rateAmountCents\": \"<number>\",\n      \"endsAt\": \"<dateTime>\",\n      \"groupNumber\": \"<string>\",\n      \"memberId\": \"<string>\",\n      \"deductiblePayerCode\": \"<string>\",\n      \"externalRelationship\": \"<string>\"\n    },\n    {\n      \"benefitId\": \"<string>\",\n      \"beginsAt\": \"<dateTime>\",\n      \"dependentId\": \"<string>\",\n      \"benefitAmountCents\": \"<number>\",\n      \"rateAmountCents\": \"<number>\",\n      \"endsAt\": \"<dateTime>\",\n      \"groupNumber\": \"<string>\",\n      \"memberId\": \"<string>\",\n      \"deductiblePayerCode\": \"<string>\",\n      \"externalRelationship\": \"<string>\"\n    }\n  ],\n  \"employeeId\": \"<string>\",\n  \"employeeExternalId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "41f73aed-749d-4d49-b10f-8997b44ea8a5",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "employers",
+                    ":employerId",
+                    "enrollments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "employerId",
+                      "description": "(Required) The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employer (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional API major version. Omit this header for the same behavior as `1` (this specification).",
+                    "key": "X-API-Version",
+                    "value": "1"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"enrollments\": [\n    {\n      \"benefitId\": \"123e4567-e89b-12d3-a456-426614174000\",\n      \"benefitAmountCents\": 100000,\n      \"rateAmountCents\": 5000,\n      \"beginsAt\": \"2024-01-01T00:00:00.000Z\",\n      \"groupNumber\": \"GRP123456\"\n    },\n    {\n      \"benefitId\": \"223e4567-e89b-12d3-a456-426614174000\",\n      \"dependentId\": \"567e8901-e89b-12d3-a456-426614174000\",\n      \"benefitAmountCents\": 50000,\n      \"rateAmountCents\": 2500,\n      \"beginsAt\": \"2024-01-01T00:00:00.000Z\",\n      \"groupNumber\": \"GRP123456\"\n    }\n  ],\n  \"employeeId\": \"987e6543-e89b-12d3-a456-426614174000\",\n  \"employeeExternalId\": \"EMP123456\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"123e4567-e89b-12d3-a456-426614174000\",\n    \"benefitId\": \"123e4567-e89b-12d3-a456-426614174000\",\n    \"employeeId\": \"123e4567-e89b-12d3-a456-426614174000\",\n    \"beginsAt\": \"2024-01-01T00:00:00.000Z\",\n    \"createdAt\": \"2024-01-01T00:00:00.000Z\",\n    \"updatedAt\": \"2024-01-01T00:00:00.000Z\",\n    \"benefit\": {\n      \"id\": \"f47ac10b-58cc-4372-a567-0e02b2c3d479\",\n      \"employerId\": \"38a52be4-9352-453e-af97-5c3b448652b0\",\n      \"externalId\": \"6937yht-zr5ht39-n83uh5th-arwmte1\",\n      \"carrierId\": \"6592a62b-297b-459b-954b-7e4941095149\",\n      \"type\": \"medical\",\n      \"displayName\": \"Medical 1M Gold\",\n      \"activeAt\": \"2020-03-18T00:38:42.353Z\",\n      \"createdAt\": \"2024-11-22T20:03:04.395Z\",\n      \"updatedAt\": \"2024-12-22T20:03:04.395Z\",\n      \"externalCarrierName\": \"Carrier 123\",\n      \"description\": \"This benefit is a medical plan\",\n      \"inactiveAt\": \"1962-05-29T11:30:53.750Z\",\n      \"detailsUrl\": \"https://example.com\",\n      \"code\": \"MEDICAL_GOLD_2024\",\n      \"features\": [\n        {\n          \"id\": \"f47ac10b-58cc-4372-a567-0e02b2c3d479\",\n          \"displayName\": \"Office Visit\",\n          \"createdAt\": \"2024-11-22T20:03:04.395Z\",\n          \"updatedAt\": \"2024-12-22T20:03:04.395Z\",\n          \"type\": \"office_visit\",\n          \"featureItems\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"labels\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        {\n          \"id\": \"f47ac10b-58cc-4372-a567-0e02b2c3d479\",\n          \"displayName\": \"Office Visit\",\n          \"createdAt\": \"2024-11-22T20:03:04.395Z\",\n          \"updatedAt\": \"2024-12-22T20:03:04.395Z\",\n          \"type\": \"office_visit\",\n          \"featureItems\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"labels\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        }\n      ],\n      \"tiers\": [\n        {\n          \"id\": \"d9428888-122b-11e1-b85c-61cd3cbb3210\",\n          \"externalId\": \"tier456\",\n          \"displayName\": \"In Network\",\n          \"type\": \"in_network\",\n          \"createdAt\": \"2024-11-22T20:03:04.395Z\",\n          \"updatedAt\": \"2024-12-22T20:03:04.395Z\",\n          \"networkId\": \"network123\"\n        },\n        {\n          \"id\": \"d9428888-122b-11e1-b85c-61cd3cbb3210\",\n          \"externalId\": \"tier456\",\n          \"displayName\": \"In Network\",\n          \"type\": \"in_network\",\n          \"createdAt\": \"2024-11-22T20:03:04.395Z\",\n          \"updatedAt\": \"2024-12-22T20:03:04.395Z\",\n          \"networkId\": \"network123\"\n        }\n      ],\n      \"thresholds\": [\n        {\n          \"id\": \"6ba7b810-9dad-11d1-80b4-00c04fd430c8\",\n          \"displayName\": \"Individual Deductible\",\n          \"type\": \"deductible\",\n          \"createdAt\": \"2024-11-22T20:03:04.395Z\",\n          \"updatedAt\": \"2024-12-22T20:03:04.395Z\",\n          \"thresholdItems\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        {\n          \"id\": \"6ba7b810-9dad-11d1-80b4-00c04fd430c8\",\n          \"displayName\": \"Individual Deductible\",\n          \"type\": \"deductible\",\n          \"createdAt\": \"2024-11-22T20:03:04.395Z\",\n          \"updatedAt\": \"2024-12-22T20:03:04.395Z\",\n          \"thresholdItems\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        }\n      ],\n      \"benefitDependencies\": [\n        {\n          \"id\": \"4e8392d4-f6b3-4cc0-9b77-b702f8115807\",\n          \"type\": \"must_enroll_in\",\n          \"createdAt\": \"2024-11-22T20:03:04.395Z\",\n          \"updatedAt\": \"2024-12-22T20:03:04.395Z\",\n          \"dependentBenefits\": [\n            \"6937yht-zr5ht39-n83uh5th-arwmte1\",\n            \"fs32231-zr5htDSA-n83uh5th-arwmte1\"\n          ],\n          \"dependentBenefitsExternal\": [\n            \"6937yht-zr5ht39-n83uh5th-arwmte1\",\n            \"fs32231-zr5htDSA-n83uh5th-arwmte1\"\n          ]\n        },\n        {\n          \"id\": \"4e8392d4-f6b3-4cc0-9b77-b702f8115807\",\n          \"type\": \"must_enroll_in\",\n          \"createdAt\": \"2024-11-22T20:03:04.395Z\",\n          \"updatedAt\": \"2024-12-22T20:03:04.395Z\",\n          \"dependentBenefits\": [\n            \"6937yht-zr5ht39-n83uh5th-arwmte1\",\n            \"fs32231-zr5htDSA-n83uh5th-arwmte1\"\n          ],\n          \"dependentBenefitsExternal\": [\n            \"6937yht-zr5ht39-n83uh5th-arwmte1\",\n            \"fs32231-zr5htDSA-n83uh5th-arwmte1\"\n          ]\n        }\n      ]\n    },\n    \"dependentId\": {},\n    \"benefitAmountCents\": {},\n    \"rateAmountCents\": {},\n    \"endsAt\": {},\n    \"groupNumber\": {},\n    \"memberId\": {},\n    \"deductiblePayerCode\": \"AETNA123\",\n    \"externalRelationship\": \"string\"\n  },\n  {\n    \"id\": \"123e4567-e89b-12d3-a456-426614174000\",\n    \"benefitId\": \"123e4567-e89b-12d3-a456-426614174000\",\n    \"employeeId\": \"123e4567-e89b-12d3-a456-426614174000\",\n    \"beginsAt\": \"2024-01-01T00:00:00.000Z\",\n    \"createdAt\": \"2024-01-01T00:00:00.000Z\",\n    \"updatedAt\": \"2024-01-01T00:00:00.000Z\",\n    \"benefit\": {\n      \"id\": \"f47ac10b-58cc-4372-a567-0e02b2c3d479\",\n      \"employerId\": \"38a52be4-9352-453e-af97-5c3b448652b0\",\n      \"externalId\": \"6937yht-zr5ht39-n83uh5th-arwmte1\",\n      \"carrierId\": \"6592a62b-297b-459b-954b-7e4941095149\",\n      \"type\": \"medical\",\n      \"displayName\": \"Medical 1M Gold\",\n      \"activeAt\": \"2019-07-14T19:59:10.633Z\",\n      \"createdAt\": \"2024-11-22T20:03:04.395Z\",\n      \"updatedAt\": \"2024-12-22T20:03:04.395Z\",\n      \"externalCarrierName\": \"Carrier 123\",\n      \"description\": \"This benefit is a medical plan\",\n      \"inactiveAt\": \"2022-11-27T05:30:19.062Z\",\n      \"detailsUrl\": \"https://example.com\",\n      \"code\": \"MEDICAL_GOLD_2024\",\n      \"features\": [\n        {\n          \"id\": \"f47ac10b-58cc-4372-a567-0e02b2c3d479\",\n          \"displayName\": \"Office Visit\",\n          \"createdAt\": \"2024-11-22T20:03:04.395Z\",\n          \"updatedAt\": \"2024-12-22T20:03:04.395Z\",\n          \"type\": \"office_visit\",\n          \"featureItems\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"labels\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        {\n          \"id\": \"f47ac10b-58cc-4372-a567-0e02b2c3d479\",\n          \"displayName\": \"Office Visit\",\n          \"createdAt\": \"2024-11-22T20:03:04.395Z\",\n          \"updatedAt\": \"2024-12-22T20:03:04.395Z\",\n          \"type\": \"office_visit\",\n          \"featureItems\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"labels\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        }\n      ],\n      \"tiers\": [\n        {\n          \"id\": \"d9428888-122b-11e1-b85c-61cd3cbb3210\",\n          \"externalId\": \"tier456\",\n          \"displayName\": \"In Network\",\n          \"type\": \"in_network\",\n          \"createdAt\": \"2024-11-22T20:03:04.395Z\",\n          \"updatedAt\": \"2024-12-22T20:03:04.395Z\",\n          \"networkId\": \"network123\"\n        },\n        {\n          \"id\": \"d9428888-122b-11e1-b85c-61cd3cbb3210\",\n          \"externalId\": \"tier456\",\n          \"displayName\": \"In Network\",\n          \"type\": \"in_network\",\n          \"createdAt\": \"2024-11-22T20:03:04.395Z\",\n          \"updatedAt\": \"2024-12-22T20:03:04.395Z\",\n          \"networkId\": \"network123\"\n        }\n      ],\n      \"thresholds\": [\n        {\n          \"id\": \"6ba7b810-9dad-11d1-80b4-00c04fd430c8\",\n          \"displayName\": \"Individual Deductible\",\n          \"type\": \"deductible\",\n          \"createdAt\": \"2024-11-22T20:03:04.395Z\",\n          \"updatedAt\": \"2024-12-22T20:03:04.395Z\",\n          \"thresholdItems\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        {\n          \"id\": \"6ba7b810-9dad-11d1-80b4-00c04fd430c8\",\n          \"displayName\": \"Individual Deductible\",\n          \"type\": \"deductible\",\n          \"createdAt\": \"2024-11-22T20:03:04.395Z\",\n          \"updatedAt\": \"2024-12-22T20:03:04.395Z\",\n          \"thresholdItems\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        }\n      ],\n      \"benefitDependencies\": [\n        {\n          \"id\": \"4e8392d4-f6b3-4cc0-9b77-b702f8115807\",\n          \"type\": \"must_enroll_in\",\n          \"createdAt\": \"2024-11-22T20:03:04.395Z\",\n          \"updatedAt\": \"2024-12-22T20:03:04.395Z\",\n          \"dependentBenefits\": [\n            \"6937yht-zr5ht39-n83uh5th-arwmte1\",\n            \"fs32231-zr5htDSA-n83uh5th-arwmte1\"\n          ],\n          \"dependentBenefitsExternal\": [\n            \"6937yht-zr5ht39-n83uh5th-arwmte1\",\n            \"fs32231-zr5htDSA-n83uh5th-arwmte1\"\n          ]\n        },\n        {\n          \"id\": \"4e8392d4-f6b3-4cc0-9b77-b702f8115807\",\n          \"type\": \"must_enroll_in\",\n          \"createdAt\": \"2024-11-22T20:03:04.395Z\",\n          \"updatedAt\": \"2024-12-22T20:03:04.395Z\",\n          \"dependentBenefits\": [\n            \"6937yht-zr5ht39-n83uh5th-arwmte1\",\n            \"fs32231-zr5htDSA-n83uh5th-arwmte1\"\n          ],\n          \"dependentBenefitsExternal\": [\n            \"6937yht-zr5ht39-n83uh5th-arwmte1\",\n            \"fs32231-zr5htDSA-n83uh5th-arwmte1\"\n          ]\n        }\n      ]\n    },\n    \"dependentId\": {},\n    \"benefitAmountCents\": {},\n    \"rateAmountCents\": {},\n    \"endsAt\": {},\n    \"groupNumber\": {},\n    \"memberId\": {},\n    \"deductiblePayerCode\": \"AETNA123\",\n    \"externalRelationship\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f27b8398-62d5-4ff7-a6ff-e9ea7c954a17",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "employers",
+                    ":employerId",
+                    "enrollments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "employerId",
+                      "description": "(Required) The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employer (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional API major version. Omit this header for the same behavior as `1` (this specification).",
+                    "key": "X-API-Version",
+                    "value": "1"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"enrollments\": [\n    {\n      \"benefitId\": \"123e4567-e89b-12d3-a456-426614174000\",\n      \"benefitAmountCents\": 100000,\n      \"rateAmountCents\": 5000,\n      \"beginsAt\": \"2024-01-01T00:00:00.000Z\",\n      \"groupNumber\": \"GRP123456\"\n    },\n    {\n      \"benefitId\": \"223e4567-e89b-12d3-a456-426614174000\",\n      \"dependentId\": \"567e8901-e89b-12d3-a456-426614174000\",\n      \"benefitAmountCents\": 50000,\n      \"rateAmountCents\": 2500,\n      \"beginsAt\": \"2024-01-01T00:00:00.000Z\",\n      \"groupNumber\": \"GRP123456\"\n    }\n  ],\n  \"employeeId\": \"987e6543-e89b-12d3-a456-426614174000\",\n  \"employeeExternalId\": \"EMP123456\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4d9f9e2c-b91b-4933-abcb-02d8f9180ca2",
+              "name": "Unprocessable entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "employers",
+                    ":employerId",
+                    "enrollments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "employerId",
+                      "description": "(Required) The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employer (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional API major version. Omit this header for the same behavior as `1` (this specification).",
+                    "key": "X-API-Version",
+                    "value": "1"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"enrollments\": [\n    {\n      \"benefitId\": \"123e4567-e89b-12d3-a456-426614174000\",\n      \"benefitAmountCents\": 100000,\n      \"rateAmountCents\": 5000,\n      \"beginsAt\": \"2024-01-01T00:00:00.000Z\",\n      \"groupNumber\": \"GRP123456\"\n    },\n    {\n      \"benefitId\": \"223e4567-e89b-12d3-a456-426614174000\",\n      \"dependentId\": \"567e8901-e89b-12d3-a456-426614174000\",\n      \"benefitAmountCents\": 50000,\n      \"rateAmountCents\": 2500,\n      \"beginsAt\": \"2024-01-01T00:00:00.000Z\",\n      \"groupNumber\": \"GRP123456\"\n    }\n  ],\n  \"employeeId\": \"987e6543-e89b-12d3-a456-426614174000\",\n  \"employeeExternalId\": \"EMP123456\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6ad51d58-691c-4b4a-a7f1-19513137e061",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "employers",
+                    ":employerId",
+                    "enrollments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "employerId",
+                      "description": "(Required) The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employer (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional API major version. Omit this header for the same behavior as `1` (this specification).",
+                    "key": "X-API-Version",
+                    "value": "1"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"enrollments\": [\n    {\n      \"benefitId\": \"123e4567-e89b-12d3-a456-426614174000\",\n      \"benefitAmountCents\": 100000,\n      \"rateAmountCents\": 5000,\n      \"beginsAt\": \"2024-01-01T00:00:00.000Z\",\n      \"groupNumber\": \"GRP123456\"\n    },\n    {\n      \"benefitId\": \"223e4567-e89b-12d3-a456-426614174000\",\n      \"dependentId\": \"567e8901-e89b-12d3-a456-426614174000\",\n      \"benefitAmountCents\": 50000,\n      \"rateAmountCents\": 2500,\n      \"beginsAt\": \"2024-01-01T00:00:00.000Z\",\n      \"groupNumber\": \"GRP123456\"\n    }\n  ],\n  \"employeeId\": \"987e6543-e89b-12d3-a456-426614174000\",\n  \"employeeExternalId\": \"EMP123456\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d3c529c1-e5fd-49f5-a7a9-6138cb87d8bd",
+          "name": "List Enrollments of an Employee",
+          "request": {
+            "name": "List Enrollments of an Employee",
+            "description": {
+              "content": "List Enrollments of an Employee",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "employers",
+                ":employerId",
+                "enrollments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "employeeId",
+                  "value": "<uuid>",
+                  "description": "(Required) The ID of the employee to get enrollments for"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number (1-based)."
+                },
+                {
+                  "disabled": false,
+                  "key": "perPage",
+                  "value": "50",
+                  "description": "Number of results per page (max 100)."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "employerId",
+                  "description": "(Required) The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employer (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Optional API major version. Omit this header for the same behavior as `1` (this specification).",
+                "key": "X-API-Version",
+                "value": "1"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "57e928d3-abb2-4458-b36e-dee0e9ec1b4e",
+              "name": "The enrollments for the given employee",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "employers",
+                    ":employerId",
+                    "enrollments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "employeeId",
+                      "value": "123e4567-e89b-12d3-a456-426614174000"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "perPage",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "employerId",
+                      "description": "(Required) The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employer (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional API major version. Omit this header for the same behavior as `1` (this specification).",
+                    "key": "X-API-Version",
+                    "value": "1"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"123e4567-e89b-12d3-a456-426614174000\",\n      \"benefitId\": \"123e4567-e89b-12d3-a456-426614174000\",\n      \"employeeId\": \"123e4567-e89b-12d3-a456-426614174000\",\n      \"beginsAt\": \"2024-01-01T00:00:00.000Z\",\n      \"createdAt\": \"2024-01-01T00:00:00.000Z\",\n      \"updatedAt\": \"2024-01-01T00:00:00.000Z\",\n      \"benefit\": {\n        \"id\": \"f47ac10b-58cc-4372-a567-0e02b2c3d479\",\n        \"employerId\": \"38a52be4-9352-453e-af97-5c3b448652b0\",\n        \"externalId\": \"6937yht-zr5ht39-n83uh5th-arwmte1\",\n        \"carrierId\": \"6592a62b-297b-459b-954b-7e4941095149\",\n        \"type\": \"medical\",\n        \"displayName\": \"Medical 1M Gold\",\n        \"activeAt\": \"2023-10-25T03:08:59.744Z\",\n        \"createdAt\": \"2024-11-22T20:03:04.395Z\",\n        \"updatedAt\": \"2024-12-22T20:03:04.395Z\",\n        \"externalCarrierName\": \"Carrier 123\",\n        \"description\": \"This benefit is a medical plan\",\n        \"inactiveAt\": \"1983-05-02T17:58:01.256Z\",\n        \"detailsUrl\": \"https://example.com\",\n        \"code\": \"MEDICAL_GOLD_2024\",\n        \"features\": [\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"displayName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"createdAt\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"updatedAt\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"featureItems\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"labels\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"displayName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"createdAt\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"updatedAt\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"featureItems\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"labels\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"tiers\": [\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"externalId\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"displayName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"createdAt\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"updatedAt\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"networkId\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"externalId\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"displayName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"createdAt\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"updatedAt\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"networkId\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"thresholds\": [\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"displayName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"createdAt\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"updatedAt\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"thresholdItems\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"displayName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"createdAt\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"updatedAt\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"thresholdItems\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"benefitDependencies\": [\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"createdAt\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"updatedAt\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"dependentBenefits\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"dependentBenefitsExternal\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"createdAt\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"updatedAt\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"dependentBenefits\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"dependentBenefitsExternal\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"dependentId\": {},\n      \"benefitAmountCents\": {},\n      \"rateAmountCents\": {},\n      \"endsAt\": {},\n      \"groupNumber\": {},\n      \"memberId\": {},\n      \"deductiblePayerCode\": \"AETNA123\",\n      \"externalRelationship\": \"string\"\n    },\n    {\n      \"id\": \"123e4567-e89b-12d3-a456-426614174000\",\n      \"benefitId\": \"123e4567-e89b-12d3-a456-426614174000\",\n      \"employeeId\": \"123e4567-e89b-12d3-a456-426614174000\",\n      \"beginsAt\": \"2024-01-01T00:00:00.000Z\",\n      \"createdAt\": \"2024-01-01T00:00:00.000Z\",\n      \"updatedAt\": \"2024-01-01T00:00:00.000Z\",\n      \"benefit\": {\n        \"id\": \"f47ac10b-58cc-4372-a567-0e02b2c3d479\",\n        \"employerId\": \"38a52be4-9352-453e-af97-5c3b448652b0\",\n        \"externalId\": \"6937yht-zr5ht39-n83uh5th-arwmte1\",\n        \"carrierId\": \"6592a62b-297b-459b-954b-7e4941095149\",\n        \"type\": \"medical\",\n        \"displayName\": \"Medical 1M Gold\",\n        \"activeAt\": \"1987-12-22T11:25:17.106Z\",\n        \"createdAt\": \"2024-11-22T20:03:04.395Z\",\n        \"updatedAt\": \"2024-12-22T20:03:04.395Z\",\n        \"externalCarrierName\": \"Carrier 123\",\n        \"description\": \"This benefit is a medical plan\",\n        \"inactiveAt\": \"1998-12-18T05:49:30.491Z\",\n        \"detailsUrl\": \"https://example.com\",\n        \"code\": \"MEDICAL_GOLD_2024\",\n        \"features\": [\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"displayName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"createdAt\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"updatedAt\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"featureItems\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"labels\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"displayName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"createdAt\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"updatedAt\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"featureItems\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"labels\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"tiers\": [\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"externalId\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"displayName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"createdAt\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"updatedAt\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"networkId\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"externalId\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"displayName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"createdAt\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"updatedAt\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"networkId\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"thresholds\": [\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"displayName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"createdAt\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"updatedAt\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"thresholdItems\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"displayName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"createdAt\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"updatedAt\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"thresholdItems\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"benefitDependencies\": [\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"createdAt\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"updatedAt\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"dependentBenefits\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"dependentBenefitsExternal\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"createdAt\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"updatedAt\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"dependentBenefits\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"dependentBenefitsExternal\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"dependentId\": {},\n      \"benefitAmountCents\": {},\n      \"rateAmountCents\": {},\n      \"endsAt\": {},\n      \"groupNumber\": {},\n      \"memberId\": {},\n      \"deductiblePayerCode\": \"AETNA123\",\n      \"externalRelationship\": \"string\"\n    }\n  ],\n  \"currentPage\": 706.9507205019044,\n  \"totalCount\": 1639.6589491354107,\n  \"totalPages\": 81.93614003754735\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b4617876-44ae-49f3-a900-022b361dbfef",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "employers",
+                    ":employerId",
+                    "enrollments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "employeeId",
+                      "value": "123e4567-e89b-12d3-a456-426614174000"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "perPage",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "employerId",
+                      "description": "(Required) The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employer (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional API major version. Omit this header for the same behavior as `1` (this specification).",
+                    "key": "X-API-Version",
+                    "value": "1"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2b7b621c-2ff1-4725-9c31-044bba9db81e",
+              "name": "Unprocessable entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "employers",
+                    ":employerId",
+                    "enrollments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "employeeId",
+                      "value": "123e4567-e89b-12d3-a456-426614174000"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "perPage",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "employerId",
+                      "description": "(Required) The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employer (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional API major version. Omit this header for the same behavior as `1` (this specification).",
+                    "key": "X-API-Version",
+                    "value": "1"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "85637769-1d58-4cc6-9a53-d53460541063",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "employers",
+                    ":employerId",
+                    "enrollments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "employeeId",
+                      "value": "123e4567-e89b-12d3-a456-426614174000"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "perPage",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "employerId",
+                      "description": "(Required) The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employer (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional API major version. Omit this header for the same behavior as `1` (this specification).",
+                    "key": "X-API-Version",
+                    "value": "1"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "03487b21-1327-4d2f-ac12-96d59773966b",
+          "name": "Update Enrollment",
+          "request": {
+            "name": "Update Enrollment",
+            "description": {},
+            "url": {
+              "path": [
+                "employers",
+                ":employerId",
+                "enrollment"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "employerId",
+                  "description": "(Required) The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employer (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Optional API major version. Omit this header for the same behavior as `1` (this specification).",
+                "key": "X-API-Version",
+                "value": "1"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"benefitId\": \"<string>\",\n  \"employeeId\": \"<string>\",\n  \"employeeExternalId\": \"<string>\",\n  \"dependentId\": \"<string>\",\n  \"benefitAmountCents\": \"<number>\",\n  \"rateAmountCents\": \"<number>\",\n  \"beginsAt\": \"<dateTime>\",\n  \"endsAt\": \"<dateTime>\",\n  \"groupNumber\": \"<string>\",\n  \"memberId\": \"<string>\",\n  \"deductiblePayerCode\": \"<string>\",\n  \"externalRelationship\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f0d493f2-dc16-42f3-9fef-e74b27dea6df",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "employers",
+                    ":employerId",
+                    "enrollment"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "employerId",
+                      "description": "(Required) The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employer (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional API major version. Omit this header for the same behavior as `1` (this specification).",
+                    "key": "X-API-Version",
+                    "value": "1"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"benefitId\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"employeeId\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"employeeExternalId\": \"EMP123456\",\n  \"dependentId\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"benefitAmountCents\": 100000,\n  \"rateAmountCents\": 5000,\n  \"beginsAt\": \"2024-01-01T00:00:00.000Z\",\n  \"endsAt\": \"2024-12-31T23:59:59.999Z\",\n  \"groupNumber\": \"GRP123456\",\n  \"memberId\": \"MEM123456\",\n  \"deductiblePayerCode\": \"AETNA123\",\n  \"externalRelationship\": \"spouse\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "da3b7ee8-9b48-4b06-b320-38d6edef22d3",
+              "name": "Unprocessable entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "employers",
+                    ":employerId",
+                    "enrollment"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "employerId",
+                      "description": "(Required) The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employer (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional API major version. Omit this header for the same behavior as `1` (this specification).",
+                    "key": "X-API-Version",
+                    "value": "1"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"benefitId\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"employeeId\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"employeeExternalId\": \"EMP123456\",\n  \"dependentId\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"benefitAmountCents\": 100000,\n  \"rateAmountCents\": 5000,\n  \"beginsAt\": \"2024-01-01T00:00:00.000Z\",\n  \"endsAt\": \"2024-12-31T23:59:59.999Z\",\n  \"groupNumber\": \"GRP123456\",\n  \"memberId\": \"MEM123456\",\n  \"deductiblePayerCode\": \"AETNA123\",\n  \"externalRelationship\": \"spouse\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0bb29a5f-f99c-4145-94e6-70ccfcba118b",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "employers",
+                    ":employerId",
+                    "enrollment"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "employerId",
+                      "description": "(Required) The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employer (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional API major version. Omit this header for the same behavior as `1` (this specification).",
+                    "key": "X-API-Version",
+                    "value": "1"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"benefitId\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"employeeId\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"employeeExternalId\": \"EMP123456\",\n  \"dependentId\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"benefitAmountCents\": 100000,\n  \"rateAmountCents\": 5000,\n  \"beginsAt\": \"2024-01-01T00:00:00.000Z\",\n  \"endsAt\": \"2024-12-31T23:59:59.999Z\",\n  \"groupNumber\": \"GRP123456\",\n  \"memberId\": \"MEM123456\",\n  \"deductiblePayerCode\": \"AETNA123\",\n  \"externalRelationship\": \"spouse\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "18eec42a-9910-420b-8637-3141846afee4",
+          "name": "Delete Enrollment",
+          "request": {
+            "name": "Delete Enrollment",
+            "description": {},
+            "url": {
+              "path": [
+                "employers",
+                ":employerId",
+                "enrollment"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "employerId",
+                  "description": "(Required) The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employer (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Optional API major version. Omit this header for the same behavior as `1` (this specification).",
+                "key": "X-API-Version",
+                "value": "1"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"benefitId\": \"<string>\",\n  \"employeeId\": \"<string>\",\n  \"employeeExternalId\": \"<string>\",\n  \"dependentId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a7d9d484-e20e-488c-8c50-214bb5a3beef",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "employers",
+                    ":employerId",
+                    "enrollment"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "employerId",
+                      "description": "(Required) The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employer (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional API major version. Omit this header for the same behavior as `1` (this specification).",
+                    "key": "X-API-Version",
+                    "value": "1"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"benefitId\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"employeeId\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"employeeExternalId\": \"EMP123456\",\n  \"dependentId\": \"123e4567-e89b-12d3-a456-426614174000\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e8f382c6-2162-4c54-b539-404711ec0bb4",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "employers",
+                    ":employerId",
+                    "enrollment"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "employerId",
+                      "description": "(Required) The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employer (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional API major version. Omit this header for the same behavior as `1` (this specification).",
+                    "key": "X-API-Version",
+                    "value": "1"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"benefitId\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"employeeId\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"employeeExternalId\": \"EMP123456\",\n  \"dependentId\": \"123e4567-e89b-12d3-a456-426614174000\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "717c5fd3-4ba0-4677-9b08-e98c861abc5f",
+              "name": "Unprocessable entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "employers",
+                    ":employerId",
+                    "enrollment"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "employerId",
+                      "description": "(Required) The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employer (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional API major version. Omit this header for the same behavior as `1` (this specification).",
+                    "key": "X-API-Version",
+                    "value": "1"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"benefitId\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"employeeId\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"employeeExternalId\": \"EMP123456\",\n  \"dependentId\": \"123e4567-e89b-12d3-a456-426614174000\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8b664a3d-3d2f-4e41-9867-6e84b2beef8e",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "employers",
+                    ":employerId",
+                    "enrollment"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "employerId",
+                      "description": "(Required) The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employer (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional API major version. Omit this header for the same behavior as `1` (this specification).",
+                    "key": "X-API-Version",
+                    "value": "1"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"benefitId\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"employeeId\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"employeeExternalId\": \"EMP123456\",\n  \"dependentId\": \"123e4567-e89b-12d3-a456-426614174000\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://integrate.nayya.com/accounts",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "7ef31607-0003-42be-88ff-e025f8d48605",
+    "name": "Accounts Benefits Enrollments API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Accounts API",
+      "type": "text/plain"
+    }
+  }
+}

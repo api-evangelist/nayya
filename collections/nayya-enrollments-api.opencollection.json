@@ -1,0 +1,154 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Accounts Benefits Enrollments API",
+    "version": "0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Enrollments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Enrollments of an Employee",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://integrate.nayya.com/accounts/employers/:employerId/enrollments",
+            "headers": [
+              {
+                "name": "X-API-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "employerId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employer (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`)."
+              },
+              {
+                "name": "employeeId",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the employee to get enrollments for"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number (1-based)."
+              },
+              {
+                "name": "perPage",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page (max 100)."
+              }
+            ]
+          },
+          "docs": "List Enrollments of an Employee"
+        },
+        {
+          "info": {
+            "name": "Create Enrollments",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://integrate.nayya.com/accounts/employers/:employerId/enrollments",
+            "headers": [
+              {
+                "name": "X-API-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "employerId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employer (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create one or more enrollments for a single employee in one request. All enrollments are created atomically - if one fails, all fail and are rolled back."
+        },
+        {
+          "info": {
+            "name": "Update Enrollment",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://integrate.nayya.com/accounts/employers/:employerId/enrollment",
+            "headers": [
+              {
+                "name": "X-API-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "employerId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employer (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update Enrollment"
+        },
+        {
+          "info": {
+            "name": "Delete Enrollment",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://integrate.nayya.com/accounts/employers/:employerId/enrollment",
+            "headers": [
+              {
+                "name": "X-API-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "employerId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employer (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete Enrollment"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

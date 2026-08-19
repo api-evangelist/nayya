@@ -1,0 +1,103 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Accounts Benefits Connections API",
+    "version": "0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Connections",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Add connections to an Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://integrate.nayya.com/accounts/connections",
+            "headers": [
+              {
+                "name": "X-API-Version",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add connections to an Account"
+        },
+        {
+          "info": {
+            "name": "Add connection to an Employer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://integrate.nayya.com/accounts/employers/:employerId/connections",
+            "headers": [
+              {
+                "name": "X-API-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "employerId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employer (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add connection to an Employer"
+        },
+        {
+          "info": {
+            "name": "Remove connection from an Employer",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://integrate.nayya.com/accounts/employers/:employerId/connections",
+            "headers": [
+              {
+                "name": "X-API-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "employerId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employer (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Remove connection from an Employer"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

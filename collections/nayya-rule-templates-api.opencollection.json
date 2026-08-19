@@ -1,0 +1,41 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Accounts Benefits Rule Templates API",
+    "version": "0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Rule Templates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Rule Templates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://integrate.nayya.com/accounts/rule_templates",
+            "headers": [
+              {
+                "name": "X-API-Version",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "List Rule Templates"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

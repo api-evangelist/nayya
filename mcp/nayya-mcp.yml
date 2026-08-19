@@ -2,11 +2,9 @@ generated: '2026-07-20'
 method: derived
 status: candidate
 source: openapi/nayya-accounts-openapi.json, openapi/nayya-benefits-openapi.json, openapi/nayya-choose-openapi.json
-notes: >-
-  No official Nayya MCP server was found (no hosted server documented at docs.nayya.com,
-  no @nayya package on npm). This is a candidate tool list derived one-to-one from the
-  35 published Nayya Integrate operations, to seed an MCP server. Auth is JWT bearer via
-  POST /token (client credentials).
+notes: No official Nayya MCP server was found (no hosted server documented at docs.nayya.com, no @nayya
+  package on npm). This is a candidate tool list derived one-to-one from the 35 published Nayya Integrate
+  operations, to seed an MCP server. Auth is JWT bearer via POST /token (client credentials).
 server:
   name: nayya
   transport: http
@@ -117,3 +115,9 @@ tools:
 - name: list_benefit_recommendations
   description: List benefit recommendations for an employee
   source_operation: openapi/nayya-choose-openapi.json#list-benefit-recommendations
+deployment:
+  mode: none
+  verified: derived
+  tools: 35
+  checked: '2026-08-12'
+  source: catalog MCP census

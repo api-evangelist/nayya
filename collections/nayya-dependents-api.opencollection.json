@@ -1,0 +1,205 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Accounts Benefits Dependents API",
+    "version": "0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Dependents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all Employee Dependents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://integrate.nayya.com/accounts/employers/:employerId/employees/:employeeId/dependents",
+            "headers": [
+              {
+                "name": "X-API-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "employerId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employer (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`)."
+              },
+              {
+                "name": "employeeId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employee (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`)."
+              }
+            ]
+          },
+          "docs": "Get all Employee Dependents"
+        },
+        {
+          "info": {
+            "name": "Create a Dependent",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://integrate.nayya.com/accounts/employers/:employerId/employees/:employeeId/dependents",
+            "headers": [
+              {
+                "name": "X-API-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "employerId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employer (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`)."
+              },
+              {
+                "name": "employeeId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employee (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a Dependent"
+        },
+        {
+          "info": {
+            "name": "Get Dependent by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://integrate.nayya.com/accounts/employers/:employerId/employees/:employeeId/dependents/:dependentId",
+            "headers": [
+              {
+                "name": "X-API-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "employerId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employer (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`)."
+              },
+              {
+                "name": "employeeId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employee (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`)."
+              },
+              {
+                "name": "dependentId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employee's dependent (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`)."
+              }
+            ]
+          },
+          "docs": "Get Dependent by ID"
+        },
+        {
+          "info": {
+            "name": "Update a Dependent",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://integrate.nayya.com/accounts/employers/:employerId/employees/:employeeId/dependents/:dependentId",
+            "headers": [
+              {
+                "name": "X-API-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "employerId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employer (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`)."
+              },
+              {
+                "name": "employeeId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employee (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`)."
+              },
+              {
+                "name": "dependentId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employee's dependent (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a Dependent"
+        },
+        {
+          "info": {
+            "name": "Delete a Dependent",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://integrate.nayya.com/accounts/employers/:employerId/employees/:employeeId/dependents/:dependentId",
+            "headers": [
+              {
+                "name": "X-API-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "employerId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employer (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`)."
+              },
+              {
+                "name": "employeeId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employee (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`)."
+              },
+              {
+                "name": "dependentId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID from Nayya or your unique ID prefixed with the `external:` indicator that represents an employee's dependent (e.g. `external:3438yht-hg8ht39-h23uh9th-uewht0o`)."
+              }
+            ]
+          },
+          "docs": "Delete a Dependent"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
