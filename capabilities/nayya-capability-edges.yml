@@ -1,0 +1,63 @@
+slug: nayya
+provider: Nayya
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Insurance
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 5
+edges:
+- tag: Benefits
+  spec_file: nayya-benefits-api-openapi.yml
+  capability_id: BC-300.30
+  capability_id_l1: BC-300
+  capability_name: Compensation & Benefits Management
+  confidence: 0.85
+  evidence: List Benefits for Employer / Create or Update a Benefit / List Enrolled Benefits for Employee
+  reason: CRUD over employer-sponsored benefit plans and retrieval of an employee's enrolled benefits
+    is benefits administration, which sits under Compensation & Benefits Management regardless of who
+    buys the platform.
+- tag: Enrollments
+  spec_file: nayya-enrollments-api-openapi.yml
+  capability_id: BC-300.30
+  capability_id_l1: BC-300
+  capability_name: Compensation & Benefits Management
+  confidence: 0.85
+  evidence: POST /employers/{employerId}/enrollments  Create Enrollments / List Enrollments of an Employee
+  reason: Creating, listing, updating and deleting employee benefit enrollments is core benefits administration
+    under Compensation & Benefits Management.
+- tag: Dependents
+  spec_file: nayya-dependents-api-openapi.yml
+  capability_id: BC-300.30
+  capability_id_l1: BC-300
+  capability_name: Compensation & Benefits Management
+  confidence: 0.7
+  evidence: POST /employers/{employerId}/employees/{employeeId}/dependents  Create a Dependent
+  reason: Dependent records maintained under employees in a benefits-enrollment platform serve benefits
+    eligibility and coverage administration; could alternatively be read as pure HR employee records,
+    so moderate confidence.
+- tag: Employees
+  spec_file: nayya-employees-api-openapi.yml
+  capability_id: BC-300.70
+  capability_id_l1: BC-300
+  capability_name: HR Operations Management
+  confidence: 0.7
+  evidence: Create an Employee / Get all Employees / Update Employee (CreateEmployeeDto, EmployeeResponseDto)
+  reason: Straight CRUD over employee master records held per employer - HR operations / employee record
+    keeping, feeding the benefits processes; sub-capability choice between HR Operations and Benefits
+    keeps confidence moderate.
+- tag: Recommendations
+  spec_file: nayya-recommendations-api-openapi.yml
+  capability_id: BC-300.30
+  capability_id_l1: BC-300
+  capability_name: Compensation & Benefits Management
+  confidence: 0.7
+  evidence: List Benefit Recommendations for an Employee (RecommendedBenefitsResponseDto)
+  reason: Personalised benefit plan recommendations for an employee support benefits election and administration;
+    it is decision support rather than record-keeping, so confidence is moderate.
