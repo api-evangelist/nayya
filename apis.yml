@@ -54,6 +54,17 @@ tags:
 - Insurtech
 - Health
 - Decision Support
+- Human Resources
+- Enrollment
+- Recommendations
+- Artificial Intelligence
+tags_raw:
+- Company
+- Employee Benefits
+- Insurance
+- Insurtech
+- Health
+- Decision Support
 - HR Tech
 - Enrollment
 - Recommendations
@@ -80,6 +91,8 @@ apis:
   humanURL: https://docs.nayya.com/reference/create-employer
   baseURL: https://integrate.nayya.com/accounts
   tags:
+  - Carrier
+  tags_raw:
   - Carriers
   properties:
   - type: OpenAPI
@@ -130,6 +143,8 @@ apis:
   humanURL: https://docs.nayya.com/reference/create-employer
   baseURL: https://integrate.nayya.com/accounts
   tags:
+  - Enrollment
+  tags_raw:
   - Enrollments
   properties:
   - type: OpenAPI
@@ -170,6 +185,8 @@ apis:
   humanURL: https://docs.nayya.com/reference/create-employer
   baseURL: https://integrate.nayya.com/accounts
   tags:
+  - Tokens
+  tags_raw:
   - Token
   properties:
   - type: OpenAPI
