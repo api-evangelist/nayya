@@ -1,34 +1,55 @@
 {
   "provider": "nayya",
   "sources": [
-    "nayya-benefits-api-openapi.yml",
-    "nayya-carriers-api-openapi.yml",
-    "nayya-connections-api-openapi.yml",
-    "nayya-dependents-api-openapi.yml",
-    "nayya-employees-api-openapi.yml",
-    "nayya-employers-api-openapi.yml",
-    "nayya-enrollments-api-openapi.yml",
-    "nayya-recommendations-api-openapi.yml",
-    "nayya-rule-templates-api-openapi.yml",
-    "nayya-snapshots-api-openapi.yml",
-    "nayya-token-api-openapi.yml"
+    "_original/nayya-accounts-openapi.json",
+    "_original/nayya-benefits-openapi.json",
+    "_original/nayya-choose-openapi.json"
   ],
   "outputs": [
-    "nayya-benefits-api-openapi.yml",
-    "nayya-carriers-api-openapi.yml",
     "nayya-connections-api-openapi.yml",
     "nayya-dependents-api-openapi.yml",
     "nayya-employees-api-openapi.yml",
     "nayya-employers-api-openapi.yml",
+    "nayya-token-api-openapi.yml",
+    "nayya-benefits-api-openapi.yml",
+    "nayya-carriers-api-openapi.yml",
     "nayya-enrollments-api-openapi.yml",
-    "nayya-recommendations-api-openapi.yml",
     "nayya-rule-templates-api-openapi.yml",
     "nayya-snapshots-api-openapi.yml",
-    "nayya-token-api-openapi.yml"
+    "nayya-recommendations-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (3 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "nayya-accounts-openapi.json: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "nayya-accounts-openapi.json: declared missing tag: Connections",
+    "nayya-accounts-openapi.json: declared missing tag: Dependents",
+    "nayya-accounts-openapi.json: declared missing tag: Employees",
+    "nayya-accounts-openapi.json: declared missing tag: Employers",
+    "nayya-accounts-openapi.json: declared missing tag: Token",
+    "nayya-benefits-openapi.json: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "nayya-benefits-openapi.json: declared missing tag: Benefits",
+    "nayya-benefits-openapi.json: declared missing tag: Carriers",
+    "nayya-benefits-openapi.json: declared missing tag: Enrollments",
+    "nayya-benefits-openapi.json: declared missing tag: Rule Templates",
+    "nayya-benefits-openapi.json: declared missing tag: Snapshots",
+    "nayya-choose-openapi.json: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "nayya-choose-openapi.json: declared missing tag: Recommendations",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "nayya-benefits-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "nayya-carriers-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "nayya-connections-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "nayya-dependents-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "nayya-employees-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "nayya-employers-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "nayya-enrollments-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "nayya-recommendations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "nayya-rule-templates-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "nayya-snapshots-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "nayya-token-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

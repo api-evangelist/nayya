@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Accounts Benefits Employers API
+  title: Accounts Employers API
   description: Accounts API
   version: '0.1'
   contact: {}
@@ -288,6 +288,91 @@ paths:
       - read:partner-employers
 components:
   schemas:
+    CreateEmployerDto:
+      type: object
+      properties:
+        externalId:
+          type:
+          - string
+          - 'null'
+          description: Employer external ID
+          example: EMP-123
+        name:
+          type: string
+          description: Employer name
+          example: Acme
+        description:
+          type:
+          - string
+          - 'null'
+          description: Employer description
+          example: A leading technology company
+        streetAddress:
+          type:
+          - string
+          - 'null'
+          description: Employer street address
+          example: 214 Park Ave S
+        city:
+          type:
+          - string
+          - 'null'
+          description: Employer city
+          example: New York
+        state:
+          type:
+          - string
+          - 'null'
+          description: Employer state
+          example: NY
+        zipCode:
+          type:
+          - string
+          - 'null'
+          description: Employer zip code
+          example: '10001'
+        ein:
+          type:
+          - string
+          - 'null'
+          description: Employer EIN
+          example: 12-3456789
+        websiteUrl:
+          type:
+          - string
+          - 'null'
+          description: Employer website URL
+          example: http://wwww.example.com
+        phoneNumber:
+          type:
+          - string
+          - 'null'
+          description: Employer phone number
+          example: '+12125551234'
+        logoUrl:
+          type:
+          - string
+          - 'null'
+          description: Employer logo URL
+          example: https://www.acme.com/logo.png
+        benAdminButton:
+          type:
+          - string
+          - 'null'
+          description: Employer ben admin button text
+          example: Proceed to Enrollment
+        benAdminLink:
+          type:
+          - string
+          - 'null'
+          description: Employer ben admin link
+          example: https://www.acme.com/ben-admin-link
+        connection:
+          type: string
+          description: the auth0 connection name to use
+          example: google-oauth2
+      required:
+      - name
     ListEmployersDto:
       type: object
       properties:
@@ -306,79 +391,6 @@ components:
       - currentPage
       - totalPages
       - totalCount
-    CreateEmployerDto:
-      type: object
-      properties:
-        externalId:
-          type: string
-          description: Employer external ID
-          example: EMP-123
-          nullable: true
-        name:
-          type: string
-          description: Employer name
-          example: Acme
-        description:
-          type: string
-          description: Employer description
-          example: A leading technology company
-          nullable: true
-        streetAddress:
-          type: string
-          description: Employer street address
-          example: 214 Park Ave S
-          nullable: true
-        city:
-          type: string
-          description: Employer city
-          example: New York
-          nullable: true
-        state:
-          type: string
-          description: Employer state
-          example: NY
-          nullable: true
-        zipCode:
-          type: string
-          description: Employer zip code
-          example: '10001'
-          nullable: true
-        ein:
-          type: string
-          description: Employer EIN
-          example: 12-3456789
-          nullable: true
-        websiteUrl:
-          type: string
-          description: Employer website URL
-          example: http://wwww.example.com
-          nullable: true
-        phoneNumber:
-          type: string
-          description: Employer phone number
-          example: '+12125551234'
-          nullable: true
-        logoUrl:
-          type: string
-          description: Employer logo URL
-          example: https://www.acme.com/logo.png
-          nullable: true
-        benAdminButton:
-          type: string
-          description: Employer ben admin button text
-          example: Proceed to Enrollment
-          nullable: true
-        benAdminLink:
-          type: string
-          description: Employer ben admin link
-          example: https://www.acme.com/ben-admin-link
-          nullable: true
-        connection:
-          type: string
-          description: the auth0 connection name to use
-          example: google-oauth2
-      required:
-      - name
     EmployerResponseDto:
       type: object
       properties:
@@ -387,8 +399,9 @@ components:
           description: Employer ID
           example: 123e4567-e89b-12d3-a456-426614174000
         externalId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Employer external ID
           example: EMP-123
         name:
@@ -396,58 +409,69 @@ components:
           description: Employer name
           example: Acme Corporation
         description:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Employer description
           example: A leading technology company
         streetAddress:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Employer street address
           example: 123 Main Street
         city:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Employer city
           example: San Francisco
         state:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Employer state
           example: CA
         zipCode:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Employer zip code
           example: '94105'
         ein:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Employer EIN
           example: 12-3456789
         websiteUrl:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Employer website URL
           example: https://www.acme.com
         phoneNumber:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Employer phone number
           example: '+12125551234'
         logoUrl:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Employer logo URL
           example: https://www.acme.com/logo.png
         benAdminButton:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Employer ben admin button text
           example: Proceed to Enrollment
         benAdminLink:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Employer ben admin link
           example: https://www.acme.com/ben-admin-link
         createdAt:
@@ -481,64 +505,75 @@ components:
       type: object
       properties:
         externalId:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Employer external ID
           example: EMP-123
-          nullable: true
         name:
           type: string
           description: Employer name
           example: Acme
         description:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Employer description
           example: A leading technology company
-          nullable: true
         streetAddress:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Employer street address
           example: 214 Park Ave S
-          nullable: true
         city:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Employer city
           example: New York
-          nullable: true
         state:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Employer state
           example: NY
-          nullable: true
         zipCode:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Employer zip code
           example: '10001'
-          nullable: true
         websiteUrl:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Employer website URL
           example: http://wwww.example.com
-          nullable: true
         phoneNumber:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Employer phone number
           example: '+12125551234'
-          nullable: true
         logoUrl:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Employer logo URL
           example: https://www.acme.com/logo.png
-          nullable: true
         benAdminButton:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Employer ben admin button text
           example: Proceed to Enrollment
-          nullable: true
         benAdminLink:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Employer ben admin link
           example: https://www.acme.com/ben-admin-link
-          nullable: true
   securitySchemes:
     bearerAuth:
       type: http

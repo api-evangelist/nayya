@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Accounts Benefits Employees API
+  title: Accounts Employees API
   description: Accounts API
   version: '0.1'
   contact: {}
@@ -264,65 +264,65 @@ paths:
       - delete:partner-employees
 components:
   schemas:
-    EmployeeResponseDto:
+    UpdateEmployeeDto:
       type: object
       properties:
-        id:
-          type: string
-          description: A globally unique identifier assigned by Nayya to an employee, used for all employee-related operations in Nayya's API.
-          example: 123e4567-e89b-12d3-a456-426614174000
         externalId:
-          type: string
+          type:
+          - string
+          - 'null'
           description: A unique identifier from the partner's system, used to map employee records between the partner's system and Nayya.
           example: EMP-123
         employerProvidedId:
-          type: string
+          type:
+          - string
+          - 'null'
           description: An employer-specific identifier for an employee, unique within a single employer but not across the entire partner system.
           example: EMPLOYER-123
-        employerId:
-          type: string
-          description: Employer ID
-          example: 123e4567-e19b-12d3-a456-426614174000
-        firstName:
-          type: string
-          description: Employee first name
-          example: Jane
         lastName:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Employee last name
           example: Doe
+        firstName:
+          type:
+          - string
+          - 'null'
+          description: Employee first name
+          example: Jane
         email:
           type: string
           description: Employee email
-          example: employee@example.com
+          example: jane.doe@example.com
         streetAddress:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Employee street address
           example: 123 Main St
         city:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Employee city
           example: San Francisco
         state:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Employee state
           example: CA
         zipCode:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Employee zip code
           example: '94105'
-        phoneNumber:
-          type: string
-          description: Employee phone number
-          example: '+15551234567'
-        ssn:
-          type: string
-          deprecated: true
-          nullable: true
-          description: (Deprecated) SSN of employee
-          example: null
         gender:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Employee gender
           example: F
           enum:
@@ -330,7 +330,9 @@ components:
           - F
           - U
         sexAssignedAtBirth:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Employee sex assigned at birth
           example: F
           enum:
@@ -338,19 +340,42 @@ components:
           - F
           - U
         dateOfBirth:
-          format: date-time
-          type: string
+          format: date
+          type:
+          - string
+          - 'null'
           description: Employee date of birth
+          example: '1985-02-03'
+        startDate:
+          format: date
+          type:
+          - string
+          - 'null'
+          description: Employee start date
           example: '2021-01-01'
-        locale:
-          type: string
-          description: Employee locale
-          example: en
-          enum:
-          - en
-          - es
+        terminatedDate:
+          format: date
+          type:
+          - string
+          - 'null'
+          description: Employee terminated date
+          example: '2025-01-01'
+        phoneNumber:
+          type:
+          - string
+          - 'null'
+          description: Employee phone number
+          example: '+15551234567'
+        ssn:
+          type:
+          - string
+          - 'null'
+          description: Employee SSN (9 digits)
+          example: '123456789'
         incomeAmountCents:
-          type: number
+          type:
+          - number
+          - 'null'
           description: Employee income amount in cents
           example: 10000
         additionalIncomeAmountCents:
@@ -364,9 +389,13 @@ components:
           enum:
           - salary
           - hourly
-        ethnicity:
+        locale:
           type: string
-          description: Employee ethnicity
+          description: Employee locale
+          example: en
+          enum:
+          - en
+          - es
         employmentType:
           type: string
           description: Employee employment type
@@ -385,73 +414,24 @@ components:
           - temp
           - seasonal
           - individual_contractor
-        startDate:
-          format: date-time
-          type: string
-          description: Employee start date
-          example: '2021-01-01'
-        terminatedDate:
-          format: date-time
-          type: string
-          description: Employee terminated date
-          example: '2025-01-01'
         tobaccoUsage:
-          type: boolean
+          type:
+          - boolean
+          - 'null'
           description: Employee tobacco usage
           example: false
         hoursPerWeek:
-          type: number
+          type:
+          - number
+          - 'null'
           description: Employee hours worked per week
           example: 40
-        createdAt:
-          format: date-time
-          type: string
-          description: Creation date
-          example: '2024-03-20T00:00:00.000Z'
-        updatedAt:
-          format: date-time
-          type: string
-          description: Last update date
-          example: '2024-03-20T00:00:00.000Z'
-        dependents:
-          description: Employee dependents
-          type: array
-          items:
-            $ref: '#/components/schemas/DependentResponseDto'
-        customAttributes:
-          type: object
-          description: Employee custom attributes
-          example:
-            department: Engineering
-            employeeLevel: Senior
-            annualBonusTargetCents: 500000
-            unionMember: false
-      required:
-      - id
-      - employerProvidedId
-      - employerId
-      - firstName
-      - lastName
-      - email
-      - streetAddress
-      - city
-      - state
-      - zipCode
-      - phoneNumber
-      - dateOfBirth
-      - locale
-      - incomeAmountCents
-      - additionalIncomeAmountCents
-      - incomeType
-      - ethnicity
-      - employmentType
-      - employmentSubType
-      - startDate
-      - terminatedDate
-      - hoursPerWeek
-      - createdAt
-      - updatedAt
-      - dependents
+        ethnicity:
+          type:
+          - string
+          - 'null'
+          description: Employee ethnicity
+          example: prefer_not_to_say
     CreateEmployeeDto:
       type: object
       properties:
@@ -595,6 +575,213 @@ components:
       - firstName
       - email
       - dateOfBirth
+    ListEmployeesDto:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmployeeResponseDto'
+        currentPage:
+          type: number
+        totalPages:
+          type: number
+        totalCount:
+          type: number
+      required:
+      - data
+      - currentPage
+      - totalPages
+      - totalCount
+    EmployeeResponseDto:
+      type: object
+      properties:
+        id:
+          type: string
+          description: A globally unique identifier assigned by Nayya to an employee, used for all employee-related operations in Nayya's API.
+          example: 123e4567-e89b-12d3-a456-426614174000
+        externalId:
+          type: string
+          description: A unique identifier from the partner's system, used to map employee records between the partner's system and Nayya.
+          example: EMP-123
+        employerProvidedId:
+          type: string
+          description: An employer-specific identifier for an employee, unique within a single employer but not across the entire partner system.
+          example: EMPLOYER-123
+        employerId:
+          type: string
+          description: Employer ID
+          example: 123e4567-e19b-12d3-a456-426614174000
+        firstName:
+          type: string
+          description: Employee first name
+          example: Jane
+        lastName:
+          type: string
+          description: Employee last name
+          example: Doe
+        email:
+          type: string
+          description: Employee email
+          example: employee@example.com
+        streetAddress:
+          type: string
+          description: Employee street address
+          example: 123 Main St
+        city:
+          type: string
+          description: Employee city
+          example: San Francisco
+        state:
+          type: string
+          description: Employee state
+          example: CA
+        zipCode:
+          type: string
+          description: Employee zip code
+          example: '94105'
+        phoneNumber:
+          type: string
+          description: Employee phone number
+          example: '+15551234567'
+        ssn:
+          type:
+          - string
+          - 'null'
+          deprecated: true
+          description: (Deprecated) SSN of employee
+          example: null
+        gender:
+          type: string
+          description: Employee gender
+          example: F
+          enum:
+          - M
+          - F
+          - U
+        sexAssignedAtBirth:
+          type: string
+          description: Employee sex assigned at birth
+          example: F
+          enum:
+          - M
+          - F
+          - U
+        dateOfBirth:
+          format: date-time
+          type: string
+          description: Employee date of birth
+          example: '2021-01-01'
+        locale:
+          type: string
+          description: Employee locale
+          example: en
+          enum:
+          - en
+          - es
+        incomeAmountCents:
+          type: number
+          description: Employee income amount in cents
+          example: 10000
+        additionalIncomeAmountCents:
+          type: number
+          description: Employee additional income amount in cents
+          example: 5000
+        incomeType:
+          type: string
+          description: Employee income type
+          example: salary
+          enum:
+          - salary
+          - hourly
+        ethnicity:
+          type: string
+          description: Employee ethnicity
+        employmentType:
+          type: string
+          description: Employee employment type
+          example: employee
+          enum:
+          - employee
+          - contractor
+        employmentSubType:
+          type: string
+          description: Employee employment sub type
+          example: full_time
+          enum:
+          - full_time
+          - part_time
+          - intern
+          - temp
+          - seasonal
+          - individual_contractor
+        startDate:
+          format: date-time
+          type: string
+          description: Employee start date
+          example: '2021-01-01'
+        terminatedDate:
+          format: date-time
+          type: string
+          description: Employee terminated date
+          example: '2025-01-01'
+        tobaccoUsage:
+          type: boolean
+          description: Employee tobacco usage
+          example: false
+        hoursPerWeek:
+          type: number
+          description: Employee hours worked per week
+          example: 40
+        createdAt:
+          format: date-time
+          type: string
+          description: Creation date
+          example: '2024-03-20T00:00:00.000Z'
+        updatedAt:
+          format: date-time
+          type: string
+          description: Last update date
+          example: '2024-03-20T00:00:00.000Z'
+        dependents:
+          description: Employee dependents
+          type: array
+          items:
+            $ref: '#/components/schemas/DependentResponseDto'
+        customAttributes:
+          type: object
+          description: Employee custom attributes
+          example:
+            department: Engineering
+            employeeLevel: Senior
+            annualBonusTargetCents: 500000
+            unionMember: false
+      required:
+      - id
+      - employerProvidedId
+      - employerId
+      - firstName
+      - lastName
+      - email
+      - streetAddress
+      - city
+      - state
+      - zipCode
+      - phoneNumber
+      - dateOfBirth
+      - locale
+      - incomeAmountCents
+      - additionalIncomeAmountCents
+      - incomeType
+      - ethnicity
+      - employmentType
+      - employmentSubType
+      - startDate
+      - terminatedDate
+      - hoursPerWeek
+      - createdAt
+      - updatedAt
+      - dependents
     DependentResponseDto:
       type: object
       properties:
@@ -611,9 +798,10 @@ components:
           description: Employee ID
           example: 123e4567-e19b-12d3-a456-426614174000
         ssn:
-          type: string
+          type:
+          - string
+          - 'null'
           deprecated: true
-          nullable: true
           description: (Deprecated) SSN of dependent
           example: null
         firstName:
@@ -724,173 +912,6 @@ components:
       - employmentStatus
       - createdAt
       - updatedAt
-    ListEmployeesDto:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/EmployeeResponseDto'
-        currentPage:
-          type: number
-        totalPages:
-          type: number
-        totalCount:
-          type: number
-      required:
-      - data
-      - currentPage
-      - totalPages
-      - totalCount
-    UpdateEmployeeDto:
-      type: object
-      properties:
-        externalId:
-          type: string
-          description: A unique identifier from the partner's system, used to map employee records between the partner's system and Nayya.
-          example: EMP-123
-          nullable: true
-        employerProvidedId:
-          type: string
-          description: An employer-specific identifier for an employee, unique within a single employer but not across the entire partner system.
-          example: EMPLOYER-123
-          nullable: true
-        lastName:
-          type: string
-          description: Employee last name
-          example: Doe
-          nullable: true
-        firstName:
-          type: string
-          description: Employee first name
-          example: Jane
-          nullable: true
-        email:
-          type: string
-          description: Employee email
-          example: jane.doe@example.com
-        streetAddress:
-          type: string
-          description: Employee street address
-          example: 123 Main St
-          nullable: true
-        city:
-          type: string
-          description: Employee city
-          example: San Francisco
-          nullable: true
-        state:
-          type: string
-          description: Employee state
-          example: CA
-          nullable: true
-        zipCode:
-          type: string
-          description: Employee zip code
-          example: '94105'
-          nullable: true
-        gender:
-          type: string
-          description: Employee gender
-          example: F
-          enum:
-          - M
-          - F
-          - U
-          nullable: true
-        sexAssignedAtBirth:
-          type: string
-          description: Employee sex assigned at birth
-          example: F
-          enum:
-          - M
-          - F
-          - U
-          nullable: true
-        dateOfBirth:
-          format: date
-          type: string
-          description: Employee date of birth
-          example: '1985-02-03'
-          nullable: true
-        startDate:
-          format: date
-          type: string
-          description: Employee start date
-          example: '2021-01-01'
-          nullable: true
-        terminatedDate:
-          format: date
-          type: string
-          description: Employee terminated date
-          example: '2025-01-01'
-          nullable: true
-        phoneNumber:
-          type: string
-          description: Employee phone number
-          example: '+15551234567'
-          nullable: true
-        ssn:
-          type: string
-          description: Employee SSN (9 digits)
-          example: '123456789'
-          nullable: true
-        incomeAmountCents:
-          type: number
-          description: Employee income amount in cents
-          example: 10000
-          nullable: true
-        additionalIncomeAmountCents:
-          type: number
-          description: Employee additional income amount in cents
-          example: 5000
-        incomeType:
-          type: string
-          description: Employee income type
-          example: salary
-          enum:
-          - salary
-          - hourly
-        locale:
-          type: string
-          description: Employee locale
-          example: en
-          enum:
-          - en
-          - es
-        employmentType:
-          type: string
-          description: Employee employment type
-          example: employee
-          enum:
-          - employee
-          - contractor
-        employmentSubType:
-          type: string
-          description: Employee employment sub type
-          example: full_time
-          enum:
-          - full_time
-          - part_time
-          - intern
-          - temp
-          - seasonal
-          - individual_contractor
-        tobaccoUsage:
-          type: boolean
-          description: Employee tobacco usage
-          example: false
-          nullable: true
-        hoursPerWeek:
-          type: number
-          description: Employee hours worked per week
-          example: 40
-          nullable: true
-        ethnicity:
-          type: string
-          description: Employee ethnicity
-          example: prefer_not_to_say
-          nullable: true
   securitySchemes:
     bearerAuth:
       type: http

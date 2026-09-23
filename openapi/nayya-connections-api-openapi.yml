@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Accounts Benefits Connections API
+  title: Accounts Connections API
   description: Accounts API
   version: '0.1'
   contact: {}
@@ -140,6 +140,15 @@ paths:
       - update:partner-employers
 components:
   schemas:
+    RemoveConnectionDto:
+      type: object
+      properties:
+        connectionName:
+          type: string
+          description: The connection name to remove
+          example: google-oauth2
+      required:
+      - connectionName
     AddConfiguredConnectionsDto:
       type: object
       properties:
@@ -159,6 +168,50 @@ components:
           example: google-oauth2
       required:
       - connectionName
+    ConnectionConfigDto:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the connection configuration
+          example: My SSO Connection
+        type:
+          type: string
+          description: The type of connection
+          enum:
+          - sso
+          - database
+          example: sso
+      required:
+      - name
+      - type
+    ConfiguredConnectionsResponseDto:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Partner account ID
+          example: 123e4567-e89b-12d3-a456-426614174000
+        name:
+          type: string
+          description: Partner account name
+          example: Acme Corporation
+        description:
+          type:
+          - string
+          - 'null'
+          description: Partner account description
+          example: A leading technology company
+        configuredConnections:
+          description: Configured connections for the partner account
+          type: array
+          items:
+            $ref: '#/components/schemas/ConnectionDto'
+      required:
+      - id
+      - name
+      - description
+      - configuredConnections
     EmployerResponseDto:
       type: object
       properties:
@@ -167,8 +220,9 @@ components:
           description: Employer ID
           example: 123e4567-e89b-12d3-a456-426614174000
         externalId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Employer external ID
           example: EMP-123
         name:
@@ -176,58 +230,69 @@ components:
           description: Employer name
           example: Acme Corporation
         description:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Employer description
           example: A leading technology company
         streetAddress:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Employer street address
           example: 123 Main Street
         city:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Employer city
           example: San Francisco
         state:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Employer state
           example: CA
         zipCode:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Employer zip code
           example: '94105'
         ein:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Employer EIN
           example: 12-3456789
         websiteUrl:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Employer website URL
           example: https://www.acme.com
         phoneNumber:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Employer phone number
           example: '+12125551234'
         logoUrl:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Employer logo URL
           example: https://www.acme.com/logo.png
         benAdminButton:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Employer ben admin button text
           example: Proceed to Enrollment
         benAdminLink:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Employer ben admin link
           example: https://www.acme.com/ben-admin-link
         createdAt:
@@ -257,32 +322,6 @@ components:
       - benAdminLink
       - createdAt
       - updatedAt
-    ConfiguredConnectionsResponseDto:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Partner account ID
-          example: 123e4567-e89b-12d3-a456-426614174000
-        name:
-          type: string
-          description: Partner account name
-          example: Acme Corporation
-        description:
-          type: string
-          description: Partner account description
-          example: A leading technology company
-          nullable: true
-        configuredConnections:
-          description: Configured connections for the partner account
-          type: array
-          items:
-            $ref: '#/components/schemas/ConnectionDto'
-      required:
-      - id
-      - name
-      - description
-      - configuredConnections
     ConnectionDto:
       type: object
       properties:
@@ -304,32 +343,6 @@ components:
           example: true
       required:
       - name
-    RemoveConnectionDto:
-      type: object
-      properties:
-        connectionName:
-          type: string
-          description: The connection name to remove
-          example: google-oauth2
-      required:
-      - connectionName
-    ConnectionConfigDto:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the connection configuration
-          example: My SSO Connection
-        type:
-          type: string
-          description: The type of connection
-          enum:
-          - sso
-          - database
-          example: sso
-      required:
-      - name
-      - type
   securitySchemes:
     bearerAuth:
       type: http

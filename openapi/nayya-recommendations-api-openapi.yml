@@ -1,13 +1,13 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Accounts Benefits Recommendations API
-  description: Accounts API
+  title: Choose Recommendations API
+  description: API for choose services
   version: '0.1'
   contact: {}
 servers:
-- url: https://integrate.nayya.com/accounts
+- url: https://integrate.nayya.com/choose
   description: Production
-- url: https://integrate.partners.nayya.com/accounts
+- url: https://integrate.partners.nayya.com/choose
   description: Partners
 security:
 - bearerAuth: []
@@ -60,6 +60,53 @@ paths:
       - Recommendations
 components:
   schemas:
+    EmployeeFamilyRoleDto:
+      type: object
+      properties:
+        benefitAmount:
+          type:
+          - object
+          - 'null'
+          description: Benefit amount
+          example: 100000
+        externalId:
+          type: string
+          description: Employee External ID
+          example: ext-123
+        id:
+          type: string
+          description: Employee ID
+          example: ext-123
+      required:
+      - benefitAmount
+      - externalId
+      - id
+    DependentFamilyRoleDto:
+      type: object
+      properties:
+        relationship:
+          type: string
+          description: Relationship to employee
+          example: spouse
+        benefitAmount:
+          type:
+          - object
+          - 'null'
+          description: Benefit amount
+          example: 100000
+        externalId:
+          type: string
+          description: Dependent External ID
+          example: ext-123
+        id:
+          type: string
+          description: Dependent ID
+          example: ext-123
+      required:
+      - relationship
+      - benefitAmount
+      - externalId
+      - id
     OptionDto:
       type: object
       properties:
@@ -100,31 +147,16 @@ components:
       - ratePackageExternalId
       - rateDollars
       - frequency
-    DependentFamilyRoleDto:
+    RecommendedBenefitsResponseDto:
       type: object
       properties:
-        relationship:
-          type: string
-          description: Relationship to employee
-          example: spouse
-        benefitAmount:
-          type: object
-          description: Benefit amount
-          nullable: true
-          example: 100000
-        externalId:
-          type: string
-          description: Dependent External ID
-          example: ext-123
-        id:
-          type: string
-          description: Dependent ID
-          example: ext-123
+        benefits:
+          description: List of recommended benefits
+          type: array
+          items:
+            $ref: '#/components/schemas/BenefitDto'
       required:
-      - relationship
-      - benefitAmount
-      - externalId
-      - id
+      - benefits
     BenefitDto:
       type: object
       properties:
@@ -133,14 +165,16 @@ components:
           description: Type of benefit
           example: Medical
         id:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Benefit ID
-          nullable: true
           example: 6592a62b-297b-459b-954b-7e4941095149
         externalId:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Your internal unique ID used to identify a benefit
-          nullable: true
           example: 6937yht-zr5ht39-n83uh5th-arwmte1
         recommended:
           type: boolean
@@ -152,15 +186,17 @@ components:
           items:
             $ref: '#/components/schemas/OptionDto'
         recommendedAnnualEmployeeContribution:
-          type: object
+          type:
+          - object
+          - 'null'
           description: Recommended annual employee contribution amount in dollars
           example: 1200
-          nullable: true
         selectedAnnualEmployeeContribution:
-          type: object
+          type:
+          - object
+          - 'null'
           description: Selected annual employee contribution amount in dollars
           example: 2400
-          nullable: true
       required:
       - type
       - id
@@ -169,36 +205,6 @@ components:
       - options
       - recommendedAnnualEmployeeContribution
       - selectedAnnualEmployeeContribution
-    EmployeeFamilyRoleDto:
-      type: object
-      properties:
-        benefitAmount:
-          type: object
-          description: Benefit amount
-          nullable: true
-          example: 100000
-        externalId:
-          type: string
-          description: Employee External ID
-          example: ext-123
-        id:
-          type: string
-          description: Employee ID
-          example: ext-123
-      required:
-      - benefitAmount
-      - externalId
-      - id
-    RecommendedBenefitsResponseDto:
-      type: object
-      properties:
-        benefits:
-          description: List of recommended benefits
-          type: array
-          items:
-            $ref: '#/components/schemas/BenefitDto'
-      required:
-      - benefits
   securitySchemes:
     bearerAuth:
       type: http

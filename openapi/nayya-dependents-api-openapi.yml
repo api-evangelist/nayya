@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Accounts Benefits Dependents API
+  title: Accounts Dependents API
   description: Accounts API
   version: '0.1'
   contact: {}
@@ -376,9 +376,10 @@ components:
           description: Employee ID
           example: 123e4567-e19b-12d3-a456-426614174000
         ssn:
-          type: string
+          type:
+          - string
+          - 'null'
           deprecated: true
-          nullable: true
           description: (Deprecated) SSN of dependent
           example: null
         firstName:
@@ -501,105 +502,121 @@ components:
           - domestic_partner
           example: spouse
         email:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Dependent email
           example: test@example.com
-          nullable: true
         ssn:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Dependent SSN (9 digits)
           example: '123456789'
-          nullable: true
         firstName:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Dependent first name
           example: John
-          nullable: true
         lastName:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Dependent last name
           example: Doe
-          nullable: true
         gender:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Dependent gender
           enum:
           - M
           - F
           - U
           example: F
-          nullable: true
         dateOfBirth:
           format: date
           type: string
           description: Dependent date of birth
           example: '1990-01-01'
         streetAddress:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Dependent street address
           example: 123 Main St
-          nullable: true
         city:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Dependent city
           example: New York
-          nullable: true
         state:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Dependent state
           example: NY
-          nullable: true
         zipCode:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Dependent zip code
           example: '12345'
-          nullable: true
         phoneNumber:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Dependent phone number
           example: '+15551234567'
-          nullable: true
         incomeAmountCents:
-          type: number
+          type:
+          - number
+          - 'null'
           description: Dependent income amount in cents
           example: 1000
-          nullable: true
         incomeType:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Dependent income type
           enum:
           - salary
           - hourly
           example: salary
-          nullable: true
         hoursPerWeek:
-          type: number
+          type:
+          - number
+          - 'null'
           description: Dependent hours worked per week
           example: 40
-          nullable: true
         tobaccoUsage:
-          type: boolean
+          type:
+          - boolean
+          - 'null'
           description: Dependent tobacco usage
           example: false
-          nullable: true
         dependentStatus:
           type: boolean
           description: Status indicating whether the dependent should be included in the employee's benefit recommendations.
           example: true
           default: true
         externalId:
-          type: string
+          type:
+          - string
+          - 'null'
           description: A unique identifier from the partner's system, used to map dependent records between the partner's system and Nayya
           example: some-uuid
-          nullable: true
         employmentStatus:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Dependent employment status
           enum:
           - employed
           - unemployed
           example: employed
-          nullable: true
   securitySchemes:
     bearerAuth:
       type: http

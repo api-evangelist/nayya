@@ -1,13 +1,13 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Accounts Benefits Carriers API
-  description: Accounts API
+  title: Benefits Carriers API
+  description: Benefits API
   version: '0.1'
   contact: {}
 servers:
-- url: https://integrate.nayya.com/accounts
+- url: https://integrate.nayya.com/benefits
   description: Production
-- url: https://integrate.partners.nayya.com/accounts
+- url: https://integrate.partners.nayya.com/benefits
   description: Partners
 security:
 - bearerAuth: []

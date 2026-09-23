@@ -1,13 +1,13 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Accounts Benefits API
-  description: Accounts API
+  title: Benefits API
+  description: Benefits API
   version: '0.1'
   contact: {}
 servers:
-- url: https://integrate.nayya.com/accounts
+- url: https://integrate.nayya.com/benefits
   description: Production
-- url: https://integrate.partners.nayya.com/accounts
+- url: https://integrate.partners.nayya.com/benefits
   description: Partners
 security:
 - bearerAuth: []
@@ -329,6 +329,150 @@ paths:
       - Benefits
 components:
   schemas:
+    ThresholdResponseDto:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 6ba7b810-9dad-11d1-80b4-00c04fd430c8
+          description: Nayya's ID of the threshold
+        displayName:
+          type: string
+          example: Individual Deductible
+          description: Name of the threshold that will be visible to employees
+        type:
+          type: string
+          enum:
+          - deductible
+          - out_of_pocket_max
+          - embedded_deductible
+          - family_deductible
+          - family_out_of_pocket_max
+          - weekly_benefit_max
+          - monthly_benefit_max
+          - annual_benefit_max
+          - benefit_max
+          - contribution_max
+          - family_contribution_max
+          - child_lifetime_orthodontia_max
+          - adult_lifetime_orthodontia_max
+          example: deductible
+          description: Type of Threshold or financial boundary present under a Benefit
+        createdAt:
+          format: date-time
+          type: string
+          example: '2024-11-22T20:03:04.395Z'
+          description: when the threshold was created
+        updatedAt:
+          format: date-time
+          type: string
+          example: '2024-12-22T20:03:04.395Z'
+          description: When the threshold was last updated
+        thresholdItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/ThresholdItemResponseDto'
+      required:
+      - id
+      - displayName
+      - type
+      - createdAt
+      - updatedAt
+      - thresholdItems
+    CreateBenefitDependencyDto:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - must_enroll_in
+          - must_enroll_in_one_of
+          - must_not_enroll_in
+          - must_not_enroll_in_one_of
+          example: must_enroll_in
+          description: Defines the relationship of the dependency between the benefitID provided in the path and the parent benefit IDs provided in dependentBenefits or dependentBenefitsExternal
+        dependentBenefits:
+          example:
+          - 6937yht-zr5ht39-n83uh5th-arwmte1
+          - fs32231-zr5htDSA-n83uh5th-arwmte1
+          description: Comma-separated list of parent benefit IDs that the benefitID provided in the path will depend on. Either dependentBenefits or dependentBenefitsExternal must be provided
+          type: array
+          items:
+            type: string
+        dependentBenefitsExternal:
+          example:
+          - benefit-external-id-1
+          - benefit-external-id-2
+          description: Comma-separated list of parent benefit external IDs that the benefit provided in the path will depend on. Either dependentBenefits or dependentBenefitsExternal must be provided
+          type: array
+          items:
+            type: string
+      required:
+      - type
+    FeatureItemResponseDto:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 8c798fb8-b55d-475b-a4db-91786c0d58c7
+          description: Nayya's ID of the feature item
+        name:
+          type:
+          - string
+          - 'null'
+          example: copay
+          description: Nayya's name of the feature item
+        tierId:
+          type:
+          - string
+          - 'null'
+          example: 6ba7b810-9dad-11d1-80b4-00c04fd430c8
+          description: Nayya's internal unique ID used to identify a tier
+        externalTierId:
+          type:
+          - string
+          - 'null'
+          example: tier123
+          description: Your internal unique ID used to identify a tier
+        ruleset:
+          description: A materialized rule belonging to the corresponding Feature
+          type: array
+          items:
+            $ref: '#/components/schemas/NayyaRulePropertiesDto'
+        createdAt:
+          format: date-time
+          type: string
+          example: '2024-11-22T20:03:04.395Z'
+          description: When the feature item was created
+        updatedAt:
+          format: date-time
+          type: string
+          example: '2024-12-22T20:03:04.395Z'
+          description: When the feature item was last updated
+      required:
+      - id
+      - createdAt
+      - updatedAt
+    CreateEntityRuleRequestDto:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          example: f47ac10b-58cc-4372-a567-0e02b2c3d479
+          description: Nayya's internal ID for this FeatureItem/ThresholdItem. This field can be provided to update an existing FeatureItem or ThresholdItem by its internal ID.
+        externalTierId:
+          type:
+          - string
+          - 'null'
+          example: tier456
+          description: Your internal unique ID used to identify a Tier.
+        ruleDefinitions:
+          description: Rule template inputs.
+          type: array
+          items:
+            $ref: '#/components/schemas/CreateRuleFromTemplateDTO'
     PaginatedBenefitsResponseDto:
       type: object
       properties:
@@ -351,6 +495,113 @@ components:
       - currentPage
       - totalCount
       - totalPages
+    LabelResponseDto:
+      type: object
+      properties:
+        id:
+          type: string
+          example: f47ac10b-58cc-4372-a567-0e02b2c3d479
+          description: Nayya's ID of the label
+        type:
+          type: string
+          example: category
+          description: Type of the label
+        value:
+          type: string
+          example: primary-care
+          description: Value of the label
+        createdAt:
+          format: date-time
+          type: string
+          example: '2024-11-22T20:03:04.395Z'
+          description: When the label was created
+        updatedAt:
+          format: date-time
+          type: string
+          example: '2024-12-22T20:03:04.395Z'
+          description: When the label was last updated
+      required:
+      - id
+      - type
+      - value
+      - createdAt
+      - updatedAt
+    CreateThresholdRequestDto:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          example: f47ac10b-58cc-4372-a567-0e02b2c3d479
+          description: Nayya's internal ID for this Threshold. This field can be provided to update an existing Threshold by its internal ID.
+        displayName:
+          type: string
+          example: Individual Deductible
+          description: Name of the threshold that will be visible to employees
+        type:
+          type: string
+          enum:
+          - deductible
+          - out_of_pocket_max
+          - embedded_deductible
+          - family_deductible
+          - family_out_of_pocket_max
+          - weekly_benefit_max
+          - monthly_benefit_max
+          - annual_benefit_max
+          - benefit_max
+          - contribution_max
+          - family_contribution_max
+          - child_lifetime_orthodontia_max
+          - adult_lifetime_orthodontia_max
+          example: deductible
+          description: Type of Threshold or financial boundary present under a Benefit
+        thresholdItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreateEntityRuleRequestDto'
+      required:
+      - displayName
+      - thresholdItems
+    ThresholdItemResponseDto:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 6ba7b810-9dad-11d1-80b4-00c04fd430c8
+          description: Nayya's ID of the threshold item
+        tierId:
+          type:
+          - string
+          - 'null'
+          example: 8c798fb8-b55d-475b-a4db-91786c0d58c7
+          description: Nayya's internal unique ID used to identify a tier
+        externalTierId:
+          type:
+          - string
+          - 'null'
+          example: tier456
+          description: Your internal unique ID used to identify a tier
+        ruleset:
+          description: Utilize a rule template with appropriate inputs
+          type: array
+          items:
+            $ref: '#/components/schemas/NayyaRulePropertiesDto'
+        createdAt:
+          format: date-time
+          type: string
+          example: '2024-11-22T20:03:04.395Z'
+          description: When the threshold item was created
+        updatedAt:
+          format: date-time
+          type: string
+          example: '2024-12-22T20:03:04.395Z'
+          description: When the threshold item was last updated
+      required:
+      - id
+      - createdAt
+      - updatedAt
     BenefitDependencyResponseDto:
       type: object
       properties:
@@ -398,276 +649,6 @@ components:
       - type
       - createdAt
       - updatedAt
-    FeatureItemResponseDto:
-      type: object
-      properties:
-        id:
-          type: string
-          example: 8c798fb8-b55d-475b-a4db-91786c0d58c7
-          description: Nayya's ID of the feature item
-        name:
-          type: string
-          example: copay
-          description: Nayya's name of the feature item
-          nullable: true
-        tierId:
-          type: string
-          nullable: true
-          example: 6ba7b810-9dad-11d1-80b4-00c04fd430c8
-          description: Nayya's internal unique ID used to identify a tier
-        externalTierId:
-          type: string
-          nullable: true
-          example: tier123
-          description: Your internal unique ID used to identify a tier
-        ruleset:
-          description: A materialized rule belonging to the corresponding Feature
-          type: array
-          items:
-            $ref: '#/components/schemas/NayyaRulePropertiesDto'
-        createdAt:
-          format: date-time
-          type: string
-          example: '2024-11-22T20:03:04.395Z'
-          description: When the feature item was created
-        updatedAt:
-          format: date-time
-          type: string
-          example: '2024-12-22T20:03:04.395Z'
-          description: When the feature item was last updated
-      required:
-      - id
-      - createdAt
-      - updatedAt
-    NayyaRulePropertiesDto:
-      type: object
-      properties:
-        conditions:
-          type: object
-          example:
-            any:
-            - fact: myFact
-              operator: equal
-              value: myValue
-          description: The conditions upon which emission of the corresponding event are predicated.
-        event:
-          type: object
-          example:
-            type: amount_per_day
-            params:
-              amount: 30
-              displayValue: $30 per day
-          description: The event emitted when predicate conditions are satisfied.
-      required:
-      - conditions
-      - event
-    CreateFeatureRequestDto:
-      type: object
-      properties:
-        id:
-          type: string
-          nullable: true
-          example: f47ac10b-58cc-4372-a567-0e02b2c3d479
-          description: Nayya's internal ID for this Feature. This field can be provided to update an existing Feature by its internal ID.
-        displayName:
-          type: string
-          example: Office Visit
-          description: Name of the feature that will be visible to employees
-        type:
-          type: string
-          enum:
-          - office_visit
-          - specialist_visit
-          - inpatient
-          - outpatient
-          - diagnostic
-          - dental
-          - imaging
-          - emergency_care
-          - urgent_care
-          - telemedicine
-          - behavioral_health
-          - class_1_rx
-          - class_2_rx
-          - class_3_rx
-          - class_4_rx
-          - class_5_rx
-          - preventative_care
-          - basic_care
-          - major_care
-          - orthodontics
-          - child_orthodontics
-          - adult_orthodontics
-          - confinement
-          - portability
-          - short_term_disability
-          - long_term_disability
-          - heart_attack
-          - heart_condition
-          - cancer_major
-          - cancer_minor
-          - hospital_admission
-          - basic_life
-          - whole_life
-          - term_life
-          - universal_life
-          - employer_contribution
-          - frame_allowance
-          - annual_eye_exam
-          - employer_match
-          - therapies
-          - accidental_death_and_dismemberment
-          - adoption
-          - health_care_proxy
-          - traffic_matters
-          - debt_collection
-          - rollover
-          - maternity_coverage
-          - ambulance
-          - materials
-          - renal_failure
-          - organ_failure
-          - stroke
-          - health_screening
-          - mental_health_facility
-          - substance_abuse_facility
-          - nursing_facility
-          - air_ambulance
-          - catastrophic_loss
-          - common_carrier
-          - disaster
-          - concussion
-          - dental_treatment
-          - eye_surgery
-          - icu_admission
-          - icu_confinement
-          - physical_therapy
-          - prescribed_appliance
-          - prescribed_prosthetic
-          - rehabilitation_confinement
-          - single_vision_lenses
-          - bifocal_lenses
-          - trifocal_lenses
-          - polycarbonate_lenses
-          - progressive_lenses
-          - contact_lenses
-          - laser_vision_correction
-          - contact_lens_fitting
-          - additional_glasses
-          - guaranteed_issue
-          - spouse_guaranteed_issue
-          - spouse_term_life
-          - child_term_life
-          - critical_illness
-          example: office_visit
-          description: Type of Feature present under a Benefit
-        externalFeatureId:
-          type: string
-          nullable: true
-          example: feature123
-          description: Your unique internal ID used to identify this Feature. This field can be provided to update an existing Feature using your internal ID.
-        featureItems:
-          type: array
-          items:
-            $ref: '#/components/schemas/CreateEntityRuleRequestDto'
-      required:
-      - displayName
-      - featureItems
-    CreateRuleFromTemplateDTO:
-      type: object
-      properties:
-        templateName:
-          type: string
-          nullable: true
-          example: amount_per_day
-          description: Name of the rule template to be used
-        inputValues:
-          description: 'Input values for rule template where values can be strings or numbers. An optional conditions key can be used to specify fact names and values that correspond to the input value. Note: Payloads generated via the API documentation will output integers in Key/Value pairs as strings'
-          example:
-          - amount: 40
-            conditions:
-            - name: familyRole
-              value: employee
-            displayValue: Up to $40.00 (employee)
-          type: array
-          items:
-            $ref: '#/components/schemas/InputValuesItem'
-        eventType:
-          type: string
-          nullable: true
-          example: financial_impact
-          description: Event type for the rule template.
-          enum:
-          - coverage_eligibility
-          - enrollment_eligibility
-          - financial_impact
-    CreateTierRequestDto:
-      type: object
-      properties:
-        externalId:
-          type: string
-          example: tier456
-          description: Your internal unique ID used to identify a tier
-        networkId:
-          type: string
-          nullable: true
-          example: network123
-          description: Ribbon Network ID associated with the Benefit Tier
-        displayName:
-          type: string
-          example: In Network
-          description: Name of the tier that will be visible to employees
-        type:
-          type: string
-          enum:
-          - in_network
-          - out_of_network
-          - specialty
-          example: in_network
-          description: Type of Tier or network grouping present under a Benefit
-      required:
-      - externalId
-      - displayName
-      - type
-    AddBenefitDependencyRequestDto:
-      type: object
-      properties:
-        benefitDependencies:
-          type: array
-          items:
-            $ref: '#/components/schemas/CreateBenefitDependencyDto'
-      required:
-      - benefitDependencies
-    CreateBenefitDependencyDto:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - must_enroll_in
-          - must_enroll_in_one_of
-          - must_not_enroll_in
-          - must_not_enroll_in_one_of
-          example: must_enroll_in
-          description: Defines the relationship of the dependency between the benefitID provided in the path and the parent benefit IDs provided in dependentBenefits or dependentBenefitsExternal
-        dependentBenefits:
-          example:
-          - 6937yht-zr5ht39-n83uh5th-arwmte1
-          - fs32231-zr5htDSA-n83uh5th-arwmte1
-          description: Comma-separated list of parent benefit IDs that the benefitID provided in the path will depend on. Either dependentBenefits or dependentBenefitsExternal must be provided
-          type: array
-          items:
-            type: string
-        dependentBenefitsExternal:
-          example:
-          - benefit-external-id-1
-          - benefit-external-id-2
-          description: Comma-separated list of parent benefit external IDs that the benefit provided in the path will depend on. Either dependentBenefits or dependentBenefitsExternal must be provided
-          type: array
-          items:
-            type: string
-      required:
-      - type
     FeatureResponseDto:
       type: object
       properties:
@@ -793,127 +774,254 @@ components:
       - updatedAt
       - type
       - featureItems
-    ThresholdItemResponseDto:
-      type: object
-      properties:
-        id:
-          type: string
-          example: 6ba7b810-9dad-11d1-80b4-00c04fd430c8
-          description: Nayya's ID of the threshold item
-        tierId:
-          type: string
-          nullable: true
-          example: 8c798fb8-b55d-475b-a4db-91786c0d58c7
-          description: Nayya's internal unique ID used to identify a tier
-        externalTierId:
-          type: string
-          nullable: true
-          example: tier456
-          description: Your internal unique ID used to identify a tier
-        ruleset:
-          description: Utilize a rule template with appropriate inputs
-          type: array
-          items:
-            $ref: '#/components/schemas/NayyaRulePropertiesDto'
-        createdAt:
-          format: date-time
-          type: string
-          example: '2024-11-22T20:03:04.395Z'
-          description: When the threshold item was created
-        updatedAt:
-          format: date-time
-          type: string
-          example: '2024-12-22T20:03:04.395Z'
-          description: When the threshold item was last updated
-      required:
-      - id
-      - createdAt
-      - updatedAt
     InputValuesItem:
       type: object
       properties: {}
-    ThresholdResponseDto:
+    CreateFeatureRequestDto:
       type: object
       properties:
         id:
-          type: string
-          example: 6ba7b810-9dad-11d1-80b4-00c04fd430c8
-          description: Nayya's ID of the threshold
+          type:
+          - string
+          - 'null'
+          example: f47ac10b-58cc-4372-a567-0e02b2c3d479
+          description: Nayya's internal ID for this Feature. This field can be provided to update an existing Feature by its internal ID.
         displayName:
           type: string
-          example: Individual Deductible
-          description: Name of the threshold that will be visible to employees
+          example: Office Visit
+          description: Name of the feature that will be visible to employees
         type:
           type: string
           enum:
-          - deductible
-          - out_of_pocket_max
-          - embedded_deductible
-          - family_deductible
-          - family_out_of_pocket_max
-          - weekly_benefit_max
-          - monthly_benefit_max
-          - annual_benefit_max
-          - benefit_max
-          - contribution_max
-          - family_contribution_max
-          - child_lifetime_orthodontia_max
-          - adult_lifetime_orthodontia_max
-          example: deductible
-          description: Type of Threshold or financial boundary present under a Benefit
-        createdAt:
-          format: date-time
-          type: string
-          example: '2024-11-22T20:03:04.395Z'
-          description: when the threshold was created
-        updatedAt:
-          format: date-time
-          type: string
-          example: '2024-12-22T20:03:04.395Z'
-          description: When the threshold was last updated
-        thresholdItems:
+          - office_visit
+          - specialist_visit
+          - inpatient
+          - outpatient
+          - diagnostic
+          - dental
+          - imaging
+          - emergency_care
+          - urgent_care
+          - telemedicine
+          - behavioral_health
+          - class_1_rx
+          - class_2_rx
+          - class_3_rx
+          - class_4_rx
+          - class_5_rx
+          - preventative_care
+          - basic_care
+          - major_care
+          - orthodontics
+          - child_orthodontics
+          - adult_orthodontics
+          - confinement
+          - portability
+          - short_term_disability
+          - long_term_disability
+          - heart_attack
+          - heart_condition
+          - cancer_major
+          - cancer_minor
+          - hospital_admission
+          - basic_life
+          - whole_life
+          - term_life
+          - universal_life
+          - employer_contribution
+          - frame_allowance
+          - annual_eye_exam
+          - employer_match
+          - therapies
+          - accidental_death_and_dismemberment
+          - adoption
+          - health_care_proxy
+          - traffic_matters
+          - debt_collection
+          - rollover
+          - maternity_coverage
+          - ambulance
+          - materials
+          - renal_failure
+          - organ_failure
+          - stroke
+          - health_screening
+          - mental_health_facility
+          - substance_abuse_facility
+          - nursing_facility
+          - air_ambulance
+          - catastrophic_loss
+          - common_carrier
+          - disaster
+          - concussion
+          - dental_treatment
+          - eye_surgery
+          - icu_admission
+          - icu_confinement
+          - physical_therapy
+          - prescribed_appliance
+          - prescribed_prosthetic
+          - rehabilitation_confinement
+          - single_vision_lenses
+          - bifocal_lenses
+          - trifocal_lenses
+          - polycarbonate_lenses
+          - progressive_lenses
+          - contact_lenses
+          - laser_vision_correction
+          - contact_lens_fitting
+          - additional_glasses
+          - guaranteed_issue
+          - spouse_guaranteed_issue
+          - spouse_term_life
+          - child_term_life
+          - critical_illness
+          example: office_visit
+          description: Type of Feature present under a Benefit
+        externalFeatureId:
+          type:
+          - string
+          - 'null'
+          example: feature123
+          description: Your unique internal ID used to identify this Feature. This field can be provided to update an existing Feature using your internal ID.
+        featureItems:
           type: array
           items:
-            $ref: '#/components/schemas/ThresholdItemResponseDto'
+            $ref: '#/components/schemas/CreateEntityRuleRequestDto'
       required:
-      - id
       - displayName
-      - type
-      - createdAt
-      - updatedAt
-      - thresholdItems
-    CreateEntityRuleRequestDto:
+      - featureItems
+    CreateOrUpdateChooseBenefitRequestDto:
       type: object
       properties:
         id:
+          type:
+          - string
+          - 'null'
+          example: 123e4567-e89b-12d3-a456-426614174000
+          description: Unique ID from Nayya used to identify a benefit
+        externalId:
+          type:
+          - string
+          - 'null'
+          example: 6937yht-zr5ht39-n83uh5th-arwmte1
+          description: Your internal unique ID used to identify a benefit
+        carrierId:
           type: string
-          nullable: true
-          example: f47ac10b-58cc-4372-a567-0e02b2c3d479
-          description: Nayya's internal ID for this FeatureItem/ThresholdItem. This field can be provided to update an existing FeatureItem or ThresholdItem by its internal ID.
-        externalTierId:
+          example: 6592a62b-297b-459b-954b-7e4941095149
+          description: Unique identifier for the carrier for this benefit
+        externalCarrierName:
+          type:
+          - string
+          - 'null'
+          example: Carrier 123
+          description: Name of the carrier for this benefit
+        description:
+          type:
+          - string
+          - 'null'
+          example: This benefit is a medical plan
+          description: Description of the benefit
+        type:
           type: string
-          nullable: true
-          example: tier456
-          description: Your internal unique ID used to identify a Tier.
-        ruleDefinitions:
-          description: Rule template inputs.
+          enum:
+          - medical
+          - dental
+          - vision
+          - short_term_disability
+          - long_term_disability
+          - accident
+          - hospital_indemnity
+          - critical_illness
+          - term_life
+          - whole_life
+          - universal_life
+          - basic_life
+          - pet_insurance
+          - pet_wellness
+          - accidental_death_and_dismemberment
+          - cancer
+          - identity_theft
+          - legal
+          - 401k
+          - 403b
+          - 457b
+          - HSA
+          - HRA
+          - FSA_medical
+          - limited_purpose_fsa
+          - dependent_care_fsa
+          - gap_insurance
+          - mental_health
+          - financial_wellness
+          - long_term_care
+          - telemedicine
+          - maternity
+          - diabetes
+          - chronic_joint_pain
+          - student_loan
+          - wellness
+          example: medical
+          description: Type of benefit
+        displayName:
+          type: string
+          example: Medical 1M Gold
+          description: Name of the benefit that will be visible to employees
+        activeAt:
+          format: date
+          type: string
+          example: '2020-01-01'
+          description: 'The start date for when the plan is effective in the format: YYYY-MM-DD'
+        inactiveAt:
+          format: date
+          type:
+          - string
+          - 'null'
+          example: '2020-12-31'
+          description: 'The end date for when the plan is no longer effective in the format: YYYY-MM-DD. This field does not need to be provided if a plan is anticipated to roll over from year to year'
+        detailsUrl:
+          type:
+          - string
+          - 'null'
+          example: https://example.com
+          description: URL to a benefit overview where an employee can see coverage details
+        code:
+          type:
+          - string
+          - 'null'
+          example: MEDICAL_GOLD_2024
+          description: Internal code used to identify this benefit
+        features:
           type: array
           items:
-            $ref: '#/components/schemas/CreateRuleFromTemplateDTO'
-    TierResponseDto:
+            $ref: '#/components/schemas/CreateFeatureRequestDto'
+        tiers:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreateTierRequestDto'
+        thresholds:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreateThresholdRequestDto'
+      required:
+      - carrierId
+      - type
+      - displayName
+      - activeAt
+      - features
+      - tiers
+      - thresholds
+    CreateTierRequestDto:
       type: object
       properties:
-        id:
-          type: string
-          example: d9428888-122b-11e1-b85c-61cd3cbb3210
-          description: Nayya's ID of the tier
         externalId:
           type: string
           example: tier456
           description: Your internal unique ID used to identify a tier
         networkId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           example: network123
           description: Ribbon Network ID associated with the Benefit Tier
         displayName:
@@ -928,23 +1036,71 @@ components:
           - specialty
           example: in_network
           description: Type of Tier or network grouping present under a Benefit
-        createdAt:
-          format: date-time
-          type: string
-          example: '2024-11-22T20:03:04.395Z'
-          description: when the tier was created
-        updatedAt:
-          format: date-time
-          type: string
-          example: '2024-12-22T20:03:04.395Z'
-          description: when the tier was last updated
       required:
-      - id
       - externalId
       - displayName
       - type
-      - createdAt
-      - updatedAt
+    AddBenefitDependencyRequestDto:
+      type: object
+      properties:
+        benefitDependencies:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreateBenefitDependencyDto'
+      required:
+      - benefitDependencies
+    CreateRuleFromTemplateDTO:
+      type: object
+      properties:
+        templateName:
+          type:
+          - string
+          - 'null'
+          example: amount_per_day
+          description: Name of the rule template to be used
+        inputValues:
+          description: 'Input values for rule template where values can be strings or numbers. An optional conditions key can be used to specify fact names and values that correspond to the input value. Note: Payloads generated via the API documentation will output integers in Key/Value pairs as strings'
+          example:
+          - amount: 40
+            conditions:
+            - name: familyRole
+              value: employee
+            displayValue: Up to $40.00 (employee)
+          type: array
+          items:
+            $ref: '#/components/schemas/InputValuesItem'
+        eventType:
+          type:
+          - string
+          - 'null'
+          example: financial_impact
+          description: Event type for the rule template.
+          enum:
+          - coverage_eligibility
+          - enrollment_eligibility
+          - financial_impact
+    NayyaRulePropertiesDto:
+      type: object
+      properties:
+        conditions:
+          type: object
+          example:
+            any:
+            - fact: myFact
+              operator: equal
+              value: myValue
+          description: The conditions upon which emission of the corresponding event are predicated.
+        event:
+          type: object
+          example:
+            type: amount_per_day
+            params:
+              amount: 30
+              displayValue: $30 per day
+          description: The event emitted when predicate conditions are satisfied.
+      required:
+      - conditions
+      - event
     BenefitResponseDto:
       type: object
       properties:
@@ -957,13 +1113,15 @@ components:
           example: 38a52be4-9352-453e-af97-5c3b448652b0
           description: Nayya's ID of the employer
         externalId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           example: 6937yht-zr5ht39-n83uh5th-arwmte1
           description: Your internal unique ID used to identify a benefit
         externalCarrierName:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           example: Carrier 123
           description: Name of the carrier for this benefit
         carrierId:
@@ -1016,8 +1174,9 @@ components:
           example: Medical 1M Gold
           description: Name of the benefit that will be visible to employees
         description:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           example: This benefit is a medical plan
           description: Description of the benefit
         activeAt:
@@ -1027,18 +1186,21 @@ components:
           description: 'The start date for when the plan is effective in the format: YYYY-MM-DD'
         inactiveAt:
           format: date-time
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           example: '2020-12-31'
           description: 'The end date for when the plan is no longer effective in the format: YYYY-MM-DD. This field does not need to be provided if a plan is anticipated to roll over from year to year'
         detailsUrl:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           example: https://example.com
           description: URL to a benefit overview where an employee can see coverage details
         code:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           example: MEDICAL_GOLD_2024
           description: Internal code used to identify this benefit
         createdAt:
@@ -1077,187 +1239,52 @@ components:
       - activeAt
       - createdAt
       - updatedAt
-    LabelResponseDto:
+    TierResponseDto:
       type: object
       properties:
         id:
           type: string
-          example: f47ac10b-58cc-4372-a567-0e02b2c3d479
-          description: Nayya's ID of the label
+          example: d9428888-122b-11e1-b85c-61cd3cbb3210
+          description: Nayya's ID of the tier
+        externalId:
+          type: string
+          example: tier456
+          description: Your internal unique ID used to identify a tier
+        networkId:
+          type:
+          - string
+          - 'null'
+          example: network123
+          description: Ribbon Network ID associated with the Benefit Tier
+        displayName:
+          type: string
+          example: In Network
+          description: Name of the tier that will be visible to employees
         type:
           type: string
-          example: category
-          description: Type of the label
-        value:
-          type: string
-          example: primary-care
-          description: Value of the label
+          enum:
+          - in_network
+          - out_of_network
+          - specialty
+          example: in_network
+          description: Type of Tier or network grouping present under a Benefit
         createdAt:
           format: date-time
           type: string
           example: '2024-11-22T20:03:04.395Z'
-          description: When the label was created
+          description: when the tier was created
         updatedAt:
           format: date-time
           type: string
           example: '2024-12-22T20:03:04.395Z'
-          description: When the label was last updated
+          description: when the tier was last updated
       required:
       - id
+      - externalId
+      - displayName
       - type
-      - value
       - createdAt
       - updatedAt
-    CreateThresholdRequestDto:
-      type: object
-      properties:
-        id:
-          type: string
-          nullable: true
-          example: f47ac10b-58cc-4372-a567-0e02b2c3d479
-          description: Nayya's internal ID for this Threshold. This field can be provided to update an existing Threshold by its internal ID.
-        displayName:
-          type: string
-          example: Individual Deductible
-          description: Name of the threshold that will be visible to employees
-        type:
-          type: string
-          enum:
-          - deductible
-          - out_of_pocket_max
-          - embedded_deductible
-          - family_deductible
-          - family_out_of_pocket_max
-          - weekly_benefit_max
-          - monthly_benefit_max
-          - annual_benefit_max
-          - benefit_max
-          - contribution_max
-          - family_contribution_max
-          - child_lifetime_orthodontia_max
-          - adult_lifetime_orthodontia_max
-          example: deductible
-          description: Type of Threshold or financial boundary present under a Benefit
-        thresholdItems:
-          type: array
-          items:
-            $ref: '#/components/schemas/CreateEntityRuleRequestDto'
-      required:
-      - displayName
-      - thresholdItems
-    CreateOrUpdateChooseBenefitRequestDto:
-      type: object
-      properties:
-        id:
-          type: string
-          nullable: true
-          example: 123e4567-e89b-12d3-a456-426614174000
-          description: Unique ID from Nayya used to identify a benefit
-        externalId:
-          type: string
-          nullable: true
-          example: 6937yht-zr5ht39-n83uh5th-arwmte1
-          description: Your internal unique ID used to identify a benefit
-        carrierId:
-          type: string
-          example: 6592a62b-297b-459b-954b-7e4941095149
-          description: Unique identifier for the carrier for this benefit
-        externalCarrierName:
-          type: string
-          nullable: true
-          example: Carrier 123
-          description: Name of the carrier for this benefit
-        description:
-          type: string
-          nullable: true
-          example: This benefit is a medical plan
-          description: Description of the benefit
-        type:
-          type: string
-          enum:
-          - medical
-          - dental
-          - vision
-          - short_term_disability
-          - long_term_disability
-          - accident
-          - hospital_indemnity
-          - critical_illness
-          - term_life
-          - whole_life
-          - universal_life
-          - basic_life
-          - pet_insurance
-          - pet_wellness
-          - accidental_death_and_dismemberment
-          - cancer
-          - identity_theft
-          - legal
-          - 401k
-          - 403b
-          - 457b
-          - HSA
-          - HRA
-          - FSA_medical
-          - limited_purpose_fsa
-          - dependent_care_fsa
-          - gap_insurance
-          - mental_health
-          - financial_wellness
-          - long_term_care
-          - telemedicine
-          - maternity
-          - diabetes
-          - chronic_joint_pain
-          - student_loan
-          - wellness
-          example: medical
-          description: Type of benefit
-        displayName:
-          type: string
-          example: Medical 1M Gold
-          description: Name of the benefit that will be visible to employees
-        activeAt:
-          format: date
-          type: string
-          example: '2020-01-01'
-          description: 'The start date for when the plan is effective in the format: YYYY-MM-DD'
-        inactiveAt:
-          format: date
-          type: string
-          nullable: true
-          example: '2020-12-31'
-          description: 'The end date for when the plan is no longer effective in the format: YYYY-MM-DD. This field does not need to be provided if a plan is anticipated to roll over from year to year'
-        detailsUrl:
-          type: string
-          nullable: true
-          example: https://example.com
-          description: URL to a benefit overview where an employee can see coverage details
-        code:
-          type: string
-          nullable: true
-          example: MEDICAL_GOLD_2024
-          description: Internal code used to identify this benefit
-        features:
-          type: array
-          items:
-            $ref: '#/components/schemas/CreateFeatureRequestDto'
-        tiers:
-          type: array
-          items:
-            $ref: '#/components/schemas/CreateTierRequestDto'
-        thresholds:
-          type: array
-          items:
-            $ref: '#/components/schemas/CreateThresholdRequestDto'
-      required:
-      - carrierId
-      - type
-      - displayName
-      - activeAt
-      - features
-      - tiers
-      - thresholds
   securitySchemes:
     bearerAuth:
       type: http
