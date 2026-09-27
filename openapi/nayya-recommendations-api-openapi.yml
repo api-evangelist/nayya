@@ -60,103 +60,6 @@ paths:
       - Recommendations
 components:
   schemas:
-    EmployeeFamilyRoleDto:
-      type: object
-      properties:
-        benefitAmount:
-          type:
-          - object
-          - 'null'
-          description: Benefit amount
-          example: 100000
-        externalId:
-          type: string
-          description: Employee External ID
-          example: ext-123
-        id:
-          type: string
-          description: Employee ID
-          example: ext-123
-      required:
-      - benefitAmount
-      - externalId
-      - id
-    DependentFamilyRoleDto:
-      type: object
-      properties:
-        relationship:
-          type: string
-          description: Relationship to employee
-          example: spouse
-        benefitAmount:
-          type:
-          - object
-          - 'null'
-          description: Benefit amount
-          example: 100000
-        externalId:
-          type: string
-          description: Dependent External ID
-          example: ext-123
-        id:
-          type: string
-          description: Dependent ID
-          example: ext-123
-      required:
-      - relationship
-      - benefitAmount
-      - externalId
-      - id
-    OptionDto:
-      type: object
-      properties:
-        recommended:
-          type: boolean
-          description: Whether this option is recommended
-          example: true
-        employeeFamilyRole:
-          description: Employee Family roles associated with this option
-          allOf:
-          - $ref: '#/components/schemas/EmployeeFamilyRoleDto'
-        dependentFamilyRoles:
-          description: Dependent Family roles associated with this option
-          type: array
-          items:
-            $ref: '#/components/schemas/DependentFamilyRoleDto'
-        ratePackageId:
-          type: string
-          description: Rate package ID
-          example: '123'
-        ratePackageExternalId:
-          type: string
-          description: Rate package external ID
-          example: '123'
-        rateDollars:
-          type: number
-          description: Rate amount in dollars
-          example: 50
-        frequency:
-          type: string
-          description: Frequency of the rate
-          example: monthly
-      required:
-      - recommended
-      - employeeFamilyRole
-      - dependentFamilyRoles
-      - ratePackageId
-      - ratePackageExternalId
-      - rateDollars
-      - frequency
-    RecommendedBenefitsResponseDto:
-      type: object
-      properties:
-        benefits:
-          description: List of recommended benefits
-          type: array
-          items:
-            $ref: '#/components/schemas/BenefitDto'
-      required:
-      - benefits
     BenefitDto:
       type: object
       properties:
@@ -205,6 +108,103 @@ components:
       - options
       - recommendedAnnualEmployeeContribution
       - selectedAnnualEmployeeContribution
+    OptionDto:
+      type: object
+      properties:
+        recommended:
+          type: boolean
+          description: Whether this option is recommended
+          example: true
+        employeeFamilyRole:
+          description: Employee Family roles associated with this option
+          allOf:
+          - $ref: '#/components/schemas/EmployeeFamilyRoleDto'
+        dependentFamilyRoles:
+          description: Dependent Family roles associated with this option
+          type: array
+          items:
+            $ref: '#/components/schemas/DependentFamilyRoleDto'
+        ratePackageId:
+          type: string
+          description: Rate package ID
+          example: '123'
+        ratePackageExternalId:
+          type: string
+          description: Rate package external ID
+          example: '123'
+        rateDollars:
+          type: number
+          description: Rate amount in dollars
+          example: 50
+        frequency:
+          type: string
+          description: Frequency of the rate
+          example: monthly
+      required:
+      - recommended
+      - employeeFamilyRole
+      - dependentFamilyRoles
+      - ratePackageId
+      - ratePackageExternalId
+      - rateDollars
+      - frequency
+    DependentFamilyRoleDto:
+      type: object
+      properties:
+        relationship:
+          type: string
+          description: Relationship to employee
+          example: spouse
+        benefitAmount:
+          type:
+          - object
+          - 'null'
+          description: Benefit amount
+          example: 100000
+        externalId:
+          type: string
+          description: Dependent External ID
+          example: ext-123
+        id:
+          type: string
+          description: Dependent ID
+          example: ext-123
+      required:
+      - relationship
+      - benefitAmount
+      - externalId
+      - id
+    EmployeeFamilyRoleDto:
+      type: object
+      properties:
+        benefitAmount:
+          type:
+          - object
+          - 'null'
+          description: Benefit amount
+          example: 100000
+        externalId:
+          type: string
+          description: Employee External ID
+          example: ext-123
+        id:
+          type: string
+          description: Employee ID
+          example: ext-123
+      required:
+      - benefitAmount
+      - externalId
+      - id
+    RecommendedBenefitsResponseDto:
+      type: object
+      properties:
+        benefits:
+          description: List of recommended benefits
+          type: array
+          items:
+            $ref: '#/components/schemas/BenefitDto'
+      required:
+      - benefits
   securitySchemes:
     bearerAuth:
       type: http

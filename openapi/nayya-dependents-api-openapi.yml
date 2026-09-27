@@ -262,104 +262,6 @@ paths:
       - delete:partner-employees-dependents
 components:
   schemas:
-    CreateDependentDto:
-      type: object
-      properties:
-        relationship:
-          type: string
-          description: Dependent's Relationship to the employee
-          enum:
-          - spouse
-          - child
-          - domestic_partner
-          example: spouse
-        email:
-          type: string
-          description: Dependent email
-          example: test@example.com
-        ssn:
-          type: string
-          description: 9 digit SSN
-          example: '123456789'
-        firstName:
-          type: string
-          description: Dependent first name
-          example: John
-        lastName:
-          type: string
-          description: Dependent last name
-          example: Doe
-        gender:
-          type: string
-          description: Dependent gender
-          example: F
-          enum:
-          - M
-          - F
-          - U
-        dateOfBirth:
-          format: date
-          type: string
-          description: Dependent date of birth
-          example: '1990-01-01'
-        streetAddress:
-          type: string
-          description: Dependent street address
-          example: 123 Main St
-        city:
-          type: string
-          description: Dependent city
-          example: New York
-        state:
-          type: string
-          description: Dependent state
-          example: NY
-        zipCode:
-          type: string
-          description: Dependent zip code
-          example: '12345'
-        phoneNumber:
-          type: string
-          description: Dependent phone number
-          example: '+15551234567'
-        incomeAmountCents:
-          type: number
-          description: Dependent income amount in cents
-          example: 10000
-        incomeType:
-          type: string
-          description: Dependent income type
-          example: salary
-          enum:
-          - salary
-          - hourly
-        hoursPerWeek:
-          type: number
-          description: Dependent hours worked per week
-          example: 40
-        tobaccoUsage:
-          type: boolean
-          description: Dependent tobacco usage
-          example: false
-        dependentStatus:
-          type: boolean
-          description: Status indicating whether the dependent should be included in the employee's benefit recommendations.
-          example: true
-          default: true
-        externalId:
-          type: string
-          description: external id of the partner employee dependent
-          example: some-uuid
-        employmentStatus:
-          type: string
-          description: Dependent employment status
-          enum:
-          - employed
-          - unemployed
-          example: employed
-      required:
-      - relationship
-      - dateOfBirth
     DependentResponseDto:
       type: object
       properties:
@@ -490,6 +392,104 @@ components:
       - employmentStatus
       - createdAt
       - updatedAt
+    CreateDependentDto:
+      type: object
+      properties:
+        relationship:
+          type: string
+          description: Dependent's Relationship to the employee
+          enum:
+          - spouse
+          - child
+          - domestic_partner
+          example: spouse
+        email:
+          type: string
+          description: Dependent email
+          example: test@example.com
+        ssn:
+          type: string
+          description: 9 digit SSN
+          example: '123456789'
+        firstName:
+          type: string
+          description: Dependent first name
+          example: John
+        lastName:
+          type: string
+          description: Dependent last name
+          example: Doe
+        gender:
+          type: string
+          description: Dependent gender
+          example: F
+          enum:
+          - M
+          - F
+          - U
+        dateOfBirth:
+          format: date
+          type: string
+          description: Dependent date of birth
+          example: '1990-01-01'
+        streetAddress:
+          type: string
+          description: Dependent street address
+          example: 123 Main St
+        city:
+          type: string
+          description: Dependent city
+          example: New York
+        state:
+          type: string
+          description: Dependent state
+          example: NY
+        zipCode:
+          type: string
+          description: Dependent zip code
+          example: '12345'
+        phoneNumber:
+          type: string
+          description: Dependent phone number
+          example: '+15551234567'
+        incomeAmountCents:
+          type: number
+          description: Dependent income amount in cents
+          example: 10000
+        incomeType:
+          type: string
+          description: Dependent income type
+          example: salary
+          enum:
+          - salary
+          - hourly
+        hoursPerWeek:
+          type: number
+          description: Dependent hours worked per week
+          example: 40
+        tobaccoUsage:
+          type: boolean
+          description: Dependent tobacco usage
+          example: false
+        dependentStatus:
+          type: boolean
+          description: Status indicating whether the dependent should be included in the employee's benefit recommendations.
+          example: true
+          default: true
+        externalId:
+          type: string
+          description: external id of the partner employee dependent
+          example: some-uuid
+        employmentStatus:
+          type: string
+          description: Dependent employment status
+          enum:
+          - employed
+          - unemployed
+          example: employed
+      required:
+      - relationship
+      - dateOfBirth
     UpdateDependentDto:
       type: object
       properties:

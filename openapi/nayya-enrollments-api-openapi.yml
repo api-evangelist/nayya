@@ -184,75 +184,387 @@ paths:
       - Enrollments
 components:
   schemas:
-    BenefitDependencyResponseDto:
+    EnrollmentResponseDto:
       type: object
       properties:
         id:
           type: string
-          example: 4e8392d4-f6b3-4cc0-9b77-b702f8115807
-          description: Nayya's ID of the benefit dependency
+          example: 123e4567-e89b-12d3-a456-426614174000
+          description: Nayya's ID of the enrollment
+        benefitId:
+          type: string
+          example: 123e4567-e89b-12d3-a456-426614174000
+          description: Nayya's ID of the benefit
+        benefit:
+          description: Full benefit (features, thresholds, tiers, dependencies) for this enrollment
+          allOf:
+          - $ref: '#/components/schemas/BenefitResponseDto'
+        employeeId:
+          type: string
+          example: 123e4567-e89b-12d3-a456-426614174000
+          description: Nayya's ID of the employee
+        dependentId:
+          type: object
+          example: 123e4567-e89b-12d3-a456-426614174000
+          description: Nayya's ID of the dependent
+        benefitAmountCents:
+          type: object
+          example: 100000
+          description: The benefit amount in cents
+        rateAmountCents:
+          type: object
+          example: 100000
+          description: The rate amount in cents
+        beginsAt:
+          format: date-time
+          type: string
+          example: '2024-01-01T00:00:00.000Z'
+          description: The date the enrollment begins
+        endsAt:
+          type: object
+          example: '2024-01-01T00:00:00.000Z'
+          description: The date the enrollment ends
+        groupNumber:
+          type: object
+          example: 123e4567-e89b-12d3-a456-426614174000
+          description: The group number for the enrollment
+        memberId:
+          type: object
+          example: 123e4567-e89b-12d3-a456-426614174000
+          description: The member ID for the enrollment
+        deductiblePayerCode:
+          type:
+          - string
+          - 'null'
+          description: The deductible payer code for this enrollment
+          example: AETNA123
+        externalRelationship:
+          type:
+          - string
+          - 'null'
+          description: External relationship for enrollment owner
+        createdAt:
+          format: date-time
+          type: string
+          example: '2024-01-01T00:00:00.000Z'
+          description: When the enrollment was created
+        updatedAt:
+          format: date-time
+          type: string
+          example: '2024-01-01T00:00:00.000Z'
+          description: When the enrollment was last updated
+      required:
+      - id
+      - benefitId
+      - employeeId
+      - beginsAt
+      - createdAt
+      - updatedAt
+    TierResponseDto:
+      type: object
+      properties:
+        id:
+          type: string
+          example: d9428888-122b-11e1-b85c-61cd3cbb3210
+          description: Nayya's ID of the tier
+        externalId:
+          type: string
+          example: tier456
+          description: Your internal unique ID used to identify a tier
+        networkId:
+          type:
+          - string
+          - 'null'
+          example: network123
+          description: Ribbon Network ID associated with the Benefit Tier
+        displayName:
+          type: string
+          example: In Network
+          description: Name of the tier that will be visible to employees
         type:
           type: string
           enum:
-          - must_enroll_in
-          - must_enroll_in_one_of
-          - must_not_enroll_in
-          - must_not_enroll_in_one_of
-          example: must_enroll_in
-          description: Defines if enrollment is required or prohibited for the designated benefit based on the enrollment of another benefit
-        dependentBenefits:
-          example:
-          - 6937yht-zr5ht39-n83uh5th-arwmte1
-          - fs32231-zr5htDSA-n83uh5th-arwmte1
-          description: Comma-separated list of benefit ids affected by the dependency rule
-          type: array
-          items:
-            type: string
-        dependentBenefitsExternal:
-          example:
-          - 6937yht-zr5ht39-n83uh5th-arwmte1
-          - fs32231-zr5htDSA-n83uh5th-arwmte1
-          description: Comma-separated list of external benefit ids affected by the dependency rule
-          type: array
-          items:
-            type: string
+          - in_network
+          - out_of_network
+          - specialty
+          example: in_network
+          description: Type of Tier or network grouping present under a Benefit
         createdAt:
           format: date-time
           type: string
           example: '2024-11-22T20:03:04.395Z'
-          description: when the feature item was created
+          description: when the tier was created
         updatedAt:
           format: date-time
           type: string
           example: '2024-12-22T20:03:04.395Z'
-          description: when the feature item was last updated
+          description: when the tier was last updated
       required:
       - id
+      - externalId
+      - displayName
       - type
       - createdAt
       - updatedAt
-    NayyaRulePropertiesDto:
+    FeatureItemResponseDto:
       type: object
       properties:
-        conditions:
-          type: object
-          example:
-            any:
-            - fact: myFact
-              operator: equal
-              value: myValue
-          description: The conditions upon which emission of the corresponding event are predicated.
-        event:
-          type: object
-          example:
-            type: amount_per_day
-            params:
-              amount: 30
-              displayValue: $30 per day
-          description: The event emitted when predicate conditions are satisfied.
+        id:
+          type: string
+          example: 8c798fb8-b55d-475b-a4db-91786c0d58c7
+          description: Nayya's ID of the feature item
+        name:
+          type:
+          - string
+          - 'null'
+          example: copay
+          description: Nayya's name of the feature item
+        tierId:
+          type:
+          - string
+          - 'null'
+          example: 6ba7b810-9dad-11d1-80b4-00c04fd430c8
+          description: Nayya's internal unique ID used to identify a tier
+        externalTierId:
+          type:
+          - string
+          - 'null'
+          example: tier123
+          description: Your internal unique ID used to identify a tier
+        ruleset:
+          description: A materialized rule belonging to the corresponding Feature
+          type: array
+          items:
+            $ref: '#/components/schemas/NayyaRulePropertiesDto'
+        createdAt:
+          format: date-time
+          type: string
+          example: '2024-11-22T20:03:04.395Z'
+          description: When the feature item was created
+        updatedAt:
+          format: date-time
+          type: string
+          example: '2024-12-22T20:03:04.395Z'
+          description: When the feature item was last updated
       required:
-      - conditions
-      - event
+      - id
+      - createdAt
+      - updatedAt
+    DeleteEnrollmentRequestDto:
+      type: object
+      properties:
+        benefitId:
+          type: string
+          description: The ID of the benefit being enrolled in
+          example: 123e4567-e89b-12d3-a456-426614174000
+        employeeId:
+          type: string
+          description: The ID of the employee enrolling. One of employeeId or employeeExternalId must be provided.
+          example: 123e4567-e89b-12d3-a456-426614174000
+        employeeExternalId:
+          type: string
+          description: The external ID of the employee enrolling. One of employeeId or employeeExternalId must be provided.
+          example: EMP123456
+        dependentId:
+          type: string
+          description: The ID of the dependent being enrolled (if applicable)
+          example: 123e4567-e89b-12d3-a456-426614174000
+      required:
+      - benefitId
+    ThresholdItemResponseDto:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 6ba7b810-9dad-11d1-80b4-00c04fd430c8
+          description: Nayya's ID of the threshold item
+        tierId:
+          type:
+          - string
+          - 'null'
+          example: 8c798fb8-b55d-475b-a4db-91786c0d58c7
+          description: Nayya's internal unique ID used to identify a tier
+        externalTierId:
+          type:
+          - string
+          - 'null'
+          example: tier456
+          description: Your internal unique ID used to identify a tier
+        ruleset:
+          description: Utilize a rule template with appropriate inputs
+          type: array
+          items:
+            $ref: '#/components/schemas/NayyaRulePropertiesDto'
+        createdAt:
+          format: date-time
+          type: string
+          example: '2024-11-22T20:03:04.395Z'
+          description: When the threshold item was created
+        updatedAt:
+          format: date-time
+          type: string
+          example: '2024-12-22T20:03:04.395Z'
+          description: When the threshold item was last updated
+      required:
+      - id
+      - createdAt
+      - updatedAt
+    LabelResponseDto:
+      type: object
+      properties:
+        id:
+          type: string
+          example: f47ac10b-58cc-4372-a567-0e02b2c3d479
+          description: Nayya's ID of the label
+        type:
+          type: string
+          example: category
+          description: Type of the label
+        value:
+          type: string
+          example: primary-care
+          description: Value of the label
+        createdAt:
+          format: date-time
+          type: string
+          example: '2024-11-22T20:03:04.395Z'
+          description: When the label was created
+        updatedAt:
+          format: date-time
+          type: string
+          example: '2024-12-22T20:03:04.395Z'
+          description: When the label was last updated
+      required:
+      - id
+      - type
+      - value
+      - createdAt
+      - updatedAt
+    FeatureResponseDto:
+      type: object
+      properties:
+        id:
+          type: string
+          example: f47ac10b-58cc-4372-a567-0e02b2c3d479
+          description: Nayya's ID of the feature
+        displayName:
+          type: string
+          example: Office Visit
+          description: Name of the feature that will be visible to employees
+        createdAt:
+          format: date-time
+          type: string
+          example: '2024-11-22T20:03:04.395Z'
+          description: When the feature was created
+        updatedAt:
+          format: date-time
+          type: string
+          example: '2024-12-22T20:03:04.395Z'
+          description: When the feature was last updated
+        type:
+          type: string
+          enum:
+          - office_visit
+          - specialist_visit
+          - inpatient
+          - outpatient
+          - diagnostic
+          - dental
+          - imaging
+          - emergency_care
+          - urgent_care
+          - telemedicine
+          - behavioral_health
+          - class_1_rx
+          - class_2_rx
+          - class_3_rx
+          - class_4_rx
+          - class_5_rx
+          - preventative_care
+          - basic_care
+          - major_care
+          - orthodontics
+          - child_orthodontics
+          - adult_orthodontics
+          - confinement
+          - portability
+          - short_term_disability
+          - long_term_disability
+          - heart_attack
+          - heart_condition
+          - cancer_major
+          - cancer_minor
+          - hospital_admission
+          - basic_life
+          - whole_life
+          - term_life
+          - universal_life
+          - employer_contribution
+          - frame_allowance
+          - annual_eye_exam
+          - employer_match
+          - therapies
+          - accidental_death_and_dismemberment
+          - adoption
+          - health_care_proxy
+          - traffic_matters
+          - debt_collection
+          - rollover
+          - maternity_coverage
+          - ambulance
+          - materials
+          - renal_failure
+          - organ_failure
+          - stroke
+          - health_screening
+          - mental_health_facility
+          - substance_abuse_facility
+          - nursing_facility
+          - air_ambulance
+          - catastrophic_loss
+          - common_carrier
+          - disaster
+          - concussion
+          - dental_treatment
+          - eye_surgery
+          - icu_admission
+          - icu_confinement
+          - physical_therapy
+          - prescribed_appliance
+          - prescribed_prosthetic
+          - rehabilitation_confinement
+          - single_vision_lenses
+          - bifocal_lenses
+          - trifocal_lenses
+          - polycarbonate_lenses
+          - progressive_lenses
+          - contact_lenses
+          - laser_vision_correction
+          - contact_lens_fitting
+          - additional_glasses
+          - guaranteed_issue
+          - spouse_guaranteed_issue
+          - spouse_term_life
+          - child_term_life
+          - critical_illness
+          example: office_visit
+          description: Type of Feature present under a Benefit
+        featureItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/FeatureItemResponseDto'
+        labels:
+          description: Labels associated with the feature
+          type: array
+          items:
+            $ref: '#/components/schemas/LabelResponseDto'
+      required:
+      - id
+      - displayName
+      - createdAt
+      - updatedAt
+      - type
+      - featureItems
     ThresholdResponseDto:
       type: object
       properties:
@@ -303,37 +615,6 @@ components:
       - createdAt
       - updatedAt
       - thresholdItems
-    LabelResponseDto:
-      type: object
-      properties:
-        id:
-          type: string
-          example: f47ac10b-58cc-4372-a567-0e02b2c3d479
-          description: Nayya's ID of the label
-        type:
-          type: string
-          example: category
-          description: Type of the label
-        value:
-          type: string
-          example: primary-care
-          description: Value of the label
-        createdAt:
-          format: date-time
-          type: string
-          example: '2024-11-22T20:03:04.395Z'
-          description: When the label was created
-        updatedAt:
-          format: date-time
-          type: string
-          example: '2024-12-22T20:03:04.395Z'
-          description: When the label was last updated
-      required:
-      - id
-      - type
-      - value
-      - createdAt
-      - updatedAt
     CreateEnrollmentItemDto:
       type: object
       properties:
@@ -388,6 +669,97 @@ components:
       required:
       - benefitId
       - beginsAt
+    NayyaRulePropertiesDto:
+      type: object
+      properties:
+        conditions:
+          type: object
+          example:
+            any:
+            - fact: myFact
+              operator: equal
+              value: myValue
+          description: The conditions upon which emission of the corresponding event are predicated.
+        event:
+          type: object
+          example:
+            type: amount_per_day
+            params:
+              amount: 30
+              displayValue: $30 per day
+          description: The event emitted when predicate conditions are satisfied.
+      required:
+      - conditions
+      - event
+    BenefitDependencyResponseDto:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 4e8392d4-f6b3-4cc0-9b77-b702f8115807
+          description: Nayya's ID of the benefit dependency
+        type:
+          type: string
+          enum:
+          - must_enroll_in
+          - must_enroll_in_one_of
+          - must_not_enroll_in
+          - must_not_enroll_in_one_of
+          example: must_enroll_in
+          description: Defines if enrollment is required or prohibited for the designated benefit based on the enrollment of another benefit
+        dependentBenefits:
+          example:
+          - 6937yht-zr5ht39-n83uh5th-arwmte1
+          - fs32231-zr5htDSA-n83uh5th-arwmte1
+          description: Comma-separated list of benefit ids affected by the dependency rule
+          type: array
+          items:
+            type: string
+        dependentBenefitsExternal:
+          example:
+          - 6937yht-zr5ht39-n83uh5th-arwmte1
+          - fs32231-zr5htDSA-n83uh5th-arwmte1
+          description: Comma-separated list of external benefit ids affected by the dependency rule
+          type: array
+          items:
+            type: string
+        createdAt:
+          format: date-time
+          type: string
+          example: '2024-11-22T20:03:04.395Z'
+          description: when the feature item was created
+        updatedAt:
+          format: date-time
+          type: string
+          example: '2024-12-22T20:03:04.395Z'
+          description: when the feature item was last updated
+      required:
+      - id
+      - type
+      - createdAt
+      - updatedAt
+    PaginatedEnrollmentsResponseDto:
+      type: object
+      properties:
+        data:
+          description: Array of enrollments for the requested page.
+          type: array
+          items:
+            $ref: '#/components/schemas/EnrollmentResponseDto'
+        currentPage:
+          type: number
+          description: Current page number.
+        totalCount:
+          type: number
+          description: Total number of enrollment records matching the query.
+        totalPages:
+          type: number
+          description: Total number of pages.
+      required:
+      - data
+      - currentPage
+      - totalCount
+      - totalPages
     UpdateEnrollmentRequestDto:
       type: object
       properties:
@@ -615,378 +987,6 @@ components:
             $ref: '#/components/schemas/CreateEnrollmentItemDto'
       required:
       - enrollments
-    ThresholdItemResponseDto:
-      type: object
-      properties:
-        id:
-          type: string
-          example: 6ba7b810-9dad-11d1-80b4-00c04fd430c8
-          description: Nayya's ID of the threshold item
-        tierId:
-          type:
-          - string
-          - 'null'
-          example: 8c798fb8-b55d-475b-a4db-91786c0d58c7
-          description: Nayya's internal unique ID used to identify a tier
-        externalTierId:
-          type:
-          - string
-          - 'null'
-          example: tier456
-          description: Your internal unique ID used to identify a tier
-        ruleset:
-          description: Utilize a rule template with appropriate inputs
-          type: array
-          items:
-            $ref: '#/components/schemas/NayyaRulePropertiesDto'
-        createdAt:
-          format: date-time
-          type: string
-          example: '2024-11-22T20:03:04.395Z'
-          description: When the threshold item was created
-        updatedAt:
-          format: date-time
-          type: string
-          example: '2024-12-22T20:03:04.395Z'
-          description: When the threshold item was last updated
-      required:
-      - id
-      - createdAt
-      - updatedAt
-    TierResponseDto:
-      type: object
-      properties:
-        id:
-          type: string
-          example: d9428888-122b-11e1-b85c-61cd3cbb3210
-          description: Nayya's ID of the tier
-        externalId:
-          type: string
-          example: tier456
-          description: Your internal unique ID used to identify a tier
-        networkId:
-          type:
-          - string
-          - 'null'
-          example: network123
-          description: Ribbon Network ID associated with the Benefit Tier
-        displayName:
-          type: string
-          example: In Network
-          description: Name of the tier that will be visible to employees
-        type:
-          type: string
-          enum:
-          - in_network
-          - out_of_network
-          - specialty
-          example: in_network
-          description: Type of Tier or network grouping present under a Benefit
-        createdAt:
-          format: date-time
-          type: string
-          example: '2024-11-22T20:03:04.395Z'
-          description: when the tier was created
-        updatedAt:
-          format: date-time
-          type: string
-          example: '2024-12-22T20:03:04.395Z'
-          description: when the tier was last updated
-      required:
-      - id
-      - externalId
-      - displayName
-      - type
-      - createdAt
-      - updatedAt
-    PaginatedEnrollmentsResponseDto:
-      type: object
-      properties:
-        data:
-          description: Array of enrollments for the requested page.
-          type: array
-          items:
-            $ref: '#/components/schemas/EnrollmentResponseDto'
-        currentPage:
-          type: number
-          description: Current page number.
-        totalCount:
-          type: number
-          description: Total number of enrollment records matching the query.
-        totalPages:
-          type: number
-          description: Total number of pages.
-      required:
-      - data
-      - currentPage
-      - totalCount
-      - totalPages
-    DeleteEnrollmentRequestDto:
-      type: object
-      properties:
-        benefitId:
-          type: string
-          description: The ID of the benefit being enrolled in
-          example: 123e4567-e89b-12d3-a456-426614174000
-        employeeId:
-          type: string
-          description: The ID of the employee enrolling. One of employeeId or employeeExternalId must be provided.
-          example: 123e4567-e89b-12d3-a456-426614174000
-        employeeExternalId:
-          type: string
-          description: The external ID of the employee enrolling. One of employeeId or employeeExternalId must be provided.
-          example: EMP123456
-        dependentId:
-          type: string
-          description: The ID of the dependent being enrolled (if applicable)
-          example: 123e4567-e89b-12d3-a456-426614174000
-      required:
-      - benefitId
-    EnrollmentResponseDto:
-      type: object
-      properties:
-        id:
-          type: string
-          example: 123e4567-e89b-12d3-a456-426614174000
-          description: Nayya's ID of the enrollment
-        benefitId:
-          type: string
-          example: 123e4567-e89b-12d3-a456-426614174000
-          description: Nayya's ID of the benefit
-        benefit:
-          description: Full benefit (features, thresholds, tiers, dependencies) for this enrollment
-          allOf:
-          - $ref: '#/components/schemas/BenefitResponseDto'
-        employeeId:
-          type: string
-          example: 123e4567-e89b-12d3-a456-426614174000
-          description: Nayya's ID of the employee
-        dependentId:
-          type: object
-          example: 123e4567-e89b-12d3-a456-426614174000
-          description: Nayya's ID of the dependent
-        benefitAmountCents:
-          type: object
-          example: 100000
-          description: The benefit amount in cents
-        rateAmountCents:
-          type: object
-          example: 100000
-          description: The rate amount in cents
-        beginsAt:
-          format: date-time
-          type: string
-          example: '2024-01-01T00:00:00.000Z'
-          description: The date the enrollment begins
-        endsAt:
-          type: object
-          example: '2024-01-01T00:00:00.000Z'
-          description: The date the enrollment ends
-        groupNumber:
-          type: object
-          example: 123e4567-e89b-12d3-a456-426614174000
-          description: The group number for the enrollment
-        memberId:
-          type: object
-          example: 123e4567-e89b-12d3-a456-426614174000
-          description: The member ID for the enrollment
-        deductiblePayerCode:
-          type:
-          - string
-          - 'null'
-          description: The deductible payer code for this enrollment
-          example: AETNA123
-        externalRelationship:
-          type:
-          - string
-          - 'null'
-          description: External relationship for enrollment owner
-        createdAt:
-          format: date-time
-          type: string
-          example: '2024-01-01T00:00:00.000Z'
-          description: When the enrollment was created
-        updatedAt:
-          format: date-time
-          type: string
-          example: '2024-01-01T00:00:00.000Z'
-          description: When the enrollment was last updated
-      required:
-      - id
-      - benefitId
-      - employeeId
-      - beginsAt
-      - createdAt
-      - updatedAt
-    FeatureItemResponseDto:
-      type: object
-      properties:
-        id:
-          type: string
-          example: 8c798fb8-b55d-475b-a4db-91786c0d58c7
-          description: Nayya's ID of the feature item
-        name:
-          type:
-          - string
-          - 'null'
-          example: copay
-          description: Nayya's name of the feature item
-        tierId:
-          type:
-          - string
-          - 'null'
-          example: 6ba7b810-9dad-11d1-80b4-00c04fd430c8
-          description: Nayya's internal unique ID used to identify a tier
-        externalTierId:
-          type:
-          - string
-          - 'null'
-          example: tier123
-          description: Your internal unique ID used to identify a tier
-        ruleset:
-          description: A materialized rule belonging to the corresponding Feature
-          type: array
-          items:
-            $ref: '#/components/schemas/NayyaRulePropertiesDto'
-        createdAt:
-          format: date-time
-          type: string
-          example: '2024-11-22T20:03:04.395Z'
-          description: When the feature item was created
-        updatedAt:
-          format: date-time
-          type: string
-          example: '2024-12-22T20:03:04.395Z'
-          description: When the feature item was last updated
-      required:
-      - id
-      - createdAt
-      - updatedAt
-    FeatureResponseDto:
-      type: object
-      properties:
-        id:
-          type: string
-          example: f47ac10b-58cc-4372-a567-0e02b2c3d479
-          description: Nayya's ID of the feature
-        displayName:
-          type: string
-          example: Office Visit
-          description: Name of the feature that will be visible to employees
-        createdAt:
-          format: date-time
-          type: string
-          example: '2024-11-22T20:03:04.395Z'
-          description: When the feature was created
-        updatedAt:
-          format: date-time
-          type: string
-          example: '2024-12-22T20:03:04.395Z'
-          description: When the feature was last updated
-        type:
-          type: string
-          enum:
-          - office_visit
-          - specialist_visit
-          - inpatient
-          - outpatient
-          - diagnostic
-          - dental
-          - imaging
-          - emergency_care
-          - urgent_care
-          - telemedicine
-          - behavioral_health
-          - class_1_rx
-          - class_2_rx
-          - class_3_rx
-          - class_4_rx
-          - class_5_rx
-          - preventative_care
-          - basic_care
-          - major_care
-          - orthodontics
-          - child_orthodontics
-          - adult_orthodontics
-          - confinement
-          - portability
-          - short_term_disability
-          - long_term_disability
-          - heart_attack
-          - heart_condition
-          - cancer_major
-          - cancer_minor
-          - hospital_admission
-          - basic_life
-          - whole_life
-          - term_life
-          - universal_life
-          - employer_contribution
-          - frame_allowance
-          - annual_eye_exam
-          - employer_match
-          - therapies
-          - accidental_death_and_dismemberment
-          - adoption
-          - health_care_proxy
-          - traffic_matters
-          - debt_collection
-          - rollover
-          - maternity_coverage
-          - ambulance
-          - materials
-          - renal_failure
-          - organ_failure
-          - stroke
-          - health_screening
-          - mental_health_facility
-          - substance_abuse_facility
-          - nursing_facility
-          - air_ambulance
-          - catastrophic_loss
-          - common_carrier
-          - disaster
-          - concussion
-          - dental_treatment
-          - eye_surgery
-          - icu_admission
-          - icu_confinement
-          - physical_therapy
-          - prescribed_appliance
-          - prescribed_prosthetic
-          - rehabilitation_confinement
-          - single_vision_lenses
-          - bifocal_lenses
-          - trifocal_lenses
-          - polycarbonate_lenses
-          - progressive_lenses
-          - contact_lenses
-          - laser_vision_correction
-          - contact_lens_fitting
-          - additional_glasses
-          - guaranteed_issue
-          - spouse_guaranteed_issue
-          - spouse_term_life
-          - child_term_life
-          - critical_illness
-          example: office_visit
-          description: Type of Feature present under a Benefit
-        featureItems:
-          type: array
-          items:
-            $ref: '#/components/schemas/FeatureItemResponseDto'
-        labels:
-          description: Labels associated with the feature
-          type: array
-          items:
-            $ref: '#/components/schemas/LabelResponseDto'
-      required:
-      - id
-      - displayName
-      - createdAt
-      - updatedAt
-      - type
-      - featureItems
   securitySchemes:
     bearerAuth:
       type: http

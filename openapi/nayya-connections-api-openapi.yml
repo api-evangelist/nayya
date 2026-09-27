@@ -140,15 +140,6 @@ paths:
       - update:partner-employers
 components:
   schemas:
-    RemoveConnectionDto:
-      type: object
-      properties:
-        connectionName:
-          type: string
-          description: The connection name to remove
-          example: google-oauth2
-      required:
-      - connectionName
     AddConfiguredConnectionsDto:
       type: object
       properties:
@@ -159,15 +150,27 @@ components:
             $ref: '#/components/schemas/ConnectionConfigDto'
       required:
       - connections
-    AddConnectionDto:
+    ConnectionDto:
       type: object
       properties:
-        connectionName:
+        name:
           type: string
-          description: The connection name to add
+          description: Connection name
           example: google-oauth2
+        assignMembershipOnLogin:
+          type: boolean
+          description: Whether to assign membership on login
+          example: true
+        showAsButton:
+          type: boolean
+          description: Whether to show as button
+          example: true
+        isSignupEnabled:
+          type: boolean
+          description: Whether signup is enabled
+          example: true
       required:
-      - connectionName
+      - name
     ConnectionConfigDto:
       type: object
       properties:
@@ -212,6 +215,24 @@ components:
       - name
       - description
       - configuredConnections
+    AddConnectionDto:
+      type: object
+      properties:
+        connectionName:
+          type: string
+          description: The connection name to add
+          example: google-oauth2
+      required:
+      - connectionName
+    RemoveConnectionDto:
+      type: object
+      properties:
+        connectionName:
+          type: string
+          description: The connection name to remove
+          example: google-oauth2
+      required:
+      - connectionName
     EmployerResponseDto:
       type: object
       properties:
@@ -322,27 +343,6 @@ components:
       - benAdminLink
       - createdAt
       - updatedAt
-    ConnectionDto:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Connection name
-          example: google-oauth2
-        assignMembershipOnLogin:
-          type: boolean
-          description: Whether to assign membership on login
-          example: true
-        showAsButton:
-          type: boolean
-          description: Whether to show as button
-          example: true
-        isSignupEnabled:
-          type: boolean
-          description: Whether signup is enabled
-          example: true
-      required:
-      - name
   securitySchemes:
     bearerAuth:
       type: http

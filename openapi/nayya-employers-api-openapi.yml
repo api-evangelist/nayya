@@ -373,24 +373,6 @@ components:
           example: google-oauth2
       required:
       - name
-    ListEmployersDto:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/EmployerResponseDto'
-        currentPage:
-          type: number
-        totalPages:
-          type: number
-        totalCount:
-          type: number
-      required:
-      - data
-      - currentPage
-      - totalPages
-      - totalCount
     EmployerResponseDto:
       type: object
       properties:
@@ -574,6 +556,24 @@ components:
           - 'null'
           description: Employer ben admin link
           example: https://www.acme.com/ben-admin-link
+    ListEmployersDto:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmployerResponseDto'
+        currentPage:
+          type: number
+        totalPages:
+          type: number
+        totalCount:
+          type: number
+      required:
+      - data
+      - currentPage
+      - totalPages
+      - totalCount
   securitySchemes:
     bearerAuth:
       type: http
