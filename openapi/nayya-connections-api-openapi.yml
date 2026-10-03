@@ -150,27 +150,6 @@ components:
             $ref: '#/components/schemas/ConnectionConfigDto'
       required:
       - connections
-    ConnectionDto:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Connection name
-          example: google-oauth2
-        assignMembershipOnLogin:
-          type: boolean
-          description: Whether to assign membership on login
-          example: true
-        showAsButton:
-          type: boolean
-          description: Whether to show as button
-          example: true
-        isSignupEnabled:
-          type: boolean
-          description: Whether signup is enabled
-          example: true
-      required:
-      - name
     ConnectionConfigDto:
       type: object
       properties:
@@ -188,51 +167,6 @@ components:
       required:
       - name
       - type
-    ConfiguredConnectionsResponseDto:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Partner account ID
-          example: 123e4567-e89b-12d3-a456-426614174000
-        name:
-          type: string
-          description: Partner account name
-          example: Acme Corporation
-        description:
-          type:
-          - string
-          - 'null'
-          description: Partner account description
-          example: A leading technology company
-        configuredConnections:
-          description: Configured connections for the partner account
-          type: array
-          items:
-            $ref: '#/components/schemas/ConnectionDto'
-      required:
-      - id
-      - name
-      - description
-      - configuredConnections
-    AddConnectionDto:
-      type: object
-      properties:
-        connectionName:
-          type: string
-          description: The connection name to add
-          example: google-oauth2
-      required:
-      - connectionName
-    RemoveConnectionDto:
-      type: object
-      properties:
-        connectionName:
-          type: string
-          description: The connection name to remove
-          example: google-oauth2
-      required:
-      - connectionName
     EmployerResponseDto:
       type: object
       properties:
@@ -343,6 +277,72 @@ components:
       - benAdminLink
       - createdAt
       - updatedAt
+    RemoveConnectionDto:
+      type: object
+      properties:
+        connectionName:
+          type: string
+          description: The connection name to remove
+          example: google-oauth2
+      required:
+      - connectionName
+    ConnectionDto:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Connection name
+          example: google-oauth2
+        assignMembershipOnLogin:
+          type: boolean
+          description: Whether to assign membership on login
+          example: true
+        showAsButton:
+          type: boolean
+          description: Whether to show as button
+          example: true
+        isSignupEnabled:
+          type: boolean
+          description: Whether signup is enabled
+          example: true
+      required:
+      - name
+    ConfiguredConnectionsResponseDto:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Partner account ID
+          example: 123e4567-e89b-12d3-a456-426614174000
+        name:
+          type: string
+          description: Partner account name
+          example: Acme Corporation
+        description:
+          type:
+          - string
+          - 'null'
+          description: Partner account description
+          example: A leading technology company
+        configuredConnections:
+          description: Configured connections for the partner account
+          type: array
+          items:
+            $ref: '#/components/schemas/ConnectionDto'
+      required:
+      - id
+      - name
+      - description
+      - configuredConnections
+    AddConnectionDto:
+      type: object
+      properties:
+        connectionName:
+          type: string
+          description: The connection name to add
+          example: google-oauth2
+      required:
+      - connectionName
   securitySchemes:
     bearerAuth:
       type: http

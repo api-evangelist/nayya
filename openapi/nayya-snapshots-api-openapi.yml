@@ -63,6 +63,49 @@ paths:
       - Snapshots
 components:
   schemas:
+    CreateRatePackageRequestDto:
+      type: object
+      properties:
+        externalId:
+          type: string
+          example: ratePkg123
+          description: Your unique identifier for the rate package.
+        type:
+          type: string
+          enum:
+          - individual
+          - grouped
+          example: individual
+          description: An optional field to describe whether the rate package is part of a grouped rate or individual. A type 'grouped' will be inferred if there are more than one item in the familyRoles array.
+        dependencies:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreateRatePackageDependencyRequestDto'
+        rateCents:
+          type: number
+          example: 3050
+          description: The rate amount in cents for the package.
+        frequency:
+          type: string
+          enum:
+          - weekly
+          - bi_weekly
+          - semi_monthly
+          - monthly
+          - quarterly
+          - semi_annually
+          - annually
+          example: monthly
+          description: The frequency at which the rate is applied, such as monthly or bi-weekly.
+        familyRoles:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreateRatePackageFamilyRoleRequestDto'
+      required:
+      - externalId
+      - rateCents
+      - frequency
+      - familyRoles
     CreateSnapshotRequestDto:
       type: object
       properties:
@@ -80,6 +123,88 @@ components:
       required:
       - reason
       - benefits
+    FeatureItemResponseDto:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 8c798fb8-b55d-475b-a4db-91786c0d58c7
+          description: Nayya's ID of the feature item
+        name:
+          type:
+          - string
+          - 'null'
+          example: copay
+          description: Nayya's name of the feature item
+        tierId:
+          type:
+          - string
+          - 'null'
+          example: 6ba7b810-9dad-11d1-80b4-00c04fd430c8
+          description: Nayya's internal unique ID used to identify a tier
+        externalTierId:
+          type:
+          - string
+          - 'null'
+          example: tier123
+          description: Your internal unique ID used to identify a tier
+        ruleset:
+          description: A materialized rule belonging to the corresponding Feature
+          type: array
+          items:
+            $ref: '#/components/schemas/NayyaRulePropertiesDto'
+        createdAt:
+          format: date-time
+          type: string
+          example: '2024-11-22T20:03:04.395Z'
+          description: When the feature item was created
+        updatedAt:
+          format: date-time
+          type: string
+          example: '2024-12-22T20:03:04.395Z'
+          description: When the feature item was last updated
+      required:
+      - id
+      - createdAt
+      - updatedAt
+    RatePackageFamilyRoleResponseDto:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 8205eec3-a7f2-40d6-8363-2b2c0093f4d4
+          description: This is the unique rate package identifier for this specific family role within a rate package. When a rate package type is grouped, this ID uniquely identifies different family roles within the same ratePackageId. When the rate package type, this ID is not useful.
+        role:
+          type: string
+          enum:
+          - employee
+          - spouse
+          - child
+          - domestic_partner
+          - children
+          example: spouse
+          description: Defines the family role of the individual, such as spouse or dependent.
+        benefitAmountCents:
+          type:
+          - number
+          - 'null'
+          example: 5000
+          description: The benefit amount assigned to this family role.
+        createdAt:
+          format: date-time
+          type: string
+          example: '2024-11-22T20:03:04.395Z'
+          description: when the rate package family role was created
+        updatedAt:
+          format: date-time
+          type: string
+          example: '2024-12-22T20:03:04.395Z'
+          description: when the rate package family role was last updated
+      required:
+      - id
+      - role
+      - createdAt
+      - updatedAt
     RatePackageResponseDto:
       type: object
       properties:
@@ -139,48 +264,72 @@ components:
       - ratePackageFamilyRoles
       - createdAt
       - updatedAt
-    FeatureItemResponseDto:
+    CreateRatePackageFamilyRoleRequestDto:
+      type: object
+      properties:
+        role:
+          type: string
+          enum:
+          - employee
+          - spouse
+          - child
+          - domestic_partner
+          - children
+          example: spouse
+          description: Defines the family role of the individual, such as spouse or dependent.
+        benefitAmountCents:
+          type:
+          - number
+          - 'null'
+          example: 5000
+          description: The benefit amount assigned to this family role.
+      required:
+      - role
+    BenefitDependencyResponseDto:
       type: object
       properties:
         id:
           type: string
-          example: 8c798fb8-b55d-475b-a4db-91786c0d58c7
-          description: Nayya's ID of the feature item
-        name:
-          type:
-          - string
-          - 'null'
-          example: copay
-          description: Nayya's name of the feature item
-        tierId:
-          type:
-          - string
-          - 'null'
-          example: 6ba7b810-9dad-11d1-80b4-00c04fd430c8
-          description: Nayya's internal unique ID used to identify a tier
-        externalTierId:
-          type:
-          - string
-          - 'null'
-          example: tier123
-          description: Your internal unique ID used to identify a tier
-        ruleset:
-          description: A materialized rule belonging to the corresponding Feature
+          example: 4e8392d4-f6b3-4cc0-9b77-b702f8115807
+          description: Nayya's ID of the benefit dependency
+        type:
+          type: string
+          enum:
+          - must_enroll_in
+          - must_enroll_in_one_of
+          - must_not_enroll_in
+          - must_not_enroll_in_one_of
+          example: must_enroll_in
+          description: Defines if enrollment is required or prohibited for the designated benefit based on the enrollment of another benefit
+        dependentBenefits:
+          example:
+          - 6937yht-zr5ht39-n83uh5th-arwmte1
+          - fs32231-zr5htDSA-n83uh5th-arwmte1
+          description: Comma-separated list of benefit ids affected by the dependency rule
           type: array
           items:
-            $ref: '#/components/schemas/NayyaRulePropertiesDto'
+            type: string
+        dependentBenefitsExternal:
+          example:
+          - 6937yht-zr5ht39-n83uh5th-arwmte1
+          - fs32231-zr5htDSA-n83uh5th-arwmte1
+          description: Comma-separated list of external benefit ids affected by the dependency rule
+          type: array
+          items:
+            type: string
         createdAt:
           format: date-time
           type: string
           example: '2024-11-22T20:03:04.395Z'
-          description: When the feature item was created
+          description: when the feature item was created
         updatedAt:
           format: date-time
           type: string
           example: '2024-12-22T20:03:04.395Z'
-          description: When the feature item was last updated
+          description: when the feature item was last updated
       required:
       - id
+      - type
       - createdAt
       - updatedAt
     TierResponseDto:
@@ -229,154 +378,6 @@ components:
       - type
       - createdAt
       - updatedAt
-    CreateRatePackageDependencyRequestDto:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - must_enroll_in
-          - must_enroll_in_one_of
-          - must_not_enroll_in
-          - must_not_enroll_in_one_of
-          example: must_not_enroll_in
-          description: Specifies the type of dependency, such as restrictions on enrolling in certain packages.
-        ratePackageExternalIds:
-          example:
-          - ratePkg111
-          - ratePkg222
-          description: Your unique Rate package IDs that are linked to this dependency type.
-          type: array
-          items:
-            type: string
-      required:
-      - type
-      - ratePackageExternalIds
-    ThresholdItemResponseDto:
-      type: object
-      properties:
-        id:
-          type: string
-          example: 6ba7b810-9dad-11d1-80b4-00c04fd430c8
-          description: Nayya's ID of the threshold item
-        tierId:
-          type:
-          - string
-          - 'null'
-          example: 8c798fb8-b55d-475b-a4db-91786c0d58c7
-          description: Nayya's internal unique ID used to identify a tier
-        externalTierId:
-          type:
-          - string
-          - 'null'
-          example: tier456
-          description: Your internal unique ID used to identify a tier
-        ruleset:
-          description: Utilize a rule template with appropriate inputs
-          type: array
-          items:
-            $ref: '#/components/schemas/NayyaRulePropertiesDto'
-        createdAt:
-          format: date-time
-          type: string
-          example: '2024-11-22T20:03:04.395Z'
-          description: When the threshold item was created
-        updatedAt:
-          format: date-time
-          type: string
-          example: '2024-12-22T20:03:04.395Z'
-          description: When the threshold item was last updated
-      required:
-      - id
-      - createdAt
-      - updatedAt
-    LabelResponseDto:
-      type: object
-      properties:
-        id:
-          type: string
-          example: f47ac10b-58cc-4372-a567-0e02b2c3d479
-          description: Nayya's ID of the label
-        type:
-          type: string
-          example: category
-          description: Type of the label
-        value:
-          type: string
-          example: primary-care
-          description: Value of the label
-        createdAt:
-          format: date-time
-          type: string
-          example: '2024-11-22T20:03:04.395Z'
-          description: When the label was created
-        updatedAt:
-          format: date-time
-          type: string
-          example: '2024-12-22T20:03:04.395Z'
-          description: When the label was last updated
-      required:
-      - id
-      - type
-      - value
-      - createdAt
-      - updatedAt
-    RatePackageDependencyResponseDto:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - must_enroll_in
-          - must_enroll_in_one_of
-          - must_not_enroll_in
-          - must_not_enroll_in_one_of
-          example: must_not_enroll_in
-          description: Specifies the type of dependency, such as restrictions on enrolling in certain packages.
-        dependentRatePackages:
-          example:
-          - ratePkg111
-          - ratePkg222
-          description: Rate package IDs that are linked to this dependency type.
-          type: array
-          items:
-            type: string
-        createdAt:
-          format: date-time
-          type: string
-          example: '2024-11-22T20:03:04.395Z'
-          description: when the rate package dependency was created
-        updatedAt:
-          format: date-time
-          type: string
-          example: '2024-12-22T20:03:04.395Z'
-          description: when the rate package dependency was last updated
-      required:
-      - type
-      - dependentRatePackages
-      - createdAt
-      - updatedAt
-    CreateRatePackageFamilyRoleRequestDto:
-      type: object
-      properties:
-        role:
-          type: string
-          enum:
-          - employee
-          - spouse
-          - child
-          - domestic_partner
-          - children
-          example: spouse
-          description: Defines the family role of the individual, such as spouse or dependent.
-        benefitAmountCents:
-          type:
-          - number
-          - 'null'
-          example: 5000
-          description: The benefit amount assigned to this family role.
-      required:
-      - role
     FeatureResponseDto:
       type: object
       properties:
@@ -645,56 +646,109 @@ components:
       - createdAt
       - updatedAt
       - ratePackages
-    CreateSnapshotResponseDto:
+    LabelResponseDto:
       type: object
       properties:
         id:
           type: string
-          example: snapshot123
-          description: Nayya's Id of the snapshot
-        employerId:
+          example: f47ac10b-58cc-4372-a567-0e02b2c3d479
+          description: Nayya's ID of the label
+        type:
           type: string
-          example: employer123
-          description: Nayya's Id of the employer
-        employeeId:
+          example: category
+          description: Type of the label
+        value:
           type: string
-          example: employee123
-          description: Nayya's Id of the employee
-        reason:
-          type: string
-          enum:
-          - open_enrollment
-          - new_hire_or_qualifying_life_event
-          example: new_hire_or_qualifying_life_event
-          description: The reason for taking the snapshot, such as new enrollment or new hire.
-        snapshottedAt:
+          example: primary-care
+          description: Value of the label
+        createdAt:
           format: date-time
           type: string
-          example: '2022-01-01T00:00:00Z'
-          description: Date the snapshot was taken
+          example: '2024-11-22T20:03:04.395Z'
+          description: When the label was created
         updatedAt:
           format: date-time
           type: string
           example: '2024-12-22T20:03:04.395Z'
-          description: when the snapshot was last updated
-        createdAt:
-          format: date-time
-          type: string
-          example: '2024-12-22T20:03:04.395Z'
-          description: when the snapshot was created
-        benefits:
-          type: array
-          items:
-            $ref: '#/components/schemas/SnapshotBenefitResponseDto'
+          description: When the label was last updated
       required:
       - id
-      - employerId
-      - employeeId
-      - reason
-      - snapshottedAt
-      - updatedAt
+      - type
+      - value
       - createdAt
-      - benefits
+      - updatedAt
+    CreateBenefitRequestDto:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          example: benefit123
+          description: Unique identifier for the benefit. One of id or externalId must be provided.
+        externalId:
+          type:
+          - string
+          - 'null'
+          example: 6937yht-zr5ht39-n83uh5th-arwmte1
+          description: Your internal unique Id used to identify a benefit. One of id or externalId must be provided.
+        code:
+          type:
+          - string
+          - 'null'
+          example: MEDICAL_GOLD_2024
+          description: Internal code used to identify this benefit
+        ratePackages:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreateRatePackageRequestDto'
+      required:
+      - ratePackages
+    CreateRatePackageDependencyRequestDto:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - must_enroll_in
+          - must_enroll_in_one_of
+          - must_not_enroll_in
+          - must_not_enroll_in_one_of
+          example: must_not_enroll_in
+          description: Specifies the type of dependency, such as restrictions on enrolling in certain packages.
+        ratePackageExternalIds:
+          example:
+          - ratePkg111
+          - ratePkg222
+          description: Your unique Rate package IDs that are linked to this dependency type.
+          type: array
+          items:
+            type: string
+      required:
+      - type
+      - ratePackageExternalIds
+    NayyaRulePropertiesDto:
+      type: object
+      properties:
+        conditions:
+          type: object
+          example:
+            any:
+            - fact: myFact
+              operator: equal
+              value: myValue
+          description: The conditions upon which emission of the corresponding event are predicated.
+        event:
+          type: object
+          example:
+            type: amount_per_day
+            params:
+              amount: 30
+              displayValue: $30 per day
+          description: The event emitted when predicate conditions are satisfied.
+      required:
+      - conditions
+      - event
     ThresholdResponseDto:
       type: object
       properties:
@@ -745,143 +799,9 @@ components:
       - createdAt
       - updatedAt
       - thresholdItems
-    NayyaRulePropertiesDto:
+    RatePackageDependencyResponseDto:
       type: object
       properties:
-        conditions:
-          type: object
-          example:
-            any:
-            - fact: myFact
-              operator: equal
-              value: myValue
-          description: The conditions upon which emission of the corresponding event are predicated.
-        event:
-          type: object
-          example:
-            type: amount_per_day
-            params:
-              amount: 30
-              displayValue: $30 per day
-          description: The event emitted when predicate conditions are satisfied.
-      required:
-      - conditions
-      - event
-    CreateBenefitRequestDto:
-      type: object
-      properties:
-        id:
-          type:
-          - string
-          - 'null'
-          example: benefit123
-          description: Unique identifier for the benefit. One of id or externalId must be provided.
-        externalId:
-          type:
-          - string
-          - 'null'
-          example: 6937yht-zr5ht39-n83uh5th-arwmte1
-          description: Your internal unique Id used to identify a benefit. One of id or externalId must be provided.
-        code:
-          type:
-          - string
-          - 'null'
-          example: MEDICAL_GOLD_2024
-          description: Internal code used to identify this benefit
-        ratePackages:
-          type: array
-          items:
-            $ref: '#/components/schemas/CreateRatePackageRequestDto'
-      required:
-      - ratePackages
-    CreateRatePackageRequestDto:
-      type: object
-      properties:
-        externalId:
-          type: string
-          example: ratePkg123
-          description: Your unique identifier for the rate package.
-        type:
-          type: string
-          enum:
-          - individual
-          - grouped
-          example: individual
-          description: An optional field to describe whether the rate package is part of a grouped rate or individual. A type 'grouped' will be inferred if there are more than one item in the familyRoles array.
-        dependencies:
-          type: array
-          items:
-            $ref: '#/components/schemas/CreateRatePackageDependencyRequestDto'
-        rateCents:
-          type: number
-          example: 3050
-          description: The rate amount in cents for the package.
-        frequency:
-          type: string
-          enum:
-          - weekly
-          - bi_weekly
-          - semi_monthly
-          - monthly
-          - quarterly
-          - semi_annually
-          - annually
-          example: monthly
-          description: The frequency at which the rate is applied, such as monthly or bi-weekly.
-        familyRoles:
-          type: array
-          items:
-            $ref: '#/components/schemas/CreateRatePackageFamilyRoleRequestDto'
-      required:
-      - externalId
-      - rateCents
-      - frequency
-      - familyRoles
-    RatePackageFamilyRoleResponseDto:
-      type: object
-      properties:
-        id:
-          type: string
-          example: 8205eec3-a7f2-40d6-8363-2b2c0093f4d4
-          description: This is the unique rate package identifier for this specific family role within a rate package. When a rate package type is grouped, this ID uniquely identifies different family roles within the same ratePackageId. When the rate package type, this ID is not useful.
-        role:
-          type: string
-          enum:
-          - employee
-          - spouse
-          - child
-          - domestic_partner
-          - children
-          example: spouse
-          description: Defines the family role of the individual, such as spouse or dependent.
-        benefitAmountCents:
-          type:
-          - number
-          - 'null'
-          example: 5000
-          description: The benefit amount assigned to this family role.
-        createdAt:
-          format: date-time
-          type: string
-          example: '2024-11-22T20:03:04.395Z'
-          description: when the rate package family role was created
-        updatedAt:
-          format: date-time
-          type: string
-          example: '2024-12-22T20:03:04.395Z'
-          description: when the rate package family role was last updated
-      required:
-      - id
-      - role
-      - createdAt
-      - updatedAt
-    BenefitDependencyResponseDto:
-      type: object
-      properties:
-        id:
-          type: string
-          example: 4e8392d4-f6b3-4cc0-9b77-b702f8115807
-          description: Nayya's ID of the benefit dependency
         type:
           type: string
           enum:
@@ -889,21 +809,13 @@ components:
           - must_enroll_in_one_of
           - must_not_enroll_in
           - must_not_enroll_in_one_of
-          example: must_enroll_in
-          description: Defines if enrollment is required or prohibited for the designated benefit based on the enrollment of another benefit
-        dependentBenefits:
+          example: must_not_enroll_in
+          description: Specifies the type of dependency, such as restrictions on enrolling in certain packages.
+        dependentRatePackages:
           example:
-          - 6937yht-zr5ht39-n83uh5th-arwmte1
-          - fs32231-zr5htDSA-n83uh5th-arwmte1
-          description: Comma-separated list of benefit ids affected by the dependency rule
-          type: array
-          items:
-            type: string
-        dependentBenefitsExternal:
-          example:
-          - 6937yht-zr5ht39-n83uh5th-arwmte1
-          - fs32231-zr5htDSA-n83uh5th-arwmte1
-          description: Comma-separated list of external benefit ids affected by the dependency rule
+          - ratePkg111
+          - ratePkg222
+          description: Rate package IDs that are linked to this dependency type.
           type: array
           items:
             type: string
@@ -911,17 +823,105 @@ components:
           format: date-time
           type: string
           example: '2024-11-22T20:03:04.395Z'
-          description: when the feature item was created
+          description: when the rate package dependency was created
         updatedAt:
           format: date-time
           type: string
           example: '2024-12-22T20:03:04.395Z'
-          description: when the feature item was last updated
+          description: when the rate package dependency was last updated
       required:
-      - id
       - type
+      - dependentRatePackages
       - createdAt
       - updatedAt
+    ThresholdItemResponseDto:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 6ba7b810-9dad-11d1-80b4-00c04fd430c8
+          description: Nayya's ID of the threshold item
+        tierId:
+          type:
+          - string
+          - 'null'
+          example: 8c798fb8-b55d-475b-a4db-91786c0d58c7
+          description: Nayya's internal unique ID used to identify a tier
+        externalTierId:
+          type:
+          - string
+          - 'null'
+          example: tier456
+          description: Your internal unique ID used to identify a tier
+        ruleset:
+          description: Utilize a rule template with appropriate inputs
+          type: array
+          items:
+            $ref: '#/components/schemas/NayyaRulePropertiesDto'
+        createdAt:
+          format: date-time
+          type: string
+          example: '2024-11-22T20:03:04.395Z'
+          description: When the threshold item was created
+        updatedAt:
+          format: date-time
+          type: string
+          example: '2024-12-22T20:03:04.395Z'
+          description: When the threshold item was last updated
+      required:
+      - id
+      - createdAt
+      - updatedAt
+    CreateSnapshotResponseDto:
+      type: object
+      properties:
+        id:
+          type: string
+          example: snapshot123
+          description: Nayya's Id of the snapshot
+        employerId:
+          type: string
+          example: employer123
+          description: Nayya's Id of the employer
+        employeeId:
+          type: string
+          example: employee123
+          description: Nayya's Id of the employee
+        reason:
+          type: string
+          enum:
+          - open_enrollment
+          - new_hire_or_qualifying_life_event
+          example: new_hire_or_qualifying_life_event
+          description: The reason for taking the snapshot, such as new enrollment or new hire.
+        snapshottedAt:
+          format: date-time
+          type: string
+          example: '2022-01-01T00:00:00Z'
+          description: Date the snapshot was taken
+        updatedAt:
+          format: date-time
+          type: string
+          example: '2024-12-22T20:03:04.395Z'
+          description: when the snapshot was last updated
+        createdAt:
+          format: date-time
+          type: string
+          example: '2024-12-22T20:03:04.395Z'
+          description: when the snapshot was created
+        benefits:
+          type: array
+          items:
+            $ref: '#/components/schemas/SnapshotBenefitResponseDto'
+      required:
+      - id
+      - employerId
+      - employeeId
+      - reason
+      - snapshottedAt
+      - updatedAt
+      - createdAt
+      - benefits
   securitySchemes:
     bearerAuth:
       type: http
