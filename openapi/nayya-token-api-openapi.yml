@@ -51,20 +51,6 @@ paths:
       - Token
 components:
   schemas:
-    GetAccessTokenResponseDto:
-      type: object
-      properties:
-        accessToken:
-          type: string
-          description: The access token
-          example: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9...
-        expiresAt:
-          type: number
-          description: The expiration time of the access token as a epoch timestamp
-          example: 1741368969
-      required:
-      - accessToken
-      - expiresAt
     GetAccessTokenDto:
       type: object
       properties:
@@ -79,6 +65,20 @@ components:
       required:
       - clientId
       - clientSecret
+    GetAccessTokenResponseDto:
+      type: object
+      properties:
+        accessToken:
+          type: string
+          description: The access token
+          example: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9...
+        expiresAt:
+          type: number
+          description: The expiration time of the access token as a epoch timestamp
+          example: 1741368969
+      required:
+      - accessToken
+      - expiresAt
   securitySchemes:
     bearerAuth:
       type: http

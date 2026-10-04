@@ -140,33 +140,6 @@ paths:
       - update:partner-employers
 components:
   schemas:
-    AddConfiguredConnectionsDto:
-      type: object
-      properties:
-        connections:
-          description: Array of connection configurations to add
-          type: array
-          items:
-            $ref: '#/components/schemas/ConnectionConfigDto'
-      required:
-      - connections
-    ConnectionConfigDto:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the connection configuration
-          example: My SSO Connection
-        type:
-          type: string
-          description: The type of connection
-          enum:
-          - sso
-          - database
-          example: sso
-      required:
-      - name
-      - type
     EmployerResponseDto:
       type: object
       properties:
@@ -277,6 +250,16 @@ components:
       - benAdminLink
       - createdAt
       - updatedAt
+    AddConfiguredConnectionsDto:
+      type: object
+      properties:
+        connections:
+          description: Array of connection configurations to add
+          type: array
+          items:
+            $ref: '#/components/schemas/ConnectionConfigDto'
+      required:
+      - connections
     RemoveConnectionDto:
       type: object
       properties:
@@ -286,6 +269,23 @@ components:
           example: google-oauth2
       required:
       - connectionName
+    ConnectionConfigDto:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the connection configuration
+          example: My SSO Connection
+        type:
+          type: string
+          description: The type of connection
+          enum:
+          - sso
+          - database
+          example: sso
+      required:
+      - name
+      - type
     ConnectionDto:
       type: object
       properties:

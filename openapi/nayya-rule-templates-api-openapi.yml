@@ -41,6 +41,16 @@ paths:
       - Rule Templates
 components:
   schemas:
+    RuleTemplatesResponseDto:
+      type: object
+      properties:
+        data:
+          description: Array of Rule Templates.
+          type: array
+          items:
+            $ref: '#/components/schemas/RuleTemplateResponseDto'
+      required:
+      - data
     RuleTemplateResponseDto:
       type: object
       properties:
@@ -64,16 +74,6 @@ components:
       - name
       - requiredTemplateValues
       - templateDescription
-    RuleTemplatesResponseDto:
-      type: object
-      properties:
-        data:
-          description: Array of Rule Templates.
-          type: array
-          items:
-            $ref: '#/components/schemas/RuleTemplateResponseDto'
-      required:
-      - data
   securitySchemes:
     bearerAuth:
       type: http

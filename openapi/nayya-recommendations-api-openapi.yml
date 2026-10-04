@@ -60,27 +60,6 @@ paths:
       - Recommendations
 components:
   schemas:
-    EmployeeFamilyRoleDto:
-      type: object
-      properties:
-        benefitAmount:
-          type:
-          - object
-          - 'null'
-          description: Benefit amount
-          example: 100000
-        externalId:
-          type: string
-          description: Employee External ID
-          example: ext-123
-        id:
-          type: string
-          description: Employee ID
-          example: ext-123
-      required:
-      - benefitAmount
-      - externalId
-      - id
     OptionDto:
       type: object
       properties:
@@ -121,16 +100,6 @@ components:
       - ratePackageExternalId
       - rateDollars
       - frequency
-    RecommendedBenefitsResponseDto:
-      type: object
-      properties:
-        benefits:
-          description: List of recommended benefits
-          type: array
-          items:
-            $ref: '#/components/schemas/BenefitDto'
-      required:
-      - benefits
     DependentFamilyRoleDto:
       type: object
       properties:
@@ -205,6 +174,37 @@ components:
       - options
       - recommendedAnnualEmployeeContribution
       - selectedAnnualEmployeeContribution
+    EmployeeFamilyRoleDto:
+      type: object
+      properties:
+        benefitAmount:
+          type:
+          - object
+          - 'null'
+          description: Benefit amount
+          example: 100000
+        externalId:
+          type: string
+          description: Employee External ID
+          example: ext-123
+        id:
+          type: string
+          description: Employee ID
+          example: ext-123
+      required:
+      - benefitAmount
+      - externalId
+      - id
+    RecommendedBenefitsResponseDto:
+      type: object
+      properties:
+        benefits:
+          description: List of recommended benefits
+          type: array
+          items:
+            $ref: '#/components/schemas/BenefitDto'
+      required:
+      - benefits
   securitySchemes:
     bearerAuth:
       type: http

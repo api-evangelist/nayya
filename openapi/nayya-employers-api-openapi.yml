@@ -391,79 +391,6 @@ components:
           example: google-oauth2
       required:
       - name
-    UpdateEmployerDto:
-      type: object
-      properties:
-        externalId:
-          type:
-          - string
-          - 'null'
-          description: Employer external ID
-          example: EMP-123
-        name:
-          type: string
-          description: Employer name
-          example: Acme
-        description:
-          type:
-          - string
-          - 'null'
-          description: Employer description
-          example: A leading technology company
-        streetAddress:
-          type:
-          - string
-          - 'null'
-          description: Employer street address
-          example: 214 Park Ave S
-        city:
-          type:
-          - string
-          - 'null'
-          description: Employer city
-          example: New York
-        state:
-          type:
-          - string
-          - 'null'
-          description: Employer state
-          example: NY
-        zipCode:
-          type:
-          - string
-          - 'null'
-          description: Employer zip code
-          example: '10001'
-        websiteUrl:
-          type:
-          - string
-          - 'null'
-          description: Employer website URL
-          example: http://wwww.example.com
-        phoneNumber:
-          type:
-          - string
-          - 'null'
-          description: Employer phone number
-          example: '+12125551234'
-        logoUrl:
-          type:
-          - string
-          - 'null'
-          description: Employer logo URL
-          example: https://www.acme.com/logo.png
-        benAdminButton:
-          type:
-          - string
-          - 'null'
-          description: Employer ben admin button text
-          example: Proceed to Enrollment
-        benAdminLink:
-          type:
-          - string
-          - 'null'
-          description: Employer ben admin link
-          example: https://www.acme.com/ben-admin-link
     EmployerResponseDto:
       type: object
       properties:
@@ -574,6 +501,79 @@ components:
       - benAdminLink
       - createdAt
       - updatedAt
+    UpdateEmployerDto:
+      type: object
+      properties:
+        externalId:
+          type:
+          - string
+          - 'null'
+          description: Employer external ID
+          example: EMP-123
+        name:
+          type: string
+          description: Employer name
+          example: Acme
+        description:
+          type:
+          - string
+          - 'null'
+          description: Employer description
+          example: A leading technology company
+        streetAddress:
+          type:
+          - string
+          - 'null'
+          description: Employer street address
+          example: 214 Park Ave S
+        city:
+          type:
+          - string
+          - 'null'
+          description: Employer city
+          example: New York
+        state:
+          type:
+          - string
+          - 'null'
+          description: Employer state
+          example: NY
+        zipCode:
+          type:
+          - string
+          - 'null'
+          description: Employer zip code
+          example: '10001'
+        websiteUrl:
+          type:
+          - string
+          - 'null'
+          description: Employer website URL
+          example: http://wwww.example.com
+        phoneNumber:
+          type:
+          - string
+          - 'null'
+          description: Employer phone number
+          example: '+12125551234'
+        logoUrl:
+          type:
+          - string
+          - 'null'
+          description: Employer logo URL
+          example: https://www.acme.com/logo.png
+        benAdminButton:
+          type:
+          - string
+          - 'null'
+          description: Employer ben admin button text
+          example: Proceed to Enrollment
+        benAdminLink:
+          type:
+          - string
+          - 'null'
+          description: Employer ben admin link
+          example: https://www.acme.com/ben-admin-link
   securitySchemes:
     bearerAuth:
       type: http
