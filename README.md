@@ -64,6 +64,144 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Nayya is a company surfaced as a portfolio company of felicis, iconiq-capital and added to the API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+Nayya is an AI-powered health and wealth benefits decision-support platform used by employers, brokers, carriers, and benefits-administration partners to help employees choose and use their benefits. Its "Choose" experience delivers personalized plan recommendations, and its agentic adviser can answer benefits questions and file supplemental-health claims on an employee's behalf. Nayya exposes a partner-facing REST API — Nayya Integrate — with three surfaces (Accounts, Benefits, and Choose) that let integrators map employers, employees, and dependents, configure benefits, snapshot an employee's context, retrieve recommendations, and record enrollments, plus an embedded UI that partners drop into their own enrollment flow via SSO.
 
-Backed by: felicis, iconiq-capital — https://nayya.com
+**Areas:** Company · Employee Benefits · Insurance · Insurtech · Health · Decision Support · Human Resources · Enrollment · Recommendations · Artificial Intelligence
+
+## Nayya on APIs.io
+
+Everything profiled for Nayya is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/nayya/](https://apis.io/providers/nayya/)** — or go straight to one of the APIs or properties below.
+
+### APIs (11)
+
+- [Nayya Benefits API](https://apis.io/apis/nayya/nayya-benefits-api/) — The Benefits API from Nayya — 4 operation(s) for benefits.
+- [Nayya Carriers API](https://apis.io/apis/nayya/nayya-carriers-api/) — The Carriers API from Nayya — 1 operation(s) for carriers.
+- [Nayya Connections API](https://apis.io/apis/nayya/nayya-connections-api/) — The Connections API from Nayya — 2 operation(s) for connections.
+- [Nayya Dependents API](https://apis.io/apis/nayya/nayya-dependents-api/) — The Dependents API from Nayya — 2 operation(s) for dependents.
+- [Nayya Employees API](https://apis.io/apis/nayya/nayya-employees-api/) — The Employees API from Nayya — 2 operation(s) for employees.
+- [Nayya Employers API](https://apis.io/apis/nayya/nayya-employers-api/) — The Employers API from Nayya — 3 operation(s) for employers.
+- [Nayya Enrollments API](https://apis.io/apis/nayya/nayya-enrollments-api/) — The Enrollments API from Nayya — 2 operation(s) for enrollments.
+- [Nayya Recommendations API](https://apis.io/apis/nayya/nayya-recommendations-api/) — The Recommendations API from Nayya — 1 operation(s) for recommendations.
+- [Nayya Rule Templates API](https://apis.io/apis/nayya/nayya-rule-templates-api/) — The Rule Templates API from Nayya — 1 operation(s) for rule templates.
+- [Nayya Snapshots API](https://apis.io/apis/nayya/nayya-snapshots-api/) — The Snapshots API from Nayya — 1 operation(s) for snapshots.
+- [Nayya Token API](https://apis.io/apis/nayya/nayya-token-api/) — The Token API from Nayya — 1 operation(s) for token.
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [nayya](https://apis.io/servers/nayya/nayya/)
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Nayya Agentic Access](https://apis.io/agentic-access/nayya/nayya-agentic-access/)
+
+#### Collections (11)
+
+Postman and Open Collection request collections.
+
+- [Accounts Benefits API](https://apis.io/collections/nayya/open-nayya-benefits-api/)
+- [Accounts Benefits Carriers API](https://apis.io/collections/nayya/open-nayya-carriers-api/)
+- [Accounts Benefits Connections API](https://apis.io/collections/nayya/open-nayya-connections-api/)
+- [Accounts Benefits Dependents API](https://apis.io/collections/nayya/open-nayya-dependents-api/)
+- [Accounts Benefits Employees API](https://apis.io/collections/nayya/open-nayya-employees-api/)
+- [Accounts Benefits Employers API](https://apis.io/collections/nayya/open-nayya-employers-api/)
+- [Accounts Benefits Enrollments API](https://apis.io/collections/nayya/open-nayya-enrollments-api/)
+- [Accounts Benefits Recommendations API](https://apis.io/collections/nayya/open-nayya-recommendations-api/)
+- [Accounts Benefits Rule Templates API](https://apis.io/collections/nayya/open-nayya-rule-templates-api/)
+- [Accounts Benefits Snapshots API](https://apis.io/collections/nayya/open-nayya-snapshots-api/)
+- [Accounts Benefits Token API](https://apis.io/collections/nayya/open-nayya-token-api/)
+
+#### Overlays (3)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Nayya Accounts Overlay](https://apis.io/overlays/nayya/nayya-accounts-overlay/)
+- [Nayya Benefits Overlay](https://apis.io/overlays/nayya/nayya-benefits-overlay/)
+- [Nayya Choose Overlay](https://apis.io/overlays/nayya/nayya-choose-overlay/)
+
+#### Security (4)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Nayya Authentication](https://apis.io/security/nayya/nayya-authentication/)
+- [Nayya Domain Security](https://apis.io/security/nayya/nayya-domain-security/)
+- [Nayya Trust Center](https://apis.io/security/nayya/nayya-trust-center/)
+- [Nayya Vulnerability Disclosure](https://apis.io/security/nayya/nayya-vulnerability-disclosure/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://nayya.com)
+- [Documentation](https://docs.nayya.com)
+- [Getting started](https://docs.nayya.com/docs/getting-started-with-choose)
+- [API reference](https://docs.nayya.com/reference/create-employer)
+- [Support](https://support.nayya.com/)
+- [Blog](https://www.nayya.com/blog)
+- [Security](https://trust.nayya.com/)
+- [Compliance](https://trust.nayya.com/)
+- [Terms of service](https://legal.nayya.com/end-user-terms/)
+- [Privacy policy](https://www.nayya.com/privacy-policy)
+- [Status](https://status.nayya.com)
+
+## API Evangelist rating
+
+**Kin Score 51.0** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 78.6 |
+| Contract quality | 48.6 |
+| Contract governance | 18.2 |
+| Operational transparency | 26.3 |
+| Developer ergonomics | 58.9 |
+| Access clarity | 36.8 |
+
+**Agent readiness 24.0** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | — |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | partial |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 29.5** — Insurance
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/nayya/](https://apis.io/providers/nayya/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Nayya: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/nayya/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
